@@ -15,15 +15,15 @@ import org.example.dto.LopaDTO;
 import org.example.service.ILopaService;
 
 /**
- *  控制器
+ * lopa分析 控制器
  *
  * @author AI
- * @since 2022-08-28
+ * @since 2023-03-01
  */
 @RestController
 @AllArgsConstructor
 @RequestMapping("lopa")
-@Api(description = "相关接口")
+@Api(description = "lopa分析相关接口")
 public class LopaController {
 
 	private ILopaService lopaService;
@@ -39,7 +39,7 @@ public class LopaController {
 	}
 
 	/**
-	 * 分页 
+	 * 分页 lopa分析
 	 */
 	@GetMapping("/page")
 	@ApiOperation(value = "分页", notes = "传入lopa")
@@ -48,7 +48,7 @@ public class LopaController {
 		return R.data(pages);
 	}
 	/**
-	 * 不分页 
+	 * 不分页 lopa分析
 	 */
 	@GetMapping("/list")
 	@ApiOperation(value = "不分页", notes = "传入lopa")
@@ -58,30 +58,30 @@ public class LopaController {
 	}
 
 	/**
-	 * 新增 
+	 * 新增 lopa分析
 	 */
 	@PostMapping("/save")
 	@ApiOperation(value = "新增", notes = "传入lopa")
-	public R save(LopaDTO dto) {
+	public R save(@RequestBody LopaDTO dto) {
 		return R.data(lopaService.save(dto));
 	}
 
 	/**
-	 * 修改 
+	 * 修改 lopa分析
 	 */
-	@PostMapping("/update")
+	@PutMapping("/update")
 	@ApiOperation(value = "修改", notes = "传入lopa")
-	public R update(LopaDTO dto) {
+	public R update(@RequestBody LopaDTO dto) {
 		return R.data(lopaService.updateById(dto));
 	}
 
 	/**
-	 * 删除 
+	 * 删除 lopa分析
 	 */
-	@GetMapping("/remove")
+	@DeleteMapping("/remove")
 	@ApiOperation(value = "逻辑删除", notes = "传入ids")
-	public R remove(String lopaId) {
-		return R.data(lopaService.deleteLogic(Func.toIntList(lopaId)));
+	public R remove(@ApiParam(value = "主键集合", required = true) @RequestParam String ids) {
+		return R.data(lopaService.deleteLogic(Func.toIntList(ids)));
 	}
 
 }

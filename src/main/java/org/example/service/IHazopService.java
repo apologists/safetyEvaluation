@@ -9,7 +9,7 @@ import com.baomidou.mybatisplus.core.metadata.IPage;
  *  服务类
  *
  * @author AI
- * @since 2022-08-28
+ * @since 2023-02-28
  */
 public interface IHazopService  {
 

@@ -3,15 +3,23 @@
 <mapper namespace="org.example.mapper.SilMapper">
     <!-- 通用查询映射结果 -->
     <resultMap id="silResultMap" type="org.example.entity.Sil">
-        <id column="id" property="id"/>
+        <id column="sil_id" property="silId"/>
         <result column="created" property="created"/>
         <result column="updated" property="updated"/>
         <result column="deleted" property="deleted"/>
-        <result column="SIL_Grade" property="silGrade"/>
-        <result column="probability" property="probability"/>
-        <result column="factor_higth" property="factorHigth"/>
-        <result column="level" property="level"/>
-        <result column="factor_low" property="factorLow"/>
+        <result column="circuit" property="circuit"/>
+        <result column="sil_type" property="silType"/>
+        <result column="sil_name" property="silName"/>
+        <result column="structure" property="structure"/>
+        <result column="var1" property="var1"/>
+        <result column="va2" property="va2"/>
+        <result column="var3" property="var3"/>
+        <result column="var4" property="var4"/>
+        <result column="var5" property="var5"/>
+        <result column="project_id" property="projectId"/>
+        <result column="sil_grade" property="silGrade"/>
+        <result column="system_PFD" property="systemPfd"/>
+        <result column="unit_id" property="unitId"/>
     </resultMap>
 
 

@@ -15,15 +15,15 @@ import org.example.dto.SilDTO;
 import org.example.service.ISilService;
 
 /**
- *  控制器
+ * sil验算 控制器
  *
  * @author AI
- * @since 2022-09-20
+ * @since 2023-03-01
  */
 @RestController
 @AllArgsConstructor
 @RequestMapping("sil")
-@Api(description = "相关接口")
+@Api(description = "sil验算相关接口")
 public class SilController {
 
 	private ISilService silService;
@@ -39,7 +39,7 @@ public class SilController {
 	}
 
 	/**
-	 * 分页 
+	 * 分页 sil验算
 	 */
 	@GetMapping("/page")
 	@ApiOperation(value = "分页", notes = "传入sil")
@@ -48,7 +48,7 @@ public class SilController {
 		return R.data(pages);
 	}
 	/**
-	 * 不分页 
+	 * 不分页 sil验算
 	 */
 	@GetMapping("/list")
 	@ApiOperation(value = "不分页", notes = "传入sil")
@@ -58,7 +58,7 @@ public class SilController {
 	}
 
 	/**
-	 * 新增 
+	 * 新增 sil验算
 	 */
 	@PostMapping("/save")
 	@ApiOperation(value = "新增", notes = "传入sil")
@@ -67,7 +67,7 @@ public class SilController {
 	}
 
 	/**
-	 * 修改 
+	 * 修改 sil验算
 	 */
 	@PutMapping("/update")
 	@ApiOperation(value = "修改", notes = "传入sil")
@@ -76,7 +76,7 @@ public class SilController {
 	}
 
 	/**
-	 * 删除 
+	 * 删除 sil验算
 	 */
 	@DeleteMapping("/remove")
 	@ApiOperation(value = "逻辑删除", notes = "传入ids")

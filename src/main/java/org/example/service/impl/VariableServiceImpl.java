@@ -1,9 +1,7 @@
 package org.example.service.impl;
 
-import org.example.dto.FormulaDTO;
-import org.example.entity.*;
+import org.example.entity.Variable;
 import org.example.mapper.VariableMapper;
-import org.example.service.IFormulaService;
 import org.example.service.IVariableService;
 import org.example.dto.VariableDTO;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
@@ -13,18 +11,13 @@ import org.springframework.stereotype.Service;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import lombok.AllArgsConstructor;
 import cn.hutool.core.util.StrUtil;
-
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
-import java.util.Map;
-import java.util.stream.Collectors;
 
 /**
- *  服务实现类
+ * 变量表 服务实现类
  *
  * @author AI
- * @since 2022-08-25
+ * @since 2023-03-01
  */
 @Service
 @AllArgsConstructor
@@ -76,7 +69,6 @@ public class VariableServiceImpl implements IVariableService {
 
     @Override
     public Integer save(VariableDTO dto) {
-
         return variableMapper.insert(BeanCopyUtils.copy(dto,Variable.class));
     }
 
@@ -95,5 +87,4 @@ public class VariableServiceImpl implements IVariableService {
     public Variable getOne(VariableDTO dto) {
         return variableMapper.selectOne(Condition.getQueryWrapper(BeanCopyUtils.copy(dto,Variable.class)));
     }
-
 }

@@ -7,19 +7,21 @@
         <result column="created" property="created"/>
         <result column="updated" property="updated"/>
         <result column="deleted" property="deleted"/>
-        <result column="scenario_desc" property="scenarioDesc"/>
-        <result column="consequences_desc" property="consequencesDesc"/>
-        <result column="event_ie" property="eventIe"/>
-        <result column="ignition_probability" property="ignitionProbability"/>
-        <result column="exposure_probability" property="exposureProbability"/>
-        <result column="lethality_rate" property="lethalityRate"/>
-        <result column="protection_desc" property="protectionDesc"/>
-        <result column="protection_rate" property="protectionRate"/>
-        <result column="accident_rate" property="accidentRate"/>
-        <result column="allow_accident_rate" property="allowAccidentRate"/>
-        <result column="SIL_grade" property="silGrade"/>
+        <result column="scene_desc" property="sceneDesc"/>
+        <result column="event_vate" property="eventVate"/>
+        <result column="conditon" property="conditon"/>
+        <result column="event_ipl" property="eventIpl"/>
+        <result column="lopa_type" property="lopaType"/>
+        <result column="lopa_grade" property="lopaGrade"/>
+        <result column="lopa_desc" property="lopaDesc"/>
+        <result column="tolerate" property="tolerate"/>
+        <result column="revise_condition" property="reviseCondition"/>
+        <result column="revise_rate" property="reviseRate"/>
+        <result column="protect_desc" property="protectDesc"/>
+        <result column="protect" property="protect"/>
+        <result column="conclusion" property="conclusion"/>
         <result column="project_id" property="projectId"/>
-
+        <result column="unit_id" property="unitId"/>
     </resultMap>
 
 

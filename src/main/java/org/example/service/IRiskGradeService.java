@@ -6,10 +6,10 @@ import java.util.List;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 
 /**
- *  服务类
+ * 风险等级说明 服务类
  *
  * @author AI
- * @since 2022-08-23
+ * @since 2023-03-01
  */
 public interface IRiskGradeService  {
 

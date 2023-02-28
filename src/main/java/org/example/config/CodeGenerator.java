@@ -34,7 +34,8 @@ public class CodeGenerator {
      * {"lopa","abnormal_causes","adverse_out_comes","formula","hazop"
      *     ,"project_summary","relation","risk","risk_grade","variable"};
      */
-    private String[] includeTables = {"sil_summary"};
+    private String[] includeTables = {"sil","case","model","unit","project","variable","frequency",
+            "cause","lopa","risk_grade","risk_consequence", "consequence"};
     /**
      * 需要排除的表名(两者只能取其一)
      */

@@ -6,10 +6,10 @@ import com.baomidou.mybatisplus.core.metadata.IPage;
 import java.util.List;
 
 /**
- *  Mapper 接口
+ * 风险等级说明 Mapper 接口
  *
  * @author AI
- * @since 2022-08-23
+ * @since 2023-03-01
  */
 public interface RiskGradeMapper extends BaseMapper<RiskGrade> {
 

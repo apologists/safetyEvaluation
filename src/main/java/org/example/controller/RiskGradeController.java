@@ -15,15 +15,15 @@ import org.example.dto.RiskGradeDTO;
 import org.example.service.IRiskGradeService;
 
 /**
- *  控制器
+ * 风险等级说明 控制器
  *
  * @author AI
- * @since 2022-08-23
+ * @since 2023-03-01
  */
 @RestController
 @AllArgsConstructor
 @RequestMapping("riskGrade")
-@Api(description = "相关接口")
+@Api(description = "风险等级说明相关接口")
 public class RiskGradeController {
 
 	private IRiskGradeService riskGradeService;
@@ -39,7 +39,7 @@ public class RiskGradeController {
 	}
 
 	/**
-	 * 分页 
+	 * 分页 风险等级说明
 	 */
 	@GetMapping("/page")
 	@ApiOperation(value = "分页", notes = "传入riskGrade")
@@ -48,7 +48,7 @@ public class RiskGradeController {
 		return R.data(pages);
 	}
 	/**
-	 * 不分页 
+	 * 不分页 风险等级说明
 	 */
 	@GetMapping("/list")
 	@ApiOperation(value = "不分页", notes = "传入riskGrade")
@@ -58,30 +58,30 @@ public class RiskGradeController {
 	}
 
 	/**
-	 * 新增 
+	 * 新增 风险等级说明
 	 */
 	@PostMapping("/save")
 	@ApiOperation(value = "新增", notes = "传入riskGrade")
-	public R save(RiskGradeDTO dto) {
+	public R save(@RequestBody RiskGradeDTO dto) {
 		return R.data(riskGradeService.save(dto));
 	}
 
 	/**
-	 * 修改 
+	 * 修改 风险等级说明
 	 */
-	@PostMapping("/update")
+	@PutMapping("/update")
 	@ApiOperation(value = "修改", notes = "传入riskGrade")
-	public R update(RiskGradeDTO dto) {
+	public R update(@RequestBody RiskGradeDTO dto) {
 		return R.data(riskGradeService.updateById(dto));
 	}
 
 	/**
-	 * 删除 
+	 * 删除 风险等级说明
 	 */
-	@GetMapping("/remove")
+	@DeleteMapping("/remove")
 	@ApiOperation(value = "逻辑删除", notes = "传入ids")
-	public R remove(String riskGradeId) {
-		return R.data(riskGradeService.deleteLogic(Func.toIntList(riskGradeId)));
+	public R remove(@ApiParam(value = "主键集合", required = true) @RequestParam String ids) {
+		return R.data(riskGradeService.deleteLogic(Func.toIntList(ids)));
 	}
 
 }

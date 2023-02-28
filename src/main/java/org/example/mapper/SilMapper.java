@@ -6,10 +6,10 @@ import com.baomidou.mybatisplus.core.metadata.IPage;
 import java.util.List;
 
 /**
- *  Mapper 接口
+ * sil验算 Mapper 接口
  *
  * @author AI
- * @since 2022-09-20
+ * @since 2023-03-01
  */
 public interface SilMapper extends BaseMapper<Sil> {
 

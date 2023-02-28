@@ -6,10 +6,10 @@ import java.util.List;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 
 /**
- *  服务类
+ * sil验算 服务类
  *
  * @author AI
- * @since 2022-09-20
+ * @since 2023-03-01
  */
 public interface ISilService  {
 

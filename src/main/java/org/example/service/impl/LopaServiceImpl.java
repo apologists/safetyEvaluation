@@ -1,14 +1,11 @@
 package org.example.service.impl;
 
-import org.example.dto.SilDTO;
 import org.example.entity.Lopa;
-import org.example.entity.Sil;
 import org.example.mapper.LopaMapper;
 import org.example.service.ILopaService;
 import org.example.dto.LopaDTO;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import org.example.common.Condition;
-import org.example.service.ISilService;
 import org.example.utils.BeanCopyUtils;
 import org.springframework.stereotype.Service;
 import com.baomidou.mybatisplus.core.metadata.IPage;
@@ -17,18 +14,16 @@ import cn.hutool.core.util.StrUtil;
 import java.util.List;
 
 /**
- *  服务实现类
+ * lopa分析 服务实现类
  *
  * @author AI
- * @since 2022-08-28
+ * @since 2023-03-01
  */
 @Service
 @AllArgsConstructor
 public class LopaServiceImpl implements ILopaService {
 
     protected LopaMapper lopaMapper;
-
-    private ISilService silService;
     @Override
     public IPage<Lopa> page(LopaDTO dto) {
         IPage<Lopa> page = Condition.getPage(dto);
@@ -79,23 +74,6 @@ public class LopaServiceImpl implements ILopaService {
 
     @Override
     public Integer updateById(LopaDTO dto) {
-        SilDTO silDTO = new SilDTO();
-        silDTO.setLevel(dto.getLevel());
-        List<Sil> list = silService.list(silDTO);
-        int accidentRate = Integer.parseInt(dto.getIgnitionProbability())
-                *Integer.parseInt(dto.getExposureProbability())
-                *Integer.parseInt(dto.getLethalityRate())
-                *Integer.parseInt(dto.getProtectionRate());
-        int allowAccidentRate = accidentRate / Integer.parseInt(dto.getAllowAccidentRate());
-        dto.setAccidentRate(Integer.toString(accidentRate));
-        dto.setAllowAccidentRate(Integer.toString(allowAccidentRate));
-        list.forEach( sil -> {
-          if(allowAccidentRate > (1/sil.getFactorHigth()) && allowAccidentRate < (1/sil.getFactorLow())){
-              dto.setSilGrade(sil.getSilGrade());
-          }else {
-              dto.setSilGrade(list.get(list.size()-1).getSilGrade());
-          }
-        });
         return lopaMapper.updateById(BeanCopyUtils.copy(dto,Lopa.class));
     }
 

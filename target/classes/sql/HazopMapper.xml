@@ -4,19 +4,28 @@
     <!-- 通用查询映射结果 -->
     <resultMap id="hazopResultMap" type="org.example.entity.Hazop">
         <id column="hazop_id" property="hazopId"/>
-        <result column="deleted" property="deleted"/>
         <result column="created" property="created"/>
         <result column="updated" property="updated"/>
-        <result column="pull_off_node" property="pullOffNode"/>
-        <result column="deviation" property="deviation"/>
-        <result column="abnormal_causes" property="abnormalCauses"/>
-        <result column="adverse_out_comes" property="adverseOutComes"/>
+        <result column="deleted" property="deleted"/>
+        <result column="hazop_name" property="hazopName"/>
+        <result column="parameter" property="parameter"/>
+        <result column="parameter_desc" property="parameterDesc"/>
+        <result column="deviate_desc" property="deviateDesc"/>
+        <result column="cause" property="cause"/>
+        <result column="consequence" property="consequence"/>
+        <result column="F0" property="f0"/>
+        <result column="measure" property="measure"/>
+        <result column="risk_si" property="riskSi"/>
+        <result column="risk_li" property="riskLi"/>
+        <result column="risk_ri" property="riskRi"/>
+        <result column="Fs" property="Fs"/>
+        <result column="risk_s" property="riskS"/>
+        <result column="risk_l" property="riskL"/>
+        <result column="risk_r" property="riskR"/>
+        <result column="propose_num" property="proposeNum"/>
+        <result column="propose" property="propose"/>
         <result column="project_id" property="projectId"/>
-        <result column="relation_ships" property="relationShips"/>
-        <result column="risk_severity" property="riskSeverity"/>
-        <result column="risk_grade" property="riskGrade"/>
-        <result column="existing_measures" property="existingMeasures"/>
-        <result column="suggested_actions" property="suggestedActions"/>
+        <result column="unit_id" property="unitId"/>
     </resultMap>
 
 

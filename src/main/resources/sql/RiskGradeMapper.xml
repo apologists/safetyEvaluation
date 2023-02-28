@@ -4,21 +4,19 @@
     <!-- 通用查询映射结果 -->
     <resultMap id="riskGradeResultMap" type="org.example.entity.RiskGrade">
         <id column="risk_grade_id" property="riskGradeId"/>
-        <result column="created" property="created"/>
         <result column="updated" property="updated"/>
+        <result column="created" property="created"/>
         <result column="deleted" property="deleted"/>
-        <result column="risk_grade_code" property="riskGradeCode"/>
-        <result column="risk_grade_color" property="riskGradeColor"/>
         <result column="risk_grade_desc" property="riskGradeDesc"/>
         <result column="risk_grade" property="riskGrade"/>
-        <result column="risk_grade_measure" property="riskGradeMeasure"/>
-        <result column="term" property="term"/>
-        <result column="remark" property="remark"/>
+        <result column="action_ask" property="actionAsk"/>
+        <result column="tolerate" property="tolerate"/>
         <result column="project_id" property="projectId"/>
-        <result column="horizontal" property="horizontal"/>
-        <result column="longitudinal" property="longitudinal"/>
-        <result column="severity" property="severity"/>
-        <result column="frequency_level" property="frequencyLevel"/>
+        <result column="unit_id" property="unitId"/>
+        <result column="frequency_id" property="frequencyId"/>
+        <result column="risk_consequence_id" property="riskConsequenceId"/>
+        <result column="colour" property="colour"/>
+        <result column="grade_num" property="gradeNum"/>
     </resultMap>
 
 

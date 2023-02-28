@@ -9,7 +9,7 @@ import java.util.List;
  *  Mapper 接口
  *
  * @author AI
- * @since 2022-08-28
+ * @since 2023-02-28
  */
 public interface HazopMapper extends BaseMapper<Hazop> {
 

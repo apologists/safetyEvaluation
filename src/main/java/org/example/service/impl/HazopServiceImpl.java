@@ -1,9 +1,9 @@
 package org.example.service.impl;
 
-import org.example.dto.*;
-import org.example.entity.*;
+import org.example.entity.Hazop;
 import org.example.mapper.HazopMapper;
-import org.example.service.*;
+import org.example.service.IHazopService;
+import org.example.dto.HazopDTO;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import org.example.common.Condition;
 import org.example.utils.BeanCopyUtils;
@@ -11,27 +11,19 @@ import org.springframework.stereotype.Service;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import lombok.AllArgsConstructor;
 import cn.hutool.core.util.StrUtil;
-
-import java.util.*;
+import java.util.List;
 
 /**
  *  服务实现类
  *
  * @author AI
- * @since 2022-08-28
+ * @since 2023-02-28
  */
 @Service
 @AllArgsConstructor
 public class HazopServiceImpl implements IHazopService {
 
     protected HazopMapper hazopMapper;
-
-    private IRiskGradeService riskGradeService;
-
-    private ILopaService lopaService;
-
-    private ICaseSummaryService caseService;
-
     @Override
     public IPage<Hazop> page(HazopDTO dto) {
         IPage<Hazop> page = Condition.getPage(dto);
@@ -82,44 +74,6 @@ public class HazopServiceImpl implements IHazopService {
 
     @Override
     public Integer updateById(HazopDTO dto) {
-        RiskGradeDTO riskGradeDTO = new RiskGradeDTO();
-        riskGradeDTO.setProjectId(dto.getProjectId());
-        List<RiskGrade> list = riskGradeService.list(riskGradeDTO);
-        if (dto.getRiskSeverity() != null && dto.getRelationShips() != null) {
-            int grade = Integer.parseInt(dto.getRiskSeverity()) * Integer.parseInt(dto.getRelationShips());
-            for (int i = 0; i<list.size(); i++) {
-                if(i<list.size()-1 && Integer.parseInt(list.get(i).getFrequencyLevel()) * Integer.parseInt(list.get(i).getSeverity()) < grade){
-                    if (Integer.parseInt(list.get(i+1).getFrequencyLevel()) * Integer.parseInt(list.get(i+1).getSeverity()) > grade) {
-                        dto.setRiskGrade(list.get(i).getRiskGrade());
-                        if(list.get(i).getRiskGrade().equals("很高")){
-                            LopaDTO lopaDTO = new LopaDTO();
-                            lopaDTO.setProjectId(dto.getProjectId());
-                            lopaDTO.setEventIe(dto.getPullOffNode());
-                            lopaService.save(lopaDTO);
-                        }
-                    }
-                }else {
-                    dto.setRiskGrade(list.get(i).getRiskGrade());
-                    if(list.get(i).getRiskGrade().equals("很高")){
-                        LopaDTO lopaDTO = new LopaDTO();
-                        lopaDTO.setProjectId(dto.getProjectId());
-                        lopaDTO.setEventIe(dto.getPullOffNode());
-                        lopaService.save(lopaDTO);
-                    }
-                }
-            }
-        }
-        CaseSummaryDTO caseSummaryDTO = new CaseSummaryDTO();
-        caseSummaryDTO.setAbnormalCauses(dto.getAbnormalCauses());
-        caseSummaryDTO.setDeviation(dto.getDeviation());
-        caseSummaryDTO.setAdverseOutComes(dto.getAdverseOutComes());
-        caseSummaryDTO.setRiskGrade(dto.getRiskGrade());
-        caseSummaryDTO.setPullOffNode(dto.getPullOffNode());
-        caseSummaryDTO.setExistingMeasures(dto.getExistingMeasures());
-        caseSummaryDTO.setRelationShips(dto.getRelationShips());
-        caseSummaryDTO.setRiskSeverity(dto.getRiskSeverity());
-        caseSummaryDTO.setSuggestedActions(dto.getSuggestedActions());
-        caseService.save(caseSummaryDTO);
         return hazopMapper.updateById(BeanCopyUtils.copy(dto,Hazop.class));
     }
 

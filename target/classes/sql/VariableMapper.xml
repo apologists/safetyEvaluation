@@ -6,10 +6,12 @@
         <id column="variable_id" property="variableId"/>
         <result column="created" property="created"/>
         <result column="updated" property="updated"/>
-        <result column="deleted" property="deleted"/>
-        <result column="variable_cn" property="variableCn"/>
-        <result column="variable_en" property="variableEn"/>
+        <result column="variable_name_cn" property="variableNameCn"/>
+        <result column="variable_name_en" property="variableNameEn"/>
         <result column="project_id" property="projectId"/>
+        <result column="unit_id" property="unitId"/>
+        <result column="model_id" property="modelId"/>
+        <result column="variable_num" property="variableNum"/>
     </resultMap>
 
 
