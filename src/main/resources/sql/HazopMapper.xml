@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.example.mapper.HazopMapper">
+    <!-- 通用查询映射结果 -->
+    <resultMap id="hazopResultMap" type="org.example.entity.Hazop">
+        <id column="hazop_id" property="hazopId"/>
+        <result column="deleted" property="deleted"/>
+        <result column="created" property="created"/>
+        <result column="updated" property="updated"/>
+        <result column="pull_off_node" property="pullOffNode"/>
+        <result column="deviation" property="deviation"/>
+        <result column="abnormal_causes" property="abnormalCauses"/>
+        <result column="adverse_out_comes" property="adverseOutComes"/>
+        <result column="project_id" property="projectId"/>
+        <result column="relation_ships" property="relationShips"/>
+        <result column="risk_severity" property="riskSeverity"/>
+        <result column="risk_grade" property="riskGrade"/>
+        <result column="existing_measures" property="existingMeasures"/>
+        <result column="suggested_actions" property="suggestedActions"/>
+    </resultMap>
+
+
+</mapper>

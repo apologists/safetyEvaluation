@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.example.mapper.ProjectSummaryMapper">
+    <!-- 通用查询映射结果 -->
+    <resultMap id="projectSummaryResultMap" type="org.example.entity.ProjectSummary">
+        <id column="project_id" property="projectId"/>
+        <result column="created" property="created"/>
+        <result column="updated" property="updated"/>
+        <result column="deleted" property="deleted"/>
+        <result column="project_name" property="projectName"/>
+        <result column="project_desc" property="projectDesc"/>
+        <result column="project_image" property="projectImage"/>
+    </resultMap>
+
+
+</mapper>

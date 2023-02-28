@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.example.mapper.VariableMapper">
+    <!-- 通用查询映射结果 -->
+    <resultMap id="variableResultMap" type="org.example.entity.Variable">
+        <id column="variable_id" property="variableId"/>
+        <result column="created" property="created"/>
+        <result column="updated" property="updated"/>
+        <result column="deleted" property="deleted"/>
+        <result column="variable_cn" property="variableCn"/>
+        <result column="variable_en" property="variableEn"/>
+        <result column="project_id" property="projectId"/>
+    </resultMap>
+
+
+</mapper>

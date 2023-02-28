@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.example.mapper.SilSummaryMapper">
+    <!-- 通用查询映射结果 -->
+    <resultMap id="silSummaryResultMap" type="org.example.entity.SilSummary">
+        <id column="sil_summary_id" property="silSummaryId"/>
+        <result column="created" property="created"/>
+        <result column="updated" property="updated"/>
+        <result column="deleted" property="deleted"/>
+        <result column="D1" property="d1"/>
+        <result column="D2" property="d2"/>
+        <result column="Du" property="Du"/>
+        <result column="S" property="s"/>
+        <result column="B" property="b"/>
+        <result column="Ti" property="Ti"/>
+        <result column="project_id" property="projectId"/>
+        <result column="sil_sum" property="silSum"/>
+    </resultMap>
+
+
+</mapper>

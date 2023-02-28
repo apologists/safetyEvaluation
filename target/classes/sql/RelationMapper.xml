@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.example.mapper.RelationMapper">
+    <!-- 通用查询映射结果 -->
+    <resultMap id="relationResultMap" type="org.example.entity.Relation">
+        <id column="frequency_id" property="frequencyId"/>
+        <result column="created" property="created"/>
+        <result column="updated" property="updated"/>
+        <result column="deleted" property="deleted"/>
+        <result column="frequency_level" property="frequencyLevel"/>
+        <result column="frequency_value" property="frequencyValue"/>
+        <result column="frequency_desc" property="frequencyDesc"/>
+        <result column="project_id" property="projectId"/>
+    </resultMap>
+
+
+</mapper>

@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+    <shutdownHook class="ch.qos.logback.core.hook.DelayingShutdownHook"/>
+
+    <!--用于区分不同应用程序的记录-->
+    <contextName>aliyun-log</contextName>
+    <!--日志文件所在目录，如果是tomcat，如下写法日志文件会在则为${TOMCAT_HOME}/bin/logs/目录下-->
+    <property name="LOG_HOME" value="./log"/>
+    <!--控制台-->
+    <appender name="stdout" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <!--格式化输出：%d表示日期，%thread表示线程名，%-5level：级别从左显示5个字符宽度 %logger输出日志的logger名 %msg：日志消息，%n是换行符 -->
+            <pattern>[%d{yyyy-MM-dd HH:mm:ss.SSS}] [%thread] %-5level %logger{36} : %msg%n</pattern>
+            <!--解决乱码问题-->
+            <charset>UTF-8</charset>
+        </encoder>
+    </appender>
+
+    <!--滚动文件-->
+    <appender name="errorFile" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <!-- ThresholdFilter:临界值过滤器，过滤掉 TRACE 和 DEBUG 级别的日志 -->
+        <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
+            <level>ERROR</level>
+        </filter>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>${LOG_HOME}/log.%d{yyyy-MM-dd}.log</fileNamePattern>
+            <maxHistory>30</maxHistory><!--保存最近30天的日志-->
+        </rollingPolicy>
+        <encoder>
+            <charset>UTF-8</charset>
+            <pattern>[%d{yyyy-MM-dd HH:mm:ss.SSS}] [%thread] %-5level %logger{36} : %msg%n</pattern>
+        </encoder>
+    </appender>
+
+
+    <appender name="appErrorFile" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <!-- ThresholdFilter:临界值过滤器，过滤掉 TRACE 和 DEBUG 级别的日志 -->
+        <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
+            <level>WARN</level>
+        </filter>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>${LOG_HOME}/warn.%d{yyyy-MM-dd}.log</fileNamePattern>
+            <maxHistory>30</maxHistory><!--保存最近30天的日志-->
+        </rollingPolicy>
+        <encoder>
+            <charset>UTF-8</charset>
+            <pattern>[%d{yyyy-MM-dd HH:mm:ss.SSS}] [%thread] %-5level %logger{36} : %msg%n</pattern>
+        </encoder>
+    </appender>
+
+    <logger name="org.apache.http.impl.conn.Wire" level="OFF" />
+    <logger name="org.apache.http.wire" level="OFF" />
+    <logger name="org.apache.http.impl.conn" level="OFF"/>
+    <logger name="com.netflix.discovery.InstanceInfoReplicator" level="OFF"/>
+    <logger name="org.example" level="ERROR">
+        <appender-ref ref="stdout"/>
+    </logger>
+
+    <!--这里如果是info，spring、mybatis等框架则不会输出：TRACE < DEBUG < INFO <  WARN < ERROR-->
+    <!--root是所有logger的祖先，均继承root，如果某一个自定义的logger没有指定level，就会寻找
+    父logger看有没有指定级别，直到找到root。-->
+    <root level="ERROR">
+        <appender-ref ref="errorFile"/>
+    </root>
+
+    <logger name="org.springframework.web" level="INFO">
+        <appender-ref ref="stdout"/>
+    </logger>
+    <logger name="org.apache" level="INFO">
+        <appender-ref ref="stdout"/>
+    </logger>
+</configuration>

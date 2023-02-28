@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.example.mapper.SilMapper">
+    <!-- 通用查询映射结果 -->
+    <resultMap id="silResultMap" type="org.example.entity.Sil">
+        <id column="id" property="id"/>
+        <result column="created" property="created"/>
+        <result column="updated" property="updated"/>
+        <result column="deleted" property="deleted"/>
+        <result column="SIL_Grade" property="silGrade"/>
+        <result column="probability" property="probability"/>
+        <result column="factor_higth" property="factorHigth"/>
+        <result column="level" property="level"/>
+        <result column="factor_low" property="factorLow"/>
+    </resultMap>
+
+
+</mapper>

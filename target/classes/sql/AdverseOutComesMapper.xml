@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.example.mapper.AdverseOutComesMapper">
+    <!-- 通用查询映射结果 -->
+    <resultMap id="adverseOutComesResultMap" type="org.example.entity.AdverseOutComes">
+        <id column="adverse_out_comes_id" property="adverseOutComesId"/>
+        <result column="created" property="created"/>
+        <result column="updated" property="updated"/>
+        <result column="deleted" property="deleted"/>
+        <result column="pull_off_node" property="pullOffNode"/>
+        <result column="deviate" property="deviate"/>
+        <result column="variable_name" property="variableName"/>
+        <result column="deviation" property="deviation"/>
+        <result column="evolutionary_path" property="evolutionaryPath"/>
+        <result column="adverse_out_comes" property="adverseOutComes"/>
+        <result column="project_id" property="projectId"/>
+    </resultMap>
+
+
+</mapper>
