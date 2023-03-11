@@ -12,6 +12,7 @@ import com.baomidou.mybatisplus.core.metadata.IPage;
 import lombok.AllArgsConstructor;
 import cn.hutool.core.util.StrUtil;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * 变量公式表 服务实现类
@@ -73,7 +74,14 @@ public class FormulaServiceImpl implements IFormulaService {
     }
 
     @Override
-    public Integer updateById(FormulaDTO dto) {
+    public Integer updateById(List<FormulaDTO> list) {
+        FormulaDTO dto = new FormulaDTO()
+                .setProjectId(list.get(0).getProjectId())
+                .setUnitId(list.get(0).getUnitId())
+                .setModelId(list.get(0).getModelId());
+        List<Formula> oldList = list(dto);
+        List<FormulaDTO> newList = list.stream().filter(x -> !oldList.contains(x)).collect(Collectors.toList());
+        newList.forEach(this::save);
         return formulaMapper.updateById(BeanCopyUtils.copy(dto,Formula.class));
     }
 

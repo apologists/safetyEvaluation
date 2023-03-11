@@ -26,7 +26,7 @@ public class R<T> implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@ApiModelProperty(value = "状态码", required = true)
-	private String code;
+	private Integer code;
 	@ApiModelProperty(value = "承载数据")
 	private T data;
 	@ApiModelProperty(value = "返回消息", required = true)
@@ -48,7 +48,7 @@ public class R<T> implements Serializable {
 		this(resultCode.getErrorCode(), data, msg);
 	}
 
-	private R(String code, T data, String msg) {
+	private R(Integer code, T data, String msg) {
 		this.code = code;
 		this.data = data;
 		this.msg = msg;
@@ -74,7 +74,7 @@ public class R<T> implements Serializable {
 	 * @return R
 	 */
 	public static <T> R<T> data(T data, String msg) {
-		return data("200", data, msg);
+		return data(0, data, msg);
 	}
 
 	/**
@@ -86,7 +86,7 @@ public class R<T> implements Serializable {
 	 * @param <T>  T 泛型标记
 	 * @return R
 	 */
-	public static <T> R<T> data(String code, T data, String msg) {
+	public static <T> R<T> data(Integer code, T data, String msg) {
 		return new R<T>(code, data, data == null ? Constant.DEFAULT_NULL_MESSAGE : msg);
 	}
 

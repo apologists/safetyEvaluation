@@ -19,7 +19,7 @@ public interface IFormulaService  {
 
         Integer save(FormulaDTO dto) ;
 
-        Integer updateById(FormulaDTO dto) ;
+        Integer updateById(List<FormulaDTO> dto) ;
 
         Integer deleteLogic(List<Integer> toIntList) ;
 

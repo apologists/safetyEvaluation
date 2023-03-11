@@ -71,7 +71,7 @@ public class FormulaController {
 	 */
 	@PutMapping("/update")
 	@ApiOperation(value = "修改", notes = "传入formula")
-	public R update(@RequestBody FormulaDTO dto) {
+	public R update(@RequestBody List<FormulaDTO> dto) {
 		return R.data(formulaService.updateById(dto));
 	}
 

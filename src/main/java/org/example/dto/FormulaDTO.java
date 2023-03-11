@@ -2,6 +2,7 @@ package org.example.dto;
 
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.baomidou.mybatisplus.annotation.IdType;
+import lombok.experimental.Accessors;
 import org.example.base.BaseEntity;
 import com.baomidou.mybatisplus.annotation.TableId;
 import lombok.Data;
@@ -18,6 +19,7 @@ import org.example.common.CommonDto;
 @Data
 @EqualsAndHashCode(callSuper = true)
 @ApiModel(value = "Formula对象", description = "变量公式表")
+@Accessors(chain = true)
 public class FormulaDTO extends CommonDto {
 
 		/**
