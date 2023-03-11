@@ -31,11 +31,10 @@ public class CodeGenerator {
     private String[] tablePrefix = {""};
     /**
      * 需要生成的表名(两者只能取其一)
-     * {"lopa","abnormal_causes","adverse_out_comes","formula","hazop"
-     *     ,"project_summary","relation","risk","risk_grade","variable"};
+     * {"sil","case","model","unit","project","variable","frequency",
+     *             "cause","lopa","risk_grade","risk_consequence", "consequence"};
      */
-    private String[] includeTables = {"sil","case","model","unit","project","variable","frequency",
-            "cause","lopa","risk_grade","risk_consequence", "consequence"};
+    private String[] includeTables = {"case_summary","sdg"};
     /**
      * 需要排除的表名(两者只能取其一)
      */

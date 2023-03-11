@@ -1,16 +1,16 @@
 package org.example.mapper;
 
-import org.example.entity.Case;
+import org.example.entity.Formula;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import java.util.List;
 
 /**
- * 案例库表 Mapper 接口
+ * 变量公式表 Mapper 接口
  *
  * @author AI
- * @since 2023-03-01
+ * @since 2023-03-11
  */
-public interface CaseMapper extends BaseMapper<Case> {
+public interface FormulaMapper extends BaseMapper<Formula> {
 
 }

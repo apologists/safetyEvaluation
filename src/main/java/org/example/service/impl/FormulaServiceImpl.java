@@ -1,9 +1,9 @@
 package org.example.service.impl;
 
-import org.example.entity.Case;
-import org.example.mapper.CaseMapper;
-import org.example.service.ICaseService;
-import org.example.dto.CaseDTO;
+import org.example.entity.Formula;
+import org.example.mapper.FormulaMapper;
+import org.example.service.IFormulaService;
+import org.example.dto.FormulaDTO;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import org.example.common.Condition;
 import org.example.utils.BeanCopyUtils;
@@ -14,20 +14,20 @@ import cn.hutool.core.util.StrUtil;
 import java.util.List;
 
 /**
- * 案例库表 服务实现类
+ * 变量公式表 服务实现类
  *
  * @author AI
- * @since 2023-03-01
+ * @since 2023-03-11
  */
 @Service
 @AllArgsConstructor
-public class CaseServiceImpl implements ICaseService {
+public class FormulaServiceImpl implements IFormulaService {
 
-    protected CaseMapper caseMapper;
+    protected FormulaMapper formulaMapper;
     @Override
-    public IPage<Case> page(CaseDTO dto) {
-        IPage<Case> page = Condition.getPage(dto);
-        QueryWrapper<Case> queryWrapper = Condition.getQueryWrapper(BeanCopyUtils.copy(dto, Case.class));
+    public IPage<Formula> page(FormulaDTO dto) {
+        IPage<Formula> page = Condition.getPage(dto);
+        QueryWrapper<Formula> queryWrapper = Condition.getQueryWrapper(BeanCopyUtils.copy(dto, Formula.class));
         if (StrUtil.isNotEmpty(dto.getColumn()) && StrUtil.isNotEmpty(dto.getKeywords())) {
         queryWrapper.like(dto.getColumn(),dto.getKeywords());
         }
@@ -43,12 +43,12 @@ public class CaseServiceImpl implements ICaseService {
         if (dto.getEndTime() != null) {
         queryWrapper.lt("created",dto.getEndTime());
         }
-        return caseMapper.selectPage(page,queryWrapper);
+        return formulaMapper.selectPage(page,queryWrapper);
     }
 
     @Override
-    public List<Case> list(CaseDTO dto) {
-        QueryWrapper<Case> queryWrapper = Condition.getQueryWrapper(BeanCopyUtils.copy(dto, Case.class));
+    public List<Formula> list(FormulaDTO dto) {
+        QueryWrapper<Formula> queryWrapper = Condition.getQueryWrapper(BeanCopyUtils.copy(dto, Formula.class));
         if (StrUtil.isNotEmpty(dto.getColumn()) && StrUtil.isNotEmpty(dto.getKeywords())) {
         queryWrapper.like(dto.getColumn(),dto.getKeywords());
         }
@@ -64,27 +64,27 @@ public class CaseServiceImpl implements ICaseService {
         if (dto.getEndTime() != null) {
         queryWrapper.lt("created",dto.getEndTime());
         }
-        return caseMapper.selectList(queryWrapper);
+        return formulaMapper.selectList(queryWrapper);
     }
 
     @Override
-    public Integer save(CaseDTO dto) {
-        return caseMapper.insert(BeanCopyUtils.copy(dto,Case.class));
+    public Integer save(FormulaDTO dto) {
+        return formulaMapper.insert(BeanCopyUtils.copy(dto,Formula.class));
     }
 
     @Override
-    public Integer updateById(CaseDTO dto) {
-        return caseMapper.updateById(BeanCopyUtils.copy(dto,Case.class));
+    public Integer updateById(FormulaDTO dto) {
+        return formulaMapper.updateById(BeanCopyUtils.copy(dto,Formula.class));
     }
 
 
     @Override
     public Integer deleteLogic(List<Integer> toIntList) {
-        return caseMapper.deleteBatchIds(toIntList);
+        return formulaMapper.deleteBatchIds(toIntList);
     }
 
     @Override
-    public Case getOne(CaseDTO dto) {
-        return caseMapper.selectOne(Condition.getQueryWrapper(BeanCopyUtils.copy(dto,Case.class)));
+    public Formula getOne(FormulaDTO dto) {
+        return formulaMapper.selectOne(Condition.getQueryWrapper(BeanCopyUtils.copy(dto,Formula.class)));
     }
 }
