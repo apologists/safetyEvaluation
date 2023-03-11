@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.example.mapper.SdgMapper">
+    <!-- 通用查询映射结果 -->
+    <resultMap id="sdgResultMap" type="org.example.entity.Sdg">
+        <id column="sdg_id" property="sdgId"/>
+        <result column="created" property="created"/>
+        <result column="updated" property="updated"/>
+        <result column="deleted" property="deleted"/>
+        <result column="variable_name" property="variableName"/>
+        <result column="pullDirection" property="pullDirection"/>
+        <result column="unit_id" property="unitId"/>
+        <result column="model_id" property="modelId"/>
+        <result column="project_id" property="projectId"/>
+    </resultMap>
+
+
+</mapper>

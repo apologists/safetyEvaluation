@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.example.mapper.CaseSummaryMapper">
+    <!-- 通用查询映射结果 -->
+    <resultMap id="caseSummaryResultMap" type="org.example.entity.CaseSummary">
+        <id column="case_id" property="caseId"/>
+        <result column="updated" property="updated"/>
+        <result column="created" property="created"/>
+        <result column="deleted" property="deleted"/>
+        <result column="process_type" property="processType"/>
+        <result column="operation_process_type" property="operationProcessType"/>
+        <result column="equipment_type" property="equipmentType"/>
+        <result column="equipment_material_type" property="equipmentMaterialType"/>
+        <result column="pressure" property="pressure"/>
+        <result column="temperature" property="temperature"/>
+        <result column="rate_flow" property="rateFlow"/>
+        <result column="matter" property="matter"/>
+        <result column="deviation" property="deviation"/>
+        <result column="cause" property="cause"/>
+        <result column="consequence" property="consequence"/>
+        <result column="measure" property="measure"/>
+        <result column="project_id" property="projectId"/>
+        <result column="unit_id" property="unitId"/>
+        <result column="model_id" property="modelId"/>
+    </resultMap>
+
+
+</mapper>
