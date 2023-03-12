@@ -5,14 +5,26 @@ import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 import lombok.AllArgsConstructor;
 import org.example.common.R;
+import org.example.dto.FrequencyDTO;
+import org.example.dto.RiskConsequenceDTO;
+import org.example.entity.Frequency;
+import org.example.entity.RiskConsequence;
+import org.example.entity.RiskMatrix;
+import org.example.service.IFrequencyService;
+import org.example.service.IRiskConsequenceService;
 import org.example.utils.Func;
 import org.springframework.web.bind.annotation.*;
 import com.baomidou.mybatisplus.core.metadata.IPage;
-import java.util.List;
+
+import java.util.*;
+import java.util.stream.Collectors;
+
 import org.example.entity.RiskGrade;
 import org.example.dto.RiskGradeDTO;
 
 import org.example.service.IRiskGradeService;
+
+import javax.annotation.Resource;
 
 /**
  * 风险等级说明 控制器
@@ -27,6 +39,11 @@ import org.example.service.IRiskGradeService;
 public class RiskGradeController {
 
 	private IRiskGradeService riskGradeService;
+
+	@Resource
+	private IRiskConsequenceService riskConsequenceService;
+	@Resource
+	private IFrequencyService frequencyService;
 
 	/**
 	 * 详情
@@ -54,6 +71,7 @@ public class RiskGradeController {
 	@ApiOperation(value = "不分页", notes = "传入riskGrade")
 	public R<List<RiskGrade>> list(RiskGradeDTO dto) {
 		List<RiskGrade> list = riskGradeService.list(dto);
+
 		return R.data(list);
 	}
 
@@ -82,6 +100,36 @@ public class RiskGradeController {
 	@ApiOperation(value = "逻辑删除", notes = "传入ids")
 	public R remove(@ApiParam(value = "主键集合", required = true) @RequestParam String ids) {
 		return R.data(riskGradeService.deleteLogic(Func.toIntList(ids)));
+	}
+
+
+	/**
+	 * 风险矩阵
+	 */
+	@GetMapping("/riskMatrix")
+	@ApiOperation(value = "风险矩阵", notes = "传入riskGrade")
+	public R<RiskMatrix> riskMatrix(RiskGradeDTO dto) {
+		RiskMatrix riskMatrix = new RiskMatrix();
+		List<RiskConsequence> riskConsequenceList = riskConsequenceService.list(new RiskConsequenceDTO().setProjectId(dto.getProjectId()));
+		List<Frequency> frequencyList = frequencyService.list(new FrequencyDTO().setProjectId(dto.getProjectId()));
+		Map<Integer, String> collect = frequencyList.stream().collect(Collectors.toMap(Frequency::getFrequencyId, Frequency::getFrequencyName));
+		collect.put(0,"");
+		List<Map<Integer,RiskGrade>> data = new ArrayList<>();
+		riskConsequenceList.sort(Comparator.comparing(RiskConsequence::getRiskConsequenceId));
+		for (RiskConsequence x : riskConsequenceList) {
+			List<RiskGrade> list = riskGradeService.list(new RiskGradeDTO()
+					.setProjectId(dto.getProjectId())
+					.setRiskConsequenceId(x.getRiskConsequenceId()));
+			list.sort(Comparator.comparing(RiskGrade::getFrequencyId));
+			Map<Integer, RiskGrade> map = list.stream().collect(Collectors.toMap(RiskGrade::getFrequencyId,RiskGrade -> RiskGrade));
+			RiskGrade riskGrade = list.get(0);
+			riskGrade.setActionAsk("flag");
+			map.put(0,riskGrade);
+			data.add(map);
+		}
+		riskMatrix.setData(data);
+		riskMatrix.setTables(collect);
+		return R.data(riskMatrix);
 	}
 
 }

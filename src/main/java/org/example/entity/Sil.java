@@ -69,6 +69,19 @@ public class Sil extends BaseEntity {
   @ApiModelProperty(value = "变量5")
   private String var5;
   private Integer projectId;
+
+  /**
+   * 变量5
+   */
+  @ApiModelProperty(value = "变量6")
+  private String var6;
+
+
+  /**
+   * 变量5
+   */
+  @ApiModelProperty(value = "变量7")
+  private String var7;
     /**
      * sil等级
      */

@@ -67,6 +67,19 @@ public class SilDTO extends CommonDto {
 					private String var5;
 					private Integer projectId;
 		/**
+	 	* 变量5
+	 	*/
+		@ApiModelProperty(value = "变量6")
+		private String var6;
+
+
+		/**
+	 	* 变量5
+		 */
+		@ApiModelProperty(value = "变量7")
+		private String var7;
+
+		/**
 		 * sil等级
 		 */
 			@ApiModelProperty(value = "sil等级")

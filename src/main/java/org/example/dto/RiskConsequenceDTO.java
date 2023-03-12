@@ -1,6 +1,7 @@
 package org.example.dto;
 
 import com.baomidou.mybatisplus.annotation.TableName;
+import lombok.experimental.Accessors;
 import org.example.base.BaseEntity;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -14,6 +15,7 @@ import org.example.common.CommonDto;
  * @since 2023-03-01
  */
 @Data
+@Accessors(chain = true)
 @EqualsAndHashCode(callSuper = true)
 @ApiModel(value = "RiskConsequence对象", description = "风险后果说明表")
 public class RiskConsequenceDTO extends CommonDto {

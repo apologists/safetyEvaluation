@@ -99,6 +99,7 @@ public class CaseSummaryController {
 				"温度","流量","工艺材质","偏差","原因","结果","措施");
 		// 将数据汇总
 		List<List<Object>> sheetDataList = new ArrayList<>();
+		List<Object> list = new ArrayList<>();
 		sheetDataList.add(head);
 		// 导出数据
 		ExcelUtils.export(response,"案例表", sheetDataList);

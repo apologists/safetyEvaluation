@@ -1,6 +1,7 @@
 package org.example.dto;
 
 import com.baomidou.mybatisplus.annotation.TableName;
+import lombok.experimental.Accessors;
 import org.example.base.BaseEntity;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -15,6 +16,7 @@ import org.example.common.CommonDto;
  */
 @Data
 @EqualsAndHashCode(callSuper = true)
+@Accessors(chain = true)
 @ApiModel(value = "Frequency对象", description = "频率说明表")
 public class FrequencyDTO extends CommonDto {
 

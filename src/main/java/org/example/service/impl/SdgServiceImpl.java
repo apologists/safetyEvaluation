@@ -20,7 +20,9 @@ import lombok.AllArgsConstructor;
 import cn.hutool.core.util.StrUtil;
 
 import javax.annotation.Resource;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * sdg拉偏表 服务实现类
@@ -106,6 +108,13 @@ public class SdgServiceImpl implements ISdgService {
                 .setVariableName(dto.getVariableName());
 
         List<Cause> causeList = causeService.list(cause);
+        List<Cause> newCauseList;
+        if(dto.getPullDirection().equals("straight")){
+            newCauseList = causeList.stream().filter(x -> x.getStraight() != null).collect(Collectors.toList());
+        }else {
+            newCauseList = causeList.stream().filter(x -> x.getBurden() != null).collect(Collectors.toList());
+        }
+
 
         ConsequenceDTO consequenceDTO = new ConsequenceDTO()
                 .setProjectId(dto.getProjectId())
@@ -114,9 +123,16 @@ public class SdgServiceImpl implements ISdgService {
                 .setVarialeName(dto.getVariableName());
         List<Consequence> consequenceList = consequenceService.list(consequenceDTO);
 
+        List<Consequence> newConsequenceList;
+        if(dto.getPullDirection().equals("straight")){
+            newConsequenceList = consequenceList.stream().filter(x -> x.getStraight() != null).collect(Collectors.toList());
+        }else {
+            newConsequenceList = consequenceList.stream().filter(x -> x.getBurden() != null).collect(Collectors.toList());
+        }
+
         return new SdgSummary()
-                .setCauseList(causeList)
-                .setConsequenceList(consequenceList)
+                .setCauseList(newCauseList)
+                .setConsequenceList(newConsequenceList)
                 .setProjectId(dto.getProjectId())
                 .setModelId(dto.getModelId())
                 .setUnitId(dto.getUnitId())

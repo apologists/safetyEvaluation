@@ -5,14 +5,28 @@ import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 import lombok.AllArgsConstructor;
 import org.example.common.R;
+import org.example.dto.ModelDTO;
+import org.example.dto.UnitDTO;
+import org.example.entity.Model;
+import org.example.entity.ProjectSummary;
+import org.example.entity.Unit;
+import org.example.service.IModelService;
+import org.example.service.IUnitService;
 import org.example.utils.Func;
 import org.springframework.web.bind.annotation.*;
 import com.baomidou.mybatisplus.core.metadata.IPage;
+
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+
 import org.example.entity.Project;
 import org.example.dto.ProjectDTO;
 
 import org.example.service.IProjectService;
+
+import javax.annotation.Resource;
 
 /**
  * 项目表 控制器
@@ -27,6 +41,11 @@ import org.example.service.IProjectService;
 public class ProjectController {
 
 	private IProjectService projectService;
+
+	@Resource
+	private IUnitService unitService;
+	@Resource
+	private IModelService modelService;
 
 	/**
 	 * 详情
@@ -83,5 +102,34 @@ public class ProjectController {
 	public R remove(@ApiParam(value = "主键集合", required = true) @RequestParam String ids) {
 		return R.data(projectService.deleteLogic(Func.toIntList(ids)));
 	}
+
+	/**
+	 * 项目树
+	 */
+	@GetMapping("/projectSummary")
+	@ApiOperation(value = "详情", notes = "传入project")
+	public R<List<ProjectSummary>> projectSummary(ProjectDTO dto) {
+		ArrayList<ProjectSummary> projectSummaryList = new ArrayList<>();
+
+		List<Project> list = projectService.list(dto);
+		for (Project x : list) {
+			ProjectSummary projectSummary = new ProjectSummary();
+			Map<Unit,List<Model>> unitMap = new HashMap<>();
+			List<Unit> unitList = unitService.list(new UnitDTO().setProjectId(x.getProjectId()));
+			for (Unit y : unitList) {
+				List<Model> modelList = modelService.list(new ModelDTO()
+						.setProjectId(y.getProjectId())
+						.setUnitId(y.getUnitId()));
+				unitMap.put(y,modelList);
+			}
+			projectSummary.setProjectId(x.getProjectId());
+			projectSummary.setProjectName(x.getProjectName());
+			projectSummary.setUnitMap(unitMap);
+			projectSummaryList.add(projectSummary);
+		}
+
+		return R.data(projectSummaryList);
+	}
+
 
 }

@@ -1,10 +1,13 @@
 package org.example.controller;
 
+import com.alibaba.fastjson.JSON;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 import lombok.AllArgsConstructor;
 import org.example.common.R;
+import org.example.entity.SDGOptions;
+import org.example.entity.VariableMatrix;
 import org.example.utils.Func;
 import org.springframework.web.bind.annotation.*;
 import com.baomidou.mybatisplus.core.metadata.IPage;
@@ -86,9 +89,8 @@ public class VariableController {
 
 	@PostMapping("/matrix")
 	@ApiOperation(value = "变量关系表", notes = "传入variable")
-	public String matrix(@RequestBody VariableDTO dto) {
-		return " \"code\": 200,\n" +
-				"    \"data\": {\n" +
+	public VariableMatrix matrix(@RequestBody VariableDTO dto) {
+		String json = "{\n" +
 				"        \"variableMatrixList\": {\"1\": \"\", \"2\": \"F1\", \"3\": \"LIC1\", \"4\": \"L1\", \"5\": \"P1\", \"6\": \"T1\", \"7\": \"TIC2\", \"8\": \"F2\", \"9\": \"LIC2\", \"10\": \"V1\", \"11\": \"PIC1\"},\n" +
 				"        \"variableMatrixData\": [\n" +
 				"            {\"1\": \"F1\", \"2\": \"\", \"3\": \"\", \"4\": \"+\", \"5\": \"\",\"6\":\"\",\"7\":\"\", \"8\": \"\", \"9\": \"\",\"10\":\"\",\"11\":\"\"},\n" +
@@ -101,16 +103,9 @@ public class VariableController {
 				"            {\"1\": \"LIC2\", \"2\": \"\", \"3\": \"\", \"4\": \"\", \"5\": \"\",\"6\":\"\",\"7\":\"\", \"8\": \"\", \"9\": \"\",\"10\":\"\",\"11\":\"\"},\n" +
 				"            {\"1\": \"V1\", \"2\": \"\", \"3\": \"\", \"4\": \"\", \"5\": \"\",\"6\":\"\",\"7\":\"\", \"8\": \"+\", \"9\": \"\",\"10\":\"\",\"11\":\"\"},\n" +
 				"            {\"1\": \"PIC1\", \"2\": \"\", \"3\": \"\", \"4\": \"\", \"5\": \"+\",\"6\":\"\",\"7\":\"\", \"8\": \"\", \"9\": \"\",\"10\":\"\",\"11\":\"\"}\n" +
-				"        ],\n" +
-				"        \"total\": 1,\n" +
-				"        \"size\": 10,\n" +
-				"        \"current\": 1,\n" +
-				"        \"orders\": [],\n" +
-				"        \"searchCount\": true,\n" +
-				"        \"pages\": 1\n" +
-				"    },\n" +
-				"    \"msg\": \"操作成功\"";
-		//return R.data(variableService.save(dto));
+				"        ]\n" +
+				"    }";
+		return JSON.parseObject(json, VariableMatrix.class);
 	}
 
 
