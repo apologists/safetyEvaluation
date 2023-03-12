@@ -26,7 +26,8 @@
         <result column="propose" property="propose"/>
         <result column="project_id" property="projectId"/>
         <result column="unit_id" property="unitId"/>
-        <result column="hazop_color" property="hazopColor"/>
+        <result column="hazop_color1" property="hazopColor2"/>
+        <result column="hazop_color2" property="hazopColor2"/>
     </resultMap>
 
 
