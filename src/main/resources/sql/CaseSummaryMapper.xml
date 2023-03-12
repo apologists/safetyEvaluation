@@ -22,6 +22,7 @@
         <result column="project_id" property="projectId"/>
         <result column="unit_id" property="unitId"/>
         <result column="model_id" property="modelId"/>
+        <result column="similarity" property="similarity"/>
     </resultMap>
 
 

@@ -97,5 +97,10 @@ public class CaseSummaryDTO extends CommonDto {
 			@ApiModelProperty(value = "模型id")
 					private Integer modelId;
 
+		/**
+	 	* 相似度
+		 */
+			@ApiModelProperty(value = "相似度")
+			private String similarity;
 
 		}

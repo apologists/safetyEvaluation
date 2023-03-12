@@ -87,7 +87,7 @@ public class VariableController {
 	@PostMapping("/matrix")
 	@ApiOperation(value = "变量关系表", notes = "传入variable")
 	public String matrix(@RequestBody VariableDTO dto) {
-		return " \"code\": \"200\",\n" +
+		return " \"code\": 200,\n" +
 				"    \"data\": {\n" +
 				"        \"variableMatrixList\": {\"1\": \"\", \"2\": \"F1\", \"3\": \"LIC1\", \"4\": \"L1\", \"5\": \"P1\", \"6\": \"T1\", \"7\": \"TIC2\", \"8\": \"F2\", \"9\": \"LIC2\", \"10\": \"V1\", \"11\": \"PIC1\"},\n" +
 				"        \"variableMatrixData\": [\n" +

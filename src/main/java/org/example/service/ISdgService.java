@@ -4,6 +4,7 @@ import org.example.entity.Sdg;
 import org.example.dto.SdgDTO;
 import java.util.List;
 import com.baomidou.mybatisplus.core.metadata.IPage;
+import org.example.entity.SdgSummary;
 
 /**
  * sdg拉偏表 服务类
@@ -23,5 +24,5 @@ public interface ISdgService  {
 
         Integer deleteLogic(List<Integer> toIntList) ;
 
-        Sdg getOne(SdgDTO dto) ;
+        SdgSummary getOne(SdgDTO dto) ;
 }

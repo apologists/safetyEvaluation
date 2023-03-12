@@ -32,7 +32,9 @@ public class SdgDTO extends CommonDto {
 		 */
 			@ApiModelProperty(value = "拉偏方向")
 						@TableField("pullDirection")
-	private String pullDirection;
+		private String pullDirection;
+
+
 		/**
 		 * 单元id
 		 */

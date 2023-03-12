@@ -101,5 +101,10 @@ public class Hazop extends BaseEntity {
   @ApiModelProperty(value = "单元id")
   private Integer unitId;
 
+  /**
+   * hazop颜色
+   */
+  @ApiModelProperty(value = "hazop颜色")
+  private Integer hazopColor;
 
 }

@@ -1,7 +1,14 @@
 package org.example.service.impl;
 
+import org.example.dto.CauseDTO;
+import org.example.dto.ConsequenceDTO;
+import org.example.entity.Cause;
+import org.example.entity.Consequence;
 import org.example.entity.Sdg;
+import org.example.entity.SdgSummary;
 import org.example.mapper.SdgMapper;
+import org.example.service.ICauseService;
+import org.example.service.IConsequenceService;
 import org.example.service.ISdgService;
 import org.example.dto.SdgDTO;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
@@ -11,6 +18,8 @@ import org.springframework.stereotype.Service;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import lombok.AllArgsConstructor;
 import cn.hutool.core.util.StrUtil;
+
+import javax.annotation.Resource;
 import java.util.List;
 
 /**
@@ -24,6 +33,11 @@ import java.util.List;
 public class SdgServiceImpl implements ISdgService {
 
     protected SdgMapper sdgMapper;
+
+    @Resource
+    private ICauseService causeService;
+    @Resource
+    private IConsequenceService consequenceService;
     @Override
     public IPage<Sdg> page(SdgDTO dto) {
         IPage<Sdg> page = Condition.getPage(dto);
@@ -84,7 +98,28 @@ public class SdgServiceImpl implements ISdgService {
     }
 
     @Override
-    public Sdg getOne(SdgDTO dto) {
-        return sdgMapper.selectOne(Condition.getQueryWrapper(BeanCopyUtils.copy(dto,Sdg.class)));
+    public SdgSummary getOne(SdgDTO dto) {
+        CauseDTO cause = new CauseDTO()
+                .setProjectId(dto.getProjectId())
+                .setModelId(dto.getModelId())
+                .setUnitId(dto.getUnitId())
+                .setVariableName(dto.getVariableName());
+
+        List<Cause> causeList = causeService.list(cause);
+
+        ConsequenceDTO consequenceDTO = new ConsequenceDTO()
+                .setProjectId(dto.getProjectId())
+                .setModelId(dto.getModelId())
+                .setUnitId(dto.getUnitId())
+                .setVarialeName(dto.getVariableName());
+        List<Consequence> consequenceList = consequenceService.list(consequenceDTO);
+
+        return new SdgSummary()
+                .setCauseList(causeList)
+                .setConsequenceList(consequenceList)
+                .setProjectId(dto.getProjectId())
+                .setModelId(dto.getModelId())
+                .setUnitId(dto.getUnitId())
+                .setVariableName(dto.getVariableName());
     }
 }

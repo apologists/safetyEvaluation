@@ -97,6 +97,9 @@ public class HazopDTO extends CommonDto {
 		 */
 			@ApiModelProperty(value = "单元id")
 					private Integer unitId;
-
-
+		/**
+		 * hazop颜色
+		 */
+		@ApiModelProperty(value = "hazop颜色")
+		private Integer hazopColor;
 		}
