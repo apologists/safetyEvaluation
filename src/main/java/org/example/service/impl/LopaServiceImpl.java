@@ -1,6 +1,9 @@
 package org.example.service.impl;
 
 import org.example.entity.Lopa;
+import org.example.entity.LopaFoot;
+import org.example.entity.LopaHead;
+import org.example.entity.LopaSummary;
 import org.example.mapper.LopaMapper;
 import org.example.service.ILopaService;
 import org.example.dto.LopaDTO;
@@ -11,6 +14,8 @@ import org.springframework.stereotype.Service;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import lombok.AllArgsConstructor;
 import cn.hutool.core.util.StrUtil;
+
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -84,7 +89,44 @@ public class LopaServiceImpl implements ILopaService {
     }
 
     @Override
-    public Lopa getOne(LopaDTO dto) {
-        return lopaMapper.selectOne(Condition.getQueryWrapper(BeanCopyUtils.copy(dto,Lopa.class)));
+    public LopaSummary getOne(LopaDTO dto) {
+        List<Lopa> list = list(dto);
+        LopaSummary summary = new LopaSummary();
+        summary.setProjectId(list.get(0).getProjectId());
+        summary.setUnitId(list.get(0).getUnitId());
+        List<LopaHead> headList = new ArrayList<>();
+        List<LopaFoot> footList = new ArrayList<>();
+        for (Lopa lopa: list) {
+            LopaHead lopaHead = null;
+            if (lopa.getSceneDesc() != null) {
+                lopaHead = new LopaHead()
+                        .setLopaId(lopa.getLopaId())
+                        .setSceneDesc(lopa.getSceneDesc())
+                        .setEventVate(lopa.getEventVate())
+                        .setConditon(lopa.getConditon())
+                        .setEventIpl(lopa.getEventIpl())
+                        .setUnitId(lopa.getUnitId())
+                        .setProjectId(lopa.getProjectId());
+                        headList.add(lopaHead);
+            }
+
+            LopaFoot lopaFoot = null;
+            if (lopa.getLopaType() != null) {
+                lopaFoot = new LopaFoot()
+                        .setLopaDesc(lopa.getLopaDesc())
+                        .setLopaGrade(lopa.getLopaGrade())
+                        .setProtect(lopa.getProtect())
+                        .setProtectDesc(lopa.getProtectDesc())
+                        .setReviseCondition(lopa.getReviseCondition())
+                        .setLopaType(lopa.getLopaType())
+                        .setConclusion(lopa.getConclusion())
+                        .setTolerate(lopa.getTolerate())
+                        .setReviseRate(lopa.getReviseRate());
+                footList.add(lopaFoot);
+            }
+        }
+        summary.setFootList(footList);
+        summary.setHeadList(headList);
+        return summary;
     }
 }

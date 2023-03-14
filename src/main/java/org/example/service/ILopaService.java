@@ -4,6 +4,7 @@ import org.example.entity.Lopa;
 import org.example.dto.LopaDTO;
 import java.util.List;
 import com.baomidou.mybatisplus.core.metadata.IPage;
+import org.example.entity.LopaSummary;
 
 /**
  * lopa分析 服务类
@@ -23,5 +24,5 @@ public interface ILopaService  {
 
         Integer deleteLogic(List<Integer> toIntList) ;
 
-        Lopa getOne(LopaDTO dto) ;
+        LopaSummary getOne(LopaDTO dto) ;
 }

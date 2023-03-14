@@ -22,6 +22,7 @@ import cn.hutool.core.util.StrUtil;
 import javax.annotation.Resource;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 /**
@@ -109,12 +110,6 @@ public class SdgServiceImpl implements ISdgService {
 
         List<Cause> causeList = causeService.list(cause);
         List<Cause> newCauseList;
-        if(dto.getPullDirection().equals("straight")){
-            newCauseList = causeList.stream().filter(x -> x.getStraight() != null).collect(Collectors.toList());
-        }else {
-            newCauseList = causeList.stream().filter(x -> x.getBurden() != null).collect(Collectors.toList());
-        }
-
 
         ConsequenceDTO consequenceDTO = new ConsequenceDTO()
                 .setProjectId(dto.getProjectId())
@@ -125,9 +120,11 @@ public class SdgServiceImpl implements ISdgService {
 
         List<Consequence> newConsequenceList;
         if(dto.getPullDirection().equals("straight")){
-            newConsequenceList = consequenceList.stream().filter(x -> x.getStraight() != null).collect(Collectors.toList());
+            newConsequenceList = consequenceList.stream().filter(x -> x.getStraight() != null && !Objects.equals(x.getStraight(), "")).collect(Collectors.toList());
+            newCauseList = causeList.stream().filter(x -> x.getStraight() != null && !Objects.equals(x.getStraight(), "")).collect(Collectors.toList());
         }else {
-            newConsequenceList = consequenceList.stream().filter(x -> x.getBurden() != null).collect(Collectors.toList());
+            newCauseList = causeList.stream().filter(x -> x.getBurden() != null && !Objects.equals(x.getBurden(), "")).collect(Collectors.toList());
+            newConsequenceList = consequenceList.stream().filter(x -> x.getBurden() != null && !Objects.equals(x.getBurden(), "")).collect(Collectors.toList());
         }
 
         return new SdgSummary()

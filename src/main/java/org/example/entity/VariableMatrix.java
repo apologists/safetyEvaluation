@@ -9,6 +9,6 @@ import java.util.Map;
 @Data
 @Accessors(chain = true)
 public class VariableMatrix {
-    private List<String> variableMatrixList;
+    private Map<String,String> variableMatrixList;
     private Map<String,String> variableMatrixData;
 }

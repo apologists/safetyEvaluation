@@ -5,6 +5,7 @@ import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 import lombok.AllArgsConstructor;
 import org.example.common.R;
+import org.example.entity.LopaSummary;
 import org.example.utils.Func;
 import org.springframework.web.bind.annotation.*;
 import com.baomidou.mybatisplus.core.metadata.IPage;
@@ -33,9 +34,9 @@ public class LopaController {
 	 */
 	@GetMapping("/detail")
 	@ApiOperation(value = "详情", notes = "传入lopa")
-	public R<Lopa> detail(LopaDTO dto) {
-		Lopa detail = lopaService.getOne(dto);
-		return R.data(detail);
+	public R<LopaSummary> detail(LopaDTO dto) {
+		LopaSummary one = lopaService.getOne(dto);
+		return R.data(one);
 	}
 
 	/**

@@ -1036,3 +1036,994 @@ java.lang.NullPointerException: null
 	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:624)
 	at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:61)
 	at java.lang.Thread.run(Thread.java:750)
+[2023-03-12 19:35:48.775] [http-nio-8080-exec-9] ERROR o.e.e.GlobalControllerExceptionHandler : syntax error, expect {, actual [, fieldName variableMatrixData, pos 194, json : {
+        "variableMatrixList": {"1": "", "2": "F1", "3": "LIC1", "4": "L1", "5": "P1", "6": "T1", "7": "TIC2", "8": "F2", "9": "LIC2", "10": "V1", "11": "PIC1"},
+        "variableMatrixData": [
+            {"1": "F1", "2": "", "3": "", "4": "+", "5": "","6":"","7":"", "8": "", "9": "","10":"","11":""},
+            {"1": "LIC1", "2": "+", "3": "", "4": "", "5": "","6":"","7":"", "8": "", "9": "","10":"","11":""},
+            {"1": "L1", "2": "", "3": "", "4": "", "5": "","6":"","7":"", "8": "", "9": "","10":"","11":""},
+            {"1": "P1", "2": "+", "3": "", "4": "", "5": "","6":"","7":"", "8": "", "9": "","10":"","11":""},
+            {"1": "T1", "2": "", "3": "", "4": "", "5": "","6":"","7":"", "8": "", "9": "","10":"","11":""},
+            {"1": "TIC2", "2": "", "3": "", "4": "", "5": "+","6":"","7":"", "8": "", "9": "","10":"","11":""},
+            {"1": "F2", "2": "", "3": "", "4": "-", "5": "","6":"","7":"", "8": "", "9": "","10":"","11":""},
+            {"1": "LIC2", "2": "", "3": "", "4": "", "5": "","6":"","7":"", "8": "", "9": "","10":"","11":""},
+            {"1": "V1", "2": "", "3": "", "4": "", "5": "","6":"","7":"", "8": "+", "9": "","10":"","11":""},
+            {"1": "PIC1", "2": "", "3": "", "4": "", "5": "+","6":"","7":"", "8": "", "9": "","10":"","11":""}
+        ]
+    }
+com.alibaba.fastjson.JSONException: syntax error, expect {, actual [, fieldName variableMatrixData, pos 194, json : {
+        "variableMatrixList": {"1": "", "2": "F1", "3": "LIC1", "4": "L1", "5": "P1", "6": "T1", "7": "TIC2", "8": "F2", "9": "LIC2", "10": "V1", "11": "PIC1"},
+        "variableMatrixData": [
+            {"1": "F1", "2": "", "3": "", "4": "+", "5": "","6":"","7":"", "8": "", "9": "","10":"","11":""},
+            {"1": "LIC1", "2": "+", "3": "", "4": "", "5": "","6":"","7":"", "8": "", "9": "","10":"","11":""},
+            {"1": "L1", "2": "", "3": "", "4": "", "5": "","6":"","7":"", "8": "", "9": "","10":"","11":""},
+            {"1": "P1", "2": "+", "3": "", "4": "", "5": "","6":"","7":"", "8": "", "9": "","10":"","11":""},
+            {"1": "T1", "2": "", "3": "", "4": "", "5": "","6":"","7":"", "8": "", "9": "","10":"","11":""},
+            {"1": "TIC2", "2": "", "3": "", "4": "", "5": "+","6":"","7":"", "8": "", "9": "","10":"","11":""},
+            {"1": "F2", "2": "", "3": "", "4": "-", "5": "","6":"","7":"", "8": "", "9": "","10":"","11":""},
+            {"1": "LIC2", "2": "", "3": "", "4": "", "5": "","6":"","7":"", "8": "", "9": "","10":"","11":""},
+            {"1": "V1", "2": "", "3": "", "4": "", "5": "","6":"","7":"", "8": "+", "9": "","10":"","11":""},
+            {"1": "PIC1", "2": "", "3": "", "4": "", "5": "+","6":"","7":"", "8": "", "9": "","10":"","11":""}
+        ]
+    }
+	at com.alibaba.fastjson.parser.deserializer.MapDeserializer.parseMap(MapDeserializer.java:94)
+	at com.alibaba.fastjson.parser.deserializer.MapDeserializer.deserialze(MapDeserializer.java:59)
+	at com.alibaba.fastjson.parser.deserializer.MapDeserializer.deserialze(MapDeserializer.java:41)
+	at com.alibaba.fastjson.parser.deserializer.DefaultFieldDeserializer.parseField(DefaultFieldDeserializer.java:80)
+	at com.alibaba.fastjson.parser.deserializer.JavaBeanDeserializer.parseField(JavaBeanDeserializer.java:1061)
+	at com.alibaba.fastjson.parser.deserializer.JavaBeanDeserializer.deserialze(JavaBeanDeserializer.java:756)
+	at com.alibaba.fastjson.parser.deserializer.JavaBeanDeserializer.parseRest(JavaBeanDeserializer.java:1240)
+	at com.alibaba.fastjson.parser.deserializer.FastjsonASMDeserializer_1_VariableMatrix.deserialze(Unknown Source)
+	at com.alibaba.fastjson.parser.deserializer.JavaBeanDeserializer.deserialze(JavaBeanDeserializer.java:267)
+	at com.alibaba.fastjson.parser.DefaultJSONParser.parseObject(DefaultJSONParser.java:640)
+	at com.alibaba.fastjson.JSON.parseObject(JSON.java:365)
+	at com.alibaba.fastjson.JSON.parseObject(JSON.java:269)
+	at com.alibaba.fastjson.JSON.parseObject(JSON.java:488)
+	at org.example.controller.VariableController.matrix(VariableController.java:108)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:498)
+	at org.springframework.web.method.support.InvocableHandlerMethod.doInvoke(InvocableHandlerMethod.java:190)
+	at org.springframework.web.method.support.InvocableHandlerMethod.invokeForRequest(InvocableHandlerMethod.java:138)
+	at org.springframework.web.servlet.mvc.method.annotation.ServletInvocableHandlerMethod.invokeAndHandle(ServletInvocableHandlerMethod.java:106)
+	at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.invokeHandlerMethod(RequestMappingHandlerAdapter.java:888)
+	at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.handleInternal(RequestMappingHandlerAdapter.java:793)
+	at org.springframework.web.servlet.mvc.method.AbstractHandlerMethodAdapter.handle(AbstractHandlerMethodAdapter.java:87)
+	at org.springframework.web.servlet.DispatcherServlet.doDispatch(DispatcherServlet.java:1040)
+	at org.springframework.web.servlet.DispatcherServlet.doService(DispatcherServlet.java:943)
+	at org.springframework.web.servlet.FrameworkServlet.processRequest(FrameworkServlet.java:1006)
+	at org.springframework.web.servlet.FrameworkServlet.doPost(FrameworkServlet.java:909)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:660)
+	at org.springframework.web.servlet.FrameworkServlet.service(FrameworkServlet.java:883)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:741)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:231)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166)
+	at org.apache.tomcat.websocket.server.WsFilter.doFilter(WsFilter.java:53)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166)
+	at org.springframework.web.filter.CorsFilter.doFilterInternal(CorsFilter.java:92)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:119)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166)
+	at org.springframework.web.filter.RequestContextFilter.doFilterInternal(RequestContextFilter.java:100)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:119)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166)
+	at org.springframework.web.filter.FormContentFilter.doFilterInternal(FormContentFilter.java:93)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:119)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166)
+	at org.springframework.web.filter.CharacterEncodingFilter.doFilterInternal(CharacterEncodingFilter.java:201)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:119)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166)
+	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:202)
+	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:96)
+	at org.apache.catalina.authenticator.AuthenticatorBase.invoke(AuthenticatorBase.java:541)
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:139)
+	at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:92)
+	at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:74)
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:343)
+	at org.apache.coyote.http11.Http11Processor.service(Http11Processor.java:367)
+	at org.apache.coyote.AbstractProcessorLight.process(AbstractProcessorLight.java:65)
+	at org.apache.coyote.AbstractProtocol$ConnectionHandler.process(AbstractProtocol.java:860)
+	at org.apache.tomcat.util.net.NioEndpoint$SocketProcessor.doRun(NioEndpoint.java:1598)
+	at org.apache.tomcat.util.net.SocketProcessorBase.run(SocketProcessorBase.java:49)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1149)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:624)
+	at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:61)
+	at java.lang.Thread.run(Thread.java:750)
+[2023-03-12 20:12:39.918] [http-nio-8080-exec-10] ERROR o.e.e.GlobalControllerExceptionHandler : syntax error, expect {, actual [, fieldName variableMatrixData, pos 194, json : {
+        "variableMatrixList": {"1": "", "2": "F1", "3": "LIC1", "4": "L1", "5": "P1", "6": "T1", "7": "TIC2", "8": "F2", "9": "LIC2", "10": "V1", "11": "PIC1"},
+        "variableMatrixData": [
+            {"1": "F1", "2": "", "3": "", "4": "+", "5": "","6":"","7":"", "8": "", "9": "","10":"","11":""},
+            {"1": "LIC1", "2": "+", "3": "", "4": "", "5": "","6":"","7":"", "8": "", "9": "","10":"","11":""},
+            {"1": "L1", "2": "", "3": "", "4": "", "5": "","6":"","7":"", "8": "", "9": "","10":"","11":""},
+            {"1": "P1", "2": "+", "3": "", "4": "", "5": "","6":"","7":"", "8": "", "9": "","10":"","11":""},
+            {"1": "T1", "2": "", "3": "", "4": "", "5": "","6":"","7":"", "8": "", "9": "","10":"","11":""},
+            {"1": "TIC2", "2": "", "3": "", "4": "", "5": "+","6":"","7":"", "8": "", "9": "","10":"","11":""},
+            {"1": "F2", "2": "", "3": "", "4": "-", "5": "","6":"","7":"", "8": "", "9": "","10":"","11":""},
+            {"1": "LIC2", "2": "", "3": "", "4": "", "5": "","6":"","7":"", "8": "", "9": "","10":"","11":""},
+            {"1": "V1", "2": "", "3": "", "4": "", "5": "","6":"","7":"", "8": "+", "9": "","10":"","11":""},
+            {"1": "PIC1", "2": "", "3": "", "4": "", "5": "+","6":"","7":"", "8": "", "9": "","10":"","11":""}
+        ]
+    }
+com.alibaba.fastjson.JSONException: syntax error, expect {, actual [, fieldName variableMatrixData, pos 194, json : {
+        "variableMatrixList": {"1": "", "2": "F1", "3": "LIC1", "4": "L1", "5": "P1", "6": "T1", "7": "TIC2", "8": "F2", "9": "LIC2", "10": "V1", "11": "PIC1"},
+        "variableMatrixData": [
+            {"1": "F1", "2": "", "3": "", "4": "+", "5": "","6":"","7":"", "8": "", "9": "","10":"","11":""},
+            {"1": "LIC1", "2": "+", "3": "", "4": "", "5": "","6":"","7":"", "8": "", "9": "","10":"","11":""},
+            {"1": "L1", "2": "", "3": "", "4": "", "5": "","6":"","7":"", "8": "", "9": "","10":"","11":""},
+            {"1": "P1", "2": "+", "3": "", "4": "", "5": "","6":"","7":"", "8": "", "9": "","10":"","11":""},
+            {"1": "T1", "2": "", "3": "", "4": "", "5": "","6":"","7":"", "8": "", "9": "","10":"","11":""},
+            {"1": "TIC2", "2": "", "3": "", "4": "", "5": "+","6":"","7":"", "8": "", "9": "","10":"","11":""},
+            {"1": "F2", "2": "", "3": "", "4": "-", "5": "","6":"","7":"", "8": "", "9": "","10":"","11":""},
+            {"1": "LIC2", "2": "", "3": "", "4": "", "5": "","6":"","7":"", "8": "", "9": "","10":"","11":""},
+            {"1": "V1", "2": "", "3": "", "4": "", "5": "","6":"","7":"", "8": "+", "9": "","10":"","11":""},
+            {"1": "PIC1", "2": "", "3": "", "4": "", "5": "+","6":"","7":"", "8": "", "9": "","10":"","11":""}
+        ]
+    }
+	at com.alibaba.fastjson.parser.deserializer.MapDeserializer.parseMap(MapDeserializer.java:94)
+	at com.alibaba.fastjson.parser.deserializer.MapDeserializer.deserialze(MapDeserializer.java:59)
+	at com.alibaba.fastjson.parser.deserializer.MapDeserializer.deserialze(MapDeserializer.java:41)
+	at com.alibaba.fastjson.parser.deserializer.DefaultFieldDeserializer.parseField(DefaultFieldDeserializer.java:80)
+	at com.alibaba.fastjson.parser.deserializer.JavaBeanDeserializer.parseField(JavaBeanDeserializer.java:1061)
+	at com.alibaba.fastjson.parser.deserializer.JavaBeanDeserializer.deserialze(JavaBeanDeserializer.java:756)
+	at com.alibaba.fastjson.parser.deserializer.JavaBeanDeserializer.parseRest(JavaBeanDeserializer.java:1240)
+	at com.alibaba.fastjson.parser.deserializer.FastjsonASMDeserializer_1_VariableMatrix.deserialze(Unknown Source)
+	at com.alibaba.fastjson.parser.deserializer.JavaBeanDeserializer.deserialze(JavaBeanDeserializer.java:267)
+	at com.alibaba.fastjson.parser.DefaultJSONParser.parseObject(DefaultJSONParser.java:640)
+	at com.alibaba.fastjson.JSON.parseObject(JSON.java:365)
+	at com.alibaba.fastjson.JSON.parseObject(JSON.java:269)
+	at com.alibaba.fastjson.JSON.parseObject(JSON.java:488)
+	at org.example.controller.VariableController.matrix(VariableController.java:108)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:498)
+	at org.springframework.web.method.support.InvocableHandlerMethod.doInvoke(InvocableHandlerMethod.java:190)
+	at org.springframework.web.method.support.InvocableHandlerMethod.invokeForRequest(InvocableHandlerMethod.java:138)
+	at org.springframework.web.servlet.mvc.method.annotation.ServletInvocableHandlerMethod.invokeAndHandle(ServletInvocableHandlerMethod.java:106)
+	at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.invokeHandlerMethod(RequestMappingHandlerAdapter.java:888)
+	at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.handleInternal(RequestMappingHandlerAdapter.java:793)
+	at org.springframework.web.servlet.mvc.method.AbstractHandlerMethodAdapter.handle(AbstractHandlerMethodAdapter.java:87)
+	at org.springframework.web.servlet.DispatcherServlet.doDispatch(DispatcherServlet.java:1040)
+	at org.springframework.web.servlet.DispatcherServlet.doService(DispatcherServlet.java:943)
+	at org.springframework.web.servlet.FrameworkServlet.processRequest(FrameworkServlet.java:1006)
+	at org.springframework.web.servlet.FrameworkServlet.doPost(FrameworkServlet.java:909)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:660)
+	at org.springframework.web.servlet.FrameworkServlet.service(FrameworkServlet.java:883)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:741)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:231)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166)
+	at org.apache.tomcat.websocket.server.WsFilter.doFilter(WsFilter.java:53)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166)
+	at org.springframework.web.filter.CorsFilter.doFilterInternal(CorsFilter.java:92)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:119)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166)
+	at org.springframework.web.filter.RequestContextFilter.doFilterInternal(RequestContextFilter.java:100)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:119)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166)
+	at org.springframework.web.filter.FormContentFilter.doFilterInternal(FormContentFilter.java:93)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:119)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166)
+	at org.springframework.web.filter.CharacterEncodingFilter.doFilterInternal(CharacterEncodingFilter.java:201)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:119)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166)
+	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:202)
+	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:96)
+	at org.apache.catalina.authenticator.AuthenticatorBase.invoke(AuthenticatorBase.java:541)
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:139)
+	at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:92)
+	at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:74)
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:343)
+	at org.apache.coyote.http11.Http11Processor.service(Http11Processor.java:367)
+	at org.apache.coyote.AbstractProcessorLight.process(AbstractProcessorLight.java:65)
+	at org.apache.coyote.AbstractProtocol$ConnectionHandler.process(AbstractProtocol.java:860)
+	at org.apache.tomcat.util.net.NioEndpoint$SocketProcessor.doRun(NioEndpoint.java:1598)
+	at org.apache.tomcat.util.net.SocketProcessorBase.run(SocketProcessorBase.java:49)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1149)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:624)
+	at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:61)
+	at java.lang.Thread.run(Thread.java:750)
+[2023-03-12 20:25:26.751] [http-nio-8080-exec-4] ERROR o.e.e.GlobalControllerExceptionHandler : syntax error, expect {, actual [, fieldName variableMatrixData, pos 194, json : {
+        "variableMatrixList": {"1": "", "2": "F1", "3": "LIC1", "4": "L1", "5": "P1", "6": "T1", "7": "TIC2", "8": "F2", "9": "LIC2", "10": "V1", "11": "PIC1"},
+        "variableMatrixData": [
+            {"1": "F1", "2": "", "3": "", "4": "+", "5": "","6":"","7":"", "8": "", "9": "","10":"","11":""},
+            {"1": "LIC1", "2": "+", "3": "", "4": "", "5": "","6":"","7":"", "8": "", "9": "","10":"","11":""},
+            {"1": "L1", "2": "", "3": "", "4": "", "5": "","6":"","7":"", "8": "", "9": "","10":"","11":""},
+            {"1": "P1", "2": "+", "3": "", "4": "", "5": "","6":"","7":"", "8": "", "9": "","10":"","11":""},
+            {"1": "T1", "2": "", "3": "", "4": "", "5": "","6":"","7":"", "8": "", "9": "","10":"","11":""},
+            {"1": "TIC2", "2": "", "3": "", "4": "", "5": "+","6":"","7":"", "8": "", "9": "","10":"","11":""},
+            {"1": "F2", "2": "", "3": "", "4": "-", "5": "","6":"","7":"", "8": "", "9": "","10":"","11":""},
+            {"1": "LIC2", "2": "", "3": "", "4": "", "5": "","6":"","7":"", "8": "", "9": "","10":"","11":""},
+            {"1": "V1", "2": "", "3": "", "4": "", "5": "","6":"","7":"", "8": "+", "9": "","10":"","11":""},
+            {"1": "PIC1", "2": "", "3": "", "4": "", "5": "+","6":"","7":"", "8": "", "9": "","10":"","11":""}
+        ]
+    }
+com.alibaba.fastjson.JSONException: syntax error, expect {, actual [, fieldName variableMatrixData, pos 194, json : {
+        "variableMatrixList": {"1": "", "2": "F1", "3": "LIC1", "4": "L1", "5": "P1", "6": "T1", "7": "TIC2", "8": "F2", "9": "LIC2", "10": "V1", "11": "PIC1"},
+        "variableMatrixData": [
+            {"1": "F1", "2": "", "3": "", "4": "+", "5": "","6":"","7":"", "8": "", "9": "","10":"","11":""},
+            {"1": "LIC1", "2": "+", "3": "", "4": "", "5": "","6":"","7":"", "8": "", "9": "","10":"","11":""},
+            {"1": "L1", "2": "", "3": "", "4": "", "5": "","6":"","7":"", "8": "", "9": "","10":"","11":""},
+            {"1": "P1", "2": "+", "3": "", "4": "", "5": "","6":"","7":"", "8": "", "9": "","10":"","11":""},
+            {"1": "T1", "2": "", "3": "", "4": "", "5": "","6":"","7":"", "8": "", "9": "","10":"","11":""},
+            {"1": "TIC2", "2": "", "3": "", "4": "", "5": "+","6":"","7":"", "8": "", "9": "","10":"","11":""},
+            {"1": "F2", "2": "", "3": "", "4": "-", "5": "","6":"","7":"", "8": "", "9": "","10":"","11":""},
+            {"1": "LIC2", "2": "", "3": "", "4": "", "5": "","6":"","7":"", "8": "", "9": "","10":"","11":""},
+            {"1": "V1", "2": "", "3": "", "4": "", "5": "","6":"","7":"", "8": "+", "9": "","10":"","11":""},
+            {"1": "PIC1", "2": "", "3": "", "4": "", "5": "+","6":"","7":"", "8": "", "9": "","10":"","11":""}
+        ]
+    }
+	at com.alibaba.fastjson.parser.deserializer.MapDeserializer.parseMap(MapDeserializer.java:94)
+	at com.alibaba.fastjson.parser.deserializer.MapDeserializer.deserialze(MapDeserializer.java:59)
+	at com.alibaba.fastjson.parser.deserializer.MapDeserializer.deserialze(MapDeserializer.java:41)
+	at com.alibaba.fastjson.parser.deserializer.DefaultFieldDeserializer.parseField(DefaultFieldDeserializer.java:80)
+	at com.alibaba.fastjson.parser.deserializer.JavaBeanDeserializer.parseField(JavaBeanDeserializer.java:1061)
+	at com.alibaba.fastjson.parser.deserializer.JavaBeanDeserializer.deserialze(JavaBeanDeserializer.java:756)
+	at com.alibaba.fastjson.parser.deserializer.JavaBeanDeserializer.parseRest(JavaBeanDeserializer.java:1240)
+	at com.alibaba.fastjson.parser.deserializer.FastjsonASMDeserializer_1_VariableMatrix.deserialze(Unknown Source)
+	at com.alibaba.fastjson.parser.deserializer.JavaBeanDeserializer.deserialze(JavaBeanDeserializer.java:267)
+	at com.alibaba.fastjson.parser.DefaultJSONParser.parseObject(DefaultJSONParser.java:640)
+	at com.alibaba.fastjson.JSON.parseObject(JSON.java:365)
+	at com.alibaba.fastjson.JSON.parseObject(JSON.java:269)
+	at com.alibaba.fastjson.JSON.parseObject(JSON.java:488)
+	at org.example.controller.VariableController.matrix(VariableController.java:108)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:498)
+	at org.springframework.web.method.support.InvocableHandlerMethod.doInvoke(InvocableHandlerMethod.java:190)
+	at org.springframework.web.method.support.InvocableHandlerMethod.invokeForRequest(InvocableHandlerMethod.java:138)
+	at org.springframework.web.servlet.mvc.method.annotation.ServletInvocableHandlerMethod.invokeAndHandle(ServletInvocableHandlerMethod.java:106)
+	at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.invokeHandlerMethod(RequestMappingHandlerAdapter.java:888)
+	at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.handleInternal(RequestMappingHandlerAdapter.java:793)
+	at org.springframework.web.servlet.mvc.method.AbstractHandlerMethodAdapter.handle(AbstractHandlerMethodAdapter.java:87)
+	at org.springframework.web.servlet.DispatcherServlet.doDispatch(DispatcherServlet.java:1040)
+	at org.springframework.web.servlet.DispatcherServlet.doService(DispatcherServlet.java:943)
+	at org.springframework.web.servlet.FrameworkServlet.processRequest(FrameworkServlet.java:1006)
+	at org.springframework.web.servlet.FrameworkServlet.doPost(FrameworkServlet.java:909)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:660)
+	at org.springframework.web.servlet.FrameworkServlet.service(FrameworkServlet.java:883)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:741)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:231)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166)
+	at org.apache.tomcat.websocket.server.WsFilter.doFilter(WsFilter.java:53)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166)
+	at org.springframework.web.filter.CorsFilter.doFilterInternal(CorsFilter.java:92)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:119)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166)
+	at org.springframework.web.filter.RequestContextFilter.doFilterInternal(RequestContextFilter.java:100)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:119)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166)
+	at org.springframework.web.filter.FormContentFilter.doFilterInternal(FormContentFilter.java:93)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:119)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166)
+	at org.springframework.web.filter.CharacterEncodingFilter.doFilterInternal(CharacterEncodingFilter.java:201)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:119)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166)
+	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:202)
+	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:96)
+	at org.apache.catalina.authenticator.AuthenticatorBase.invoke(AuthenticatorBase.java:541)
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:139)
+	at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:92)
+	at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:74)
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:343)
+	at org.apache.coyote.http11.Http11Processor.service(Http11Processor.java:367)
+	at org.apache.coyote.AbstractProcessorLight.process(AbstractProcessorLight.java:65)
+	at org.apache.coyote.AbstractProtocol$ConnectionHandler.process(AbstractProtocol.java:860)
+	at org.apache.tomcat.util.net.NioEndpoint$SocketProcessor.doRun(NioEndpoint.java:1598)
+	at org.apache.tomcat.util.net.SocketProcessorBase.run(SocketProcessorBase.java:49)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1149)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:624)
+	at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:61)
+	at java.lang.Thread.run(Thread.java:750)
+[2023-03-12 20:25:29.778] [http-nio-8080-exec-7] ERROR o.e.e.GlobalControllerExceptionHandler : syntax error, expect {, actual [, fieldName variableMatrixData, pos 194, json : {
+        "variableMatrixList": {"1": "", "2": "F1", "3": "LIC1", "4": "L1", "5": "P1", "6": "T1", "7": "TIC2", "8": "F2", "9": "LIC2", "10": "V1", "11": "PIC1"},
+        "variableMatrixData": [
+            {"1": "F1", "2": "", "3": "", "4": "+", "5": "","6":"","7":"", "8": "", "9": "","10":"","11":""},
+            {"1": "LIC1", "2": "+", "3": "", "4": "", "5": "","6":"","7":"", "8": "", "9": "","10":"","11":""},
+            {"1": "L1", "2": "", "3": "", "4": "", "5": "","6":"","7":"", "8": "", "9": "","10":"","11":""},
+            {"1": "P1", "2": "+", "3": "", "4": "", "5": "","6":"","7":"", "8": "", "9": "","10":"","11":""},
+            {"1": "T1", "2": "", "3": "", "4": "", "5": "","6":"","7":"", "8": "", "9": "","10":"","11":""},
+            {"1": "TIC2", "2": "", "3": "", "4": "", "5": "+","6":"","7":"", "8": "", "9": "","10":"","11":""},
+            {"1": "F2", "2": "", "3": "", "4": "-", "5": "","6":"","7":"", "8": "", "9": "","10":"","11":""},
+            {"1": "LIC2", "2": "", "3": "", "4": "", "5": "","6":"","7":"", "8": "", "9": "","10":"","11":""},
+            {"1": "V1", "2": "", "3": "", "4": "", "5": "","6":"","7":"", "8": "+", "9": "","10":"","11":""},
+            {"1": "PIC1", "2": "", "3": "", "4": "", "5": "+","6":"","7":"", "8": "", "9": "","10":"","11":""}
+        ]
+    }
+com.alibaba.fastjson.JSONException: syntax error, expect {, actual [, fieldName variableMatrixData, pos 194, json : {
+        "variableMatrixList": {"1": "", "2": "F1", "3": "LIC1", "4": "L1", "5": "P1", "6": "T1", "7": "TIC2", "8": "F2", "9": "LIC2", "10": "V1", "11": "PIC1"},
+        "variableMatrixData": [
+            {"1": "F1", "2": "", "3": "", "4": "+", "5": "","6":"","7":"", "8": "", "9": "","10":"","11":""},
+            {"1": "LIC1", "2": "+", "3": "", "4": "", "5": "","6":"","7":"", "8": "", "9": "","10":"","11":""},
+            {"1": "L1", "2": "", "3": "", "4": "", "5": "","6":"","7":"", "8": "", "9": "","10":"","11":""},
+            {"1": "P1", "2": "+", "3": "", "4": "", "5": "","6":"","7":"", "8": "", "9": "","10":"","11":""},
+            {"1": "T1", "2": "", "3": "", "4": "", "5": "","6":"","7":"", "8": "", "9": "","10":"","11":""},
+            {"1": "TIC2", "2": "", "3": "", "4": "", "5": "+","6":"","7":"", "8": "", "9": "","10":"","11":""},
+            {"1": "F2", "2": "", "3": "", "4": "-", "5": "","6":"","7":"", "8": "", "9": "","10":"","11":""},
+            {"1": "LIC2", "2": "", "3": "", "4": "", "5": "","6":"","7":"", "8": "", "9": "","10":"","11":""},
+            {"1": "V1", "2": "", "3": "", "4": "", "5": "","6":"","7":"", "8": "+", "9": "","10":"","11":""},
+            {"1": "PIC1", "2": "", "3": "", "4": "", "5": "+","6":"","7":"", "8": "", "9": "","10":"","11":""}
+        ]
+    }
+	at com.alibaba.fastjson.parser.deserializer.MapDeserializer.parseMap(MapDeserializer.java:94)
+	at com.alibaba.fastjson.parser.deserializer.MapDeserializer.deserialze(MapDeserializer.java:59)
+	at com.alibaba.fastjson.parser.deserializer.MapDeserializer.deserialze(MapDeserializer.java:41)
+	at com.alibaba.fastjson.parser.deserializer.DefaultFieldDeserializer.parseField(DefaultFieldDeserializer.java:80)
+	at com.alibaba.fastjson.parser.deserializer.JavaBeanDeserializer.parseField(JavaBeanDeserializer.java:1061)
+	at com.alibaba.fastjson.parser.deserializer.JavaBeanDeserializer.deserialze(JavaBeanDeserializer.java:756)
+	at com.alibaba.fastjson.parser.deserializer.JavaBeanDeserializer.parseRest(JavaBeanDeserializer.java:1240)
+	at com.alibaba.fastjson.parser.deserializer.FastjsonASMDeserializer_1_VariableMatrix.deserialze(Unknown Source)
+	at com.alibaba.fastjson.parser.deserializer.JavaBeanDeserializer.deserialze(JavaBeanDeserializer.java:267)
+	at com.alibaba.fastjson.parser.DefaultJSONParser.parseObject(DefaultJSONParser.java:640)
+	at com.alibaba.fastjson.JSON.parseObject(JSON.java:365)
+	at com.alibaba.fastjson.JSON.parseObject(JSON.java:269)
+	at com.alibaba.fastjson.JSON.parseObject(JSON.java:488)
+	at org.example.controller.VariableController.matrix(VariableController.java:108)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:498)
+	at org.springframework.web.method.support.InvocableHandlerMethod.doInvoke(InvocableHandlerMethod.java:190)
+	at org.springframework.web.method.support.InvocableHandlerMethod.invokeForRequest(InvocableHandlerMethod.java:138)
+	at org.springframework.web.servlet.mvc.method.annotation.ServletInvocableHandlerMethod.invokeAndHandle(ServletInvocableHandlerMethod.java:106)
+	at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.invokeHandlerMethod(RequestMappingHandlerAdapter.java:888)
+	at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.handleInternal(RequestMappingHandlerAdapter.java:793)
+	at org.springframework.web.servlet.mvc.method.AbstractHandlerMethodAdapter.handle(AbstractHandlerMethodAdapter.java:87)
+	at org.springframework.web.servlet.DispatcherServlet.doDispatch(DispatcherServlet.java:1040)
+	at org.springframework.web.servlet.DispatcherServlet.doService(DispatcherServlet.java:943)
+	at org.springframework.web.servlet.FrameworkServlet.processRequest(FrameworkServlet.java:1006)
+	at org.springframework.web.servlet.FrameworkServlet.doPost(FrameworkServlet.java:909)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:660)
+	at org.springframework.web.servlet.FrameworkServlet.service(FrameworkServlet.java:883)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:741)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:231)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166)
+	at org.apache.tomcat.websocket.server.WsFilter.doFilter(WsFilter.java:53)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166)
+	at org.springframework.web.filter.CorsFilter.doFilterInternal(CorsFilter.java:92)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:119)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166)
+	at org.springframework.web.filter.RequestContextFilter.doFilterInternal(RequestContextFilter.java:100)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:119)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166)
+	at org.springframework.web.filter.FormContentFilter.doFilterInternal(FormContentFilter.java:93)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:119)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166)
+	at org.springframework.web.filter.CharacterEncodingFilter.doFilterInternal(CharacterEncodingFilter.java:201)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:119)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166)
+	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:202)
+	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:96)
+	at org.apache.catalina.authenticator.AuthenticatorBase.invoke(AuthenticatorBase.java:541)
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:139)
+	at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:92)
+	at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:74)
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:343)
+	at org.apache.coyote.http11.Http11Processor.service(Http11Processor.java:367)
+	at org.apache.coyote.AbstractProcessorLight.process(AbstractProcessorLight.java:65)
+	at org.apache.coyote.AbstractProtocol$ConnectionHandler.process(AbstractProtocol.java:860)
+	at org.apache.tomcat.util.net.NioEndpoint$SocketProcessor.doRun(NioEndpoint.java:1598)
+	at org.apache.tomcat.util.net.SocketProcessorBase.run(SocketProcessorBase.java:49)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1149)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:624)
+	at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:61)
+	at java.lang.Thread.run(Thread.java:750)
+[2023-03-12 20:33:49.136] [http-nio-8080-exec-7] ERROR o.e.e.GlobalControllerExceptionHandler : syntax error, expect {, actual [, fieldName variableMatrixData, pos 194, json : {
+        "variableMatrixList": {"1": "", "2": "F1", "3": "LIC1", "4": "L1", "5": "P1", "6": "T1", "7": "TIC2", "8": "F2", "9": "LIC2", "10": "V1", "11": "PIC1"},
+        "variableMatrixData": [
+            {"1": "F1", "2": "", "3": "", "4": "+", "5": "","6":"","7":"", "8": "", "9": "","10":"","11":""},
+            {"1": "LIC1", "2": "+", "3": "", "4": "", "5": "","6":"","7":"", "8": "", "9": "","10":"","11":""},
+            {"1": "L1", "2": "", "3": "", "4": "", "5": "","6":"","7":"", "8": "", "9": "","10":"","11":""},
+            {"1": "P1", "2": "+", "3": "", "4": "", "5": "","6":"","7":"", "8": "", "9": "","10":"","11":""},
+            {"1": "T1", "2": "", "3": "", "4": "", "5": "","6":"","7":"", "8": "", "9": "","10":"","11":""},
+            {"1": "TIC2", "2": "", "3": "", "4": "", "5": "+","6":"","7":"", "8": "", "9": "","10":"","11":""},
+            {"1": "F2", "2": "", "3": "", "4": "-", "5": "","6":"","7":"", "8": "", "9": "","10":"","11":""},
+            {"1": "LIC2", "2": "", "3": "", "4": "", "5": "","6":"","7":"", "8": "", "9": "","10":"","11":""},
+            {"1": "V1", "2": "", "3": "", "4": "", "5": "","6":"","7":"", "8": "+", "9": "","10":"","11":""},
+            {"1": "PIC1", "2": "", "3": "", "4": "", "5": "+","6":"","7":"", "8": "", "9": "","10":"","11":""}
+        ]
+    }
+com.alibaba.fastjson.JSONException: syntax error, expect {, actual [, fieldName variableMatrixData, pos 194, json : {
+        "variableMatrixList": {"1": "", "2": "F1", "3": "LIC1", "4": "L1", "5": "P1", "6": "T1", "7": "TIC2", "8": "F2", "9": "LIC2", "10": "V1", "11": "PIC1"},
+        "variableMatrixData": [
+            {"1": "F1", "2": "", "3": "", "4": "+", "5": "","6":"","7":"", "8": "", "9": "","10":"","11":""},
+            {"1": "LIC1", "2": "+", "3": "", "4": "", "5": "","6":"","7":"", "8": "", "9": "","10":"","11":""},
+            {"1": "L1", "2": "", "3": "", "4": "", "5": "","6":"","7":"", "8": "", "9": "","10":"","11":""},
+            {"1": "P1", "2": "+", "3": "", "4": "", "5": "","6":"","7":"", "8": "", "9": "","10":"","11":""},
+            {"1": "T1", "2": "", "3": "", "4": "", "5": "","6":"","7":"", "8": "", "9": "","10":"","11":""},
+            {"1": "TIC2", "2": "", "3": "", "4": "", "5": "+","6":"","7":"", "8": "", "9": "","10":"","11":""},
+            {"1": "F2", "2": "", "3": "", "4": "-", "5": "","6":"","7":"", "8": "", "9": "","10":"","11":""},
+            {"1": "LIC2", "2": "", "3": "", "4": "", "5": "","6":"","7":"", "8": "", "9": "","10":"","11":""},
+            {"1": "V1", "2": "", "3": "", "4": "", "5": "","6":"","7":"", "8": "+", "9": "","10":"","11":""},
+            {"1": "PIC1", "2": "", "3": "", "4": "", "5": "+","6":"","7":"", "8": "", "9": "","10":"","11":""}
+        ]
+    }
+	at com.alibaba.fastjson.parser.deserializer.MapDeserializer.parseMap(MapDeserializer.java:94)
+	at com.alibaba.fastjson.parser.deserializer.MapDeserializer.deserialze(MapDeserializer.java:59)
+	at com.alibaba.fastjson.parser.deserializer.MapDeserializer.deserialze(MapDeserializer.java:41)
+	at com.alibaba.fastjson.parser.deserializer.DefaultFieldDeserializer.parseField(DefaultFieldDeserializer.java:80)
+	at com.alibaba.fastjson.parser.deserializer.JavaBeanDeserializer.deserialze(JavaBeanDeserializer.java:728)
+	at com.alibaba.fastjson.parser.deserializer.JavaBeanDeserializer.parseRest(JavaBeanDeserializer.java:1240)
+	at com.alibaba.fastjson.parser.deserializer.FastjsonASMDeserializer_4_VariableMatrix.deserialze(Unknown Source)
+	at com.alibaba.fastjson.parser.deserializer.JavaBeanDeserializer.deserialze(JavaBeanDeserializer.java:267)
+	at com.alibaba.fastjson.parser.DefaultJSONParser.parseObject(DefaultJSONParser.java:640)
+	at com.alibaba.fastjson.JSON.parseObject(JSON.java:365)
+	at com.alibaba.fastjson.JSON.parseObject(JSON.java:269)
+	at com.alibaba.fastjson.JSON.parseObject(JSON.java:488)
+	at org.example.controller.VariableController.matrix(VariableController.java:108)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:498)
+	at org.springframework.web.method.support.InvocableHandlerMethod.doInvoke(InvocableHandlerMethod.java:190)
+	at org.springframework.web.method.support.InvocableHandlerMethod.invokeForRequest(InvocableHandlerMethod.java:138)
+	at org.springframework.web.servlet.mvc.method.annotation.ServletInvocableHandlerMethod.invokeAndHandle(ServletInvocableHandlerMethod.java:106)
+	at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.invokeHandlerMethod(RequestMappingHandlerAdapter.java:888)
+	at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.handleInternal(RequestMappingHandlerAdapter.java:793)
+	at org.springframework.web.servlet.mvc.method.AbstractHandlerMethodAdapter.handle(AbstractHandlerMethodAdapter.java:87)
+	at org.springframework.web.servlet.DispatcherServlet.doDispatch(DispatcherServlet.java:1040)
+	at org.springframework.web.servlet.DispatcherServlet.doService(DispatcherServlet.java:943)
+	at org.springframework.web.servlet.FrameworkServlet.processRequest(FrameworkServlet.java:1006)
+	at org.springframework.web.servlet.FrameworkServlet.doPost(FrameworkServlet.java:909)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:660)
+	at org.springframework.web.servlet.FrameworkServlet.service(FrameworkServlet.java:883)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:741)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:231)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166)
+	at org.apache.tomcat.websocket.server.WsFilter.doFilter(WsFilter.java:53)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166)
+	at org.springframework.web.filter.CorsFilter.doFilterInternal(CorsFilter.java:92)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:119)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166)
+	at org.springframework.web.filter.RequestContextFilter.doFilterInternal(RequestContextFilter.java:100)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:119)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166)
+	at org.springframework.web.filter.FormContentFilter.doFilterInternal(FormContentFilter.java:93)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:119)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166)
+	at org.springframework.web.filter.CharacterEncodingFilter.doFilterInternal(CharacterEncodingFilter.java:201)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:119)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166)
+	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:202)
+	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:96)
+	at org.apache.catalina.authenticator.AuthenticatorBase.invoke(AuthenticatorBase.java:541)
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:139)
+	at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:92)
+	at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:74)
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:343)
+	at org.apache.coyote.http11.Http11Processor.service(Http11Processor.java:367)
+	at org.apache.coyote.AbstractProcessorLight.process(AbstractProcessorLight.java:65)
+	at org.apache.coyote.AbstractProtocol$ConnectionHandler.process(AbstractProtocol.java:860)
+	at org.apache.tomcat.util.net.NioEndpoint$SocketProcessor.doRun(NioEndpoint.java:1598)
+	at org.apache.tomcat.util.net.SocketProcessorBase.run(SocketProcessorBase.java:49)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1149)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:624)
+	at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:61)
+	at java.lang.Thread.run(Thread.java:750)
+[2023-03-12 20:44:37.222] [http-nio-8080-exec-4] ERROR o.e.e.GlobalControllerExceptionHandler : syntax error, expect {, actual [, fieldName variableMatrixData, pos 194, json : {
+        "variableMatrixList": {"1": "", "2": "F1", "3": "LIC1", "4": "L1", "5": "P1", "6": "T1", "7": "TIC2", "8": "F2", "9": "LIC2", "10": "V1", "11": "PIC1"},
+        "variableMatrixData": [
+            {"1": "F1", "2": "", "3": "", "4": "+", "5": "","6":"","7":"", "8": "", "9": "","10":"","11":""},
+            {"1": "LIC1", "2": "+", "3": "", "4": "", "5": "","6":"","7":"", "8": "", "9": "","10":"","11":""},
+            {"1": "L1", "2": "", "3": "", "4": "", "5": "","6":"","7":"", "8": "", "9": "","10":"","11":""},
+            {"1": "P1", "2": "+", "3": "", "4": "", "5": "","6":"","7":"", "8": "", "9": "","10":"","11":""},
+            {"1": "T1", "2": "", "3": "", "4": "", "5": "","6":"","7":"", "8": "", "9": "","10":"","11":""},
+            {"1": "TIC2", "2": "", "3": "", "4": "", "5": "+","6":"","7":"", "8": "", "9": "","10":"","11":""},
+            {"1": "F2", "2": "", "3": "", "4": "-", "5": "","6":"","7":"", "8": "", "9": "","10":"","11":""},
+            {"1": "LIC2", "2": "", "3": "", "4": "", "5": "","6":"","7":"", "8": "", "9": "","10":"","11":""},
+            {"1": "V1", "2": "", "3": "", "4": "", "5": "","6":"","7":"", "8": "+", "9": "","10":"","11":""},
+            {"1": "PIC1", "2": "", "3": "", "4": "", "5": "+","6":"","7":"", "8": "", "9": "","10":"","11":""}
+        ]
+    }
+com.alibaba.fastjson.JSONException: syntax error, expect {, actual [, fieldName variableMatrixData, pos 194, json : {
+        "variableMatrixList": {"1": "", "2": "F1", "3": "LIC1", "4": "L1", "5": "P1", "6": "T1", "7": "TIC2", "8": "F2", "9": "LIC2", "10": "V1", "11": "PIC1"},
+        "variableMatrixData": [
+            {"1": "F1", "2": "", "3": "", "4": "+", "5": "","6":"","7":"", "8": "", "9": "","10":"","11":""},
+            {"1": "LIC1", "2": "+", "3": "", "4": "", "5": "","6":"","7":"", "8": "", "9": "","10":"","11":""},
+            {"1": "L1", "2": "", "3": "", "4": "", "5": "","6":"","7":"", "8": "", "9": "","10":"","11":""},
+            {"1": "P1", "2": "+", "3": "", "4": "", "5": "","6":"","7":"", "8": "", "9": "","10":"","11":""},
+            {"1": "T1", "2": "", "3": "", "4": "", "5": "","6":"","7":"", "8": "", "9": "","10":"","11":""},
+            {"1": "TIC2", "2": "", "3": "", "4": "", "5": "+","6":"","7":"", "8": "", "9": "","10":"","11":""},
+            {"1": "F2", "2": "", "3": "", "4": "-", "5": "","6":"","7":"", "8": "", "9": "","10":"","11":""},
+            {"1": "LIC2", "2": "", "3": "", "4": "", "5": "","6":"","7":"", "8": "", "9": "","10":"","11":""},
+            {"1": "V1", "2": "", "3": "", "4": "", "5": "","6":"","7":"", "8": "+", "9": "","10":"","11":""},
+            {"1": "PIC1", "2": "", "3": "", "4": "", "5": "+","6":"","7":"", "8": "", "9": "","10":"","11":""}
+        ]
+    }
+	at com.alibaba.fastjson.parser.deserializer.MapDeserializer.parseMap(MapDeserializer.java:94)
+	at com.alibaba.fastjson.parser.deserializer.MapDeserializer.deserialze(MapDeserializer.java:59)
+	at com.alibaba.fastjson.parser.deserializer.MapDeserializer.deserialze(MapDeserializer.java:41)
+	at com.alibaba.fastjson.parser.deserializer.DefaultFieldDeserializer.parseField(DefaultFieldDeserializer.java:80)
+	at com.alibaba.fastjson.parser.deserializer.JavaBeanDeserializer.deserialze(JavaBeanDeserializer.java:728)
+	at com.alibaba.fastjson.parser.deserializer.JavaBeanDeserializer.parseRest(JavaBeanDeserializer.java:1240)
+	at com.alibaba.fastjson.parser.deserializer.FastjsonASMDeserializer_1_VariableMatrix.deserialze(Unknown Source)
+	at com.alibaba.fastjson.parser.deserializer.JavaBeanDeserializer.deserialze(JavaBeanDeserializer.java:267)
+	at com.alibaba.fastjson.parser.DefaultJSONParser.parseObject(DefaultJSONParser.java:640)
+	at com.alibaba.fastjson.JSON.parseObject(JSON.java:365)
+	at com.alibaba.fastjson.JSON.parseObject(JSON.java:269)
+	at com.alibaba.fastjson.JSON.parseObject(JSON.java:488)
+	at org.example.controller.VariableController.matrix(VariableController.java:108)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:498)
+	at org.springframework.web.method.support.InvocableHandlerMethod.doInvoke(InvocableHandlerMethod.java:190)
+	at org.springframework.web.method.support.InvocableHandlerMethod.invokeForRequest(InvocableHandlerMethod.java:138)
+	at org.springframework.web.servlet.mvc.method.annotation.ServletInvocableHandlerMethod.invokeAndHandle(ServletInvocableHandlerMethod.java:106)
+	at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.invokeHandlerMethod(RequestMappingHandlerAdapter.java:888)
+	at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.handleInternal(RequestMappingHandlerAdapter.java:793)
+	at org.springframework.web.servlet.mvc.method.AbstractHandlerMethodAdapter.handle(AbstractHandlerMethodAdapter.java:87)
+	at org.springframework.web.servlet.DispatcherServlet.doDispatch(DispatcherServlet.java:1040)
+	at org.springframework.web.servlet.DispatcherServlet.doService(DispatcherServlet.java:943)
+	at org.springframework.web.servlet.FrameworkServlet.processRequest(FrameworkServlet.java:1006)
+	at org.springframework.web.servlet.FrameworkServlet.doPost(FrameworkServlet.java:909)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:660)
+	at org.springframework.web.servlet.FrameworkServlet.service(FrameworkServlet.java:883)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:741)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:231)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166)
+	at org.apache.tomcat.websocket.server.WsFilter.doFilter(WsFilter.java:53)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166)
+	at org.springframework.web.filter.CorsFilter.doFilterInternal(CorsFilter.java:92)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:119)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166)
+	at org.springframework.web.filter.RequestContextFilter.doFilterInternal(RequestContextFilter.java:100)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:119)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166)
+	at org.springframework.web.filter.FormContentFilter.doFilterInternal(FormContentFilter.java:93)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:119)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166)
+	at org.springframework.web.filter.CharacterEncodingFilter.doFilterInternal(CharacterEncodingFilter.java:201)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:119)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166)
+	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:202)
+	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:96)
+	at org.apache.catalina.authenticator.AuthenticatorBase.invoke(AuthenticatorBase.java:541)
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:139)
+	at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:92)
+	at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:74)
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:343)
+	at org.apache.coyote.http11.Http11Processor.service(Http11Processor.java:367)
+	at org.apache.coyote.AbstractProcessorLight.process(AbstractProcessorLight.java:65)
+	at org.apache.coyote.AbstractProtocol$ConnectionHandler.process(AbstractProtocol.java:860)
+	at org.apache.tomcat.util.net.NioEndpoint$SocketProcessor.doRun(NioEndpoint.java:1598)
+	at org.apache.tomcat.util.net.SocketProcessorBase.run(SocketProcessorBase.java:49)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1149)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:624)
+	at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:61)
+	at java.lang.Thread.run(Thread.java:750)
+[2023-03-12 20:48:36.773] [http-nio-8080-exec-4] ERROR o.e.e.GlobalControllerExceptionHandler : syntax error, expect {, actual [, fieldName variableMatrixData, pos 194, json : {
+        "variableMatrixList": {"1": "", "2": "F1", "3": "LIC1", "4": "L1", "5": "P1", "6": "T1", "7": "TIC2", "8": "F2", "9": "LIC2", "10": "V1", "11": "PIC1"},
+        "variableMatrixData": [
+            {"1": "F1", "2": "", "3": "", "4": "+", "5": "","6":"","7":"", "8": "", "9": "","10":"","11":""},
+            {"1": "LIC1", "2": "+", "3": "", "4": "", "5": "","6":"","7":"", "8": "", "9": "","10":"","11":""},
+            {"1": "L1", "2": "", "3": "", "4": "", "5": "","6":"","7":"", "8": "", "9": "","10":"","11":""},
+            {"1": "P1", "2": "+", "3": "", "4": "", "5": "","6":"","7":"", "8": "", "9": "","10":"","11":""},
+            {"1": "T1", "2": "", "3": "", "4": "", "5": "","6":"","7":"", "8": "", "9": "","10":"","11":""},
+            {"1": "TIC2", "2": "", "3": "", "4": "", "5": "+","6":"","7":"", "8": "", "9": "","10":"","11":""},
+            {"1": "F2", "2": "", "3": "", "4": "-", "5": "","6":"","7":"", "8": "", "9": "","10":"","11":""},
+            {"1": "LIC2", "2": "", "3": "", "4": "", "5": "","6":"","7":"", "8": "", "9": "","10":"","11":""},
+            {"1": "V1", "2": "", "3": "", "4": "", "5": "","6":"","7":"", "8": "+", "9": "","10":"","11":""},
+            {"1": "PIC1", "2": "", "3": "", "4": "", "5": "+","6":"","7":"", "8": "", "9": "","10":"","11":""}
+        ]
+    }
+com.alibaba.fastjson.JSONException: syntax error, expect {, actual [, fieldName variableMatrixData, pos 194, json : {
+        "variableMatrixList": {"1": "", "2": "F1", "3": "LIC1", "4": "L1", "5": "P1", "6": "T1", "7": "TIC2", "8": "F2", "9": "LIC2", "10": "V1", "11": "PIC1"},
+        "variableMatrixData": [
+            {"1": "F1", "2": "", "3": "", "4": "+", "5": "","6":"","7":"", "8": "", "9": "","10":"","11":""},
+            {"1": "LIC1", "2": "+", "3": "", "4": "", "5": "","6":"","7":"", "8": "", "9": "","10":"","11":""},
+            {"1": "L1", "2": "", "3": "", "4": "", "5": "","6":"","7":"", "8": "", "9": "","10":"","11":""},
+            {"1": "P1", "2": "+", "3": "", "4": "", "5": "","6":"","7":"", "8": "", "9": "","10":"","11":""},
+            {"1": "T1", "2": "", "3": "", "4": "", "5": "","6":"","7":"", "8": "", "9": "","10":"","11":""},
+            {"1": "TIC2", "2": "", "3": "", "4": "", "5": "+","6":"","7":"", "8": "", "9": "","10":"","11":""},
+            {"1": "F2", "2": "", "3": "", "4": "-", "5": "","6":"","7":"", "8": "", "9": "","10":"","11":""},
+            {"1": "LIC2", "2": "", "3": "", "4": "", "5": "","6":"","7":"", "8": "", "9": "","10":"","11":""},
+            {"1": "V1", "2": "", "3": "", "4": "", "5": "","6":"","7":"", "8": "+", "9": "","10":"","11":""},
+            {"1": "PIC1", "2": "", "3": "", "4": "", "5": "+","6":"","7":"", "8": "", "9": "","10":"","11":""}
+        ]
+    }
+	at com.alibaba.fastjson.parser.deserializer.MapDeserializer.parseMap(MapDeserializer.java:94)
+	at com.alibaba.fastjson.parser.deserializer.MapDeserializer.deserialze(MapDeserializer.java:59)
+	at com.alibaba.fastjson.parser.deserializer.MapDeserializer.deserialze(MapDeserializer.java:41)
+	at com.alibaba.fastjson.parser.deserializer.DefaultFieldDeserializer.parseField(DefaultFieldDeserializer.java:80)
+	at com.alibaba.fastjson.parser.deserializer.JavaBeanDeserializer.deserialze(JavaBeanDeserializer.java:728)
+	at com.alibaba.fastjson.parser.deserializer.JavaBeanDeserializer.parseRest(JavaBeanDeserializer.java:1240)
+	at com.alibaba.fastjson.parser.deserializer.FastjsonASMDeserializer_4_VariableMatrix.deserialze(Unknown Source)
+	at com.alibaba.fastjson.parser.deserializer.JavaBeanDeserializer.deserialze(JavaBeanDeserializer.java:267)
+	at com.alibaba.fastjson.parser.DefaultJSONParser.parseObject(DefaultJSONParser.java:640)
+	at com.alibaba.fastjson.JSON.parseObject(JSON.java:365)
+	at com.alibaba.fastjson.JSON.parseObject(JSON.java:269)
+	at com.alibaba.fastjson.JSON.parseObject(JSON.java:488)
+	at org.example.controller.VariableController.matrix(VariableController.java:108)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:498)
+	at org.springframework.web.method.support.InvocableHandlerMethod.doInvoke(InvocableHandlerMethod.java:190)
+	at org.springframework.web.method.support.InvocableHandlerMethod.invokeForRequest(InvocableHandlerMethod.java:138)
+	at org.springframework.web.servlet.mvc.method.annotation.ServletInvocableHandlerMethod.invokeAndHandle(ServletInvocableHandlerMethod.java:106)
+	at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.invokeHandlerMethod(RequestMappingHandlerAdapter.java:888)
+	at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.handleInternal(RequestMappingHandlerAdapter.java:793)
+	at org.springframework.web.servlet.mvc.method.AbstractHandlerMethodAdapter.handle(AbstractHandlerMethodAdapter.java:87)
+	at org.springframework.web.servlet.DispatcherServlet.doDispatch(DispatcherServlet.java:1040)
+	at org.springframework.web.servlet.DispatcherServlet.doService(DispatcherServlet.java:943)
+	at org.springframework.web.servlet.FrameworkServlet.processRequest(FrameworkServlet.java:1006)
+	at org.springframework.web.servlet.FrameworkServlet.doPost(FrameworkServlet.java:909)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:660)
+	at org.springframework.web.servlet.FrameworkServlet.service(FrameworkServlet.java:883)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:741)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:231)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166)
+	at org.apache.tomcat.websocket.server.WsFilter.doFilter(WsFilter.java:53)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166)
+	at org.springframework.web.filter.CorsFilter.doFilterInternal(CorsFilter.java:92)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:119)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166)
+	at org.springframework.web.filter.RequestContextFilter.doFilterInternal(RequestContextFilter.java:100)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:119)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166)
+	at org.springframework.web.filter.FormContentFilter.doFilterInternal(FormContentFilter.java:93)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:119)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166)
+	at org.springframework.web.filter.CharacterEncodingFilter.doFilterInternal(CharacterEncodingFilter.java:201)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:119)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166)
+	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:202)
+	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:96)
+	at org.apache.catalina.authenticator.AuthenticatorBase.invoke(AuthenticatorBase.java:541)
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:139)
+	at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:92)
+	at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:74)
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:343)
+	at org.apache.coyote.http11.Http11Processor.service(Http11Processor.java:367)
+	at org.apache.coyote.AbstractProcessorLight.process(AbstractProcessorLight.java:65)
+	at org.apache.coyote.AbstractProtocol$ConnectionHandler.process(AbstractProtocol.java:860)
+	at org.apache.tomcat.util.net.NioEndpoint$SocketProcessor.doRun(NioEndpoint.java:1598)
+	at org.apache.tomcat.util.net.SocketProcessorBase.run(SocketProcessorBase.java:49)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1149)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:624)
+	at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:61)
+	at java.lang.Thread.run(Thread.java:750)
+[2023-03-12 20:58:41.648] [http-nio-8080-exec-5] ERROR o.e.e.GlobalControllerExceptionHandler : syntax error, expect {, actual [, fieldName variableMatrixData, pos 194, json : {
+        "variableMatrixList": {"1": "", "2": "F1", "3": "LIC1", "4": "L1", "5": "P1", "6": "T1", "7": "TIC2", "8": "F2", "9": "LIC2", "10": "V1", "11": "PIC1"},
+        "variableMatrixData": [
+            {"1": "F1", "2": "", "3": "", "4": "+", "5": "","6":"","7":"", "8": "", "9": "","10":"","11":""},
+            {"1": "LIC1", "2": "+", "3": "", "4": "", "5": "","6":"","7":"", "8": "", "9": "","10":"","11":""},
+            {"1": "L1", "2": "", "3": "", "4": "", "5": "","6":"","7":"", "8": "", "9": "","10":"","11":""},
+            {"1": "P1", "2": "+", "3": "", "4": "", "5": "","6":"","7":"", "8": "", "9": "","10":"","11":""},
+            {"1": "T1", "2": "", "3": "", "4": "", "5": "","6":"","7":"", "8": "", "9": "","10":"","11":""},
+            {"1": "TIC2", "2": "", "3": "", "4": "", "5": "+","6":"","7":"", "8": "", "9": "","10":"","11":""},
+            {"1": "F2", "2": "", "3": "", "4": "-", "5": "","6":"","7":"", "8": "", "9": "","10":"","11":""},
+            {"1": "LIC2", "2": "", "3": "", "4": "", "5": "","6":"","7":"", "8": "", "9": "","10":"","11":""},
+            {"1": "V1", "2": "", "3": "", "4": "", "5": "","6":"","7":"", "8": "+", "9": "","10":"","11":""},
+            {"1": "PIC1", "2": "", "3": "", "4": "", "5": "+","6":"","7":"", "8": "", "9": "","10":"","11":""}
+        ]
+    }
+com.alibaba.fastjson.JSONException: syntax error, expect {, actual [, fieldName variableMatrixData, pos 194, json : {
+        "variableMatrixList": {"1": "", "2": "F1", "3": "LIC1", "4": "L1", "5": "P1", "6": "T1", "7": "TIC2", "8": "F2", "9": "LIC2", "10": "V1", "11": "PIC1"},
+        "variableMatrixData": [
+            {"1": "F1", "2": "", "3": "", "4": "+", "5": "","6":"","7":"", "8": "", "9": "","10":"","11":""},
+            {"1": "LIC1", "2": "+", "3": "", "4": "", "5": "","6":"","7":"", "8": "", "9": "","10":"","11":""},
+            {"1": "L1", "2": "", "3": "", "4": "", "5": "","6":"","7":"", "8": "", "9": "","10":"","11":""},
+            {"1": "P1", "2": "+", "3": "", "4": "", "5": "","6":"","7":"", "8": "", "9": "","10":"","11":""},
+            {"1": "T1", "2": "", "3": "", "4": "", "5": "","6":"","7":"", "8": "", "9": "","10":"","11":""},
+            {"1": "TIC2", "2": "", "3": "", "4": "", "5": "+","6":"","7":"", "8": "", "9": "","10":"","11":""},
+            {"1": "F2", "2": "", "3": "", "4": "-", "5": "","6":"","7":"", "8": "", "9": "","10":"","11":""},
+            {"1": "LIC2", "2": "", "3": "", "4": "", "5": "","6":"","7":"", "8": "", "9": "","10":"","11":""},
+            {"1": "V1", "2": "", "3": "", "4": "", "5": "","6":"","7":"", "8": "+", "9": "","10":"","11":""},
+            {"1": "PIC1", "2": "", "3": "", "4": "", "5": "+","6":"","7":"", "8": "", "9": "","10":"","11":""}
+        ]
+    }
+	at com.alibaba.fastjson.parser.deserializer.MapDeserializer.parseMap(MapDeserializer.java:94)
+	at com.alibaba.fastjson.parser.deserializer.MapDeserializer.deserialze(MapDeserializer.java:59)
+	at com.alibaba.fastjson.parser.deserializer.MapDeserializer.deserialze(MapDeserializer.java:41)
+	at com.alibaba.fastjson.parser.deserializer.DefaultFieldDeserializer.parseField(DefaultFieldDeserializer.java:80)
+	at com.alibaba.fastjson.parser.deserializer.JavaBeanDeserializer.deserialze(JavaBeanDeserializer.java:728)
+	at com.alibaba.fastjson.parser.deserializer.JavaBeanDeserializer.parseRest(JavaBeanDeserializer.java:1240)
+	at com.alibaba.fastjson.parser.deserializer.FastjsonASMDeserializer_1_VariableMatrix.deserialze(Unknown Source)
+	at com.alibaba.fastjson.parser.deserializer.JavaBeanDeserializer.deserialze(JavaBeanDeserializer.java:267)
+	at com.alibaba.fastjson.parser.DefaultJSONParser.parseObject(DefaultJSONParser.java:640)
+	at com.alibaba.fastjson.JSON.parseObject(JSON.java:365)
+	at com.alibaba.fastjson.JSON.parseObject(JSON.java:269)
+	at com.alibaba.fastjson.JSON.parseObject(JSON.java:488)
+	at org.example.controller.VariableController.matrix(VariableController.java:108)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:498)
+	at org.springframework.web.method.support.InvocableHandlerMethod.doInvoke(InvocableHandlerMethod.java:190)
+	at org.springframework.web.method.support.InvocableHandlerMethod.invokeForRequest(InvocableHandlerMethod.java:138)
+	at org.springframework.web.servlet.mvc.method.annotation.ServletInvocableHandlerMethod.invokeAndHandle(ServletInvocableHandlerMethod.java:106)
+	at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.invokeHandlerMethod(RequestMappingHandlerAdapter.java:888)
+	at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.handleInternal(RequestMappingHandlerAdapter.java:793)
+	at org.springframework.web.servlet.mvc.method.AbstractHandlerMethodAdapter.handle(AbstractHandlerMethodAdapter.java:87)
+	at org.springframework.web.servlet.DispatcherServlet.doDispatch(DispatcherServlet.java:1040)
+	at org.springframework.web.servlet.DispatcherServlet.doService(DispatcherServlet.java:943)
+	at org.springframework.web.servlet.FrameworkServlet.processRequest(FrameworkServlet.java:1006)
+	at org.springframework.web.servlet.FrameworkServlet.doPost(FrameworkServlet.java:909)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:660)
+	at org.springframework.web.servlet.FrameworkServlet.service(FrameworkServlet.java:883)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:741)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:231)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166)
+	at org.apache.tomcat.websocket.server.WsFilter.doFilter(WsFilter.java:53)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166)
+	at org.springframework.web.filter.CorsFilter.doFilterInternal(CorsFilter.java:92)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:119)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166)
+	at org.springframework.web.filter.RequestContextFilter.doFilterInternal(RequestContextFilter.java:100)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:119)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166)
+	at org.springframework.web.filter.FormContentFilter.doFilterInternal(FormContentFilter.java:93)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:119)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166)
+	at org.springframework.web.filter.CharacterEncodingFilter.doFilterInternal(CharacterEncodingFilter.java:201)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:119)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166)
+	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:202)
+	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:96)
+	at org.apache.catalina.authenticator.AuthenticatorBase.invoke(AuthenticatorBase.java:541)
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:139)
+	at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:92)
+	at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:74)
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:343)
+	at org.apache.coyote.http11.Http11Processor.service(Http11Processor.java:367)
+	at org.apache.coyote.AbstractProcessorLight.process(AbstractProcessorLight.java:65)
+	at org.apache.coyote.AbstractProtocol$ConnectionHandler.process(AbstractProtocol.java:860)
+	at org.apache.tomcat.util.net.NioEndpoint$SocketProcessor.doRun(NioEndpoint.java:1598)
+	at org.apache.tomcat.util.net.SocketProcessorBase.run(SocketProcessorBase.java:49)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1149)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:624)
+	at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:61)
+	at java.lang.Thread.run(Thread.java:750)
+[2023-03-12 20:58:43.426] [http-nio-8080-exec-10] ERROR o.e.e.GlobalControllerExceptionHandler : syntax error, expect {, actual [, fieldName variableMatrixData, pos 194, json : {
+        "variableMatrixList": {"1": "", "2": "F1", "3": "LIC1", "4": "L1", "5": "P1", "6": "T1", "7": "TIC2", "8": "F2", "9": "LIC2", "10": "V1", "11": "PIC1"},
+        "variableMatrixData": [
+            {"1": "F1", "2": "", "3": "", "4": "+", "5": "","6":"","7":"", "8": "", "9": "","10":"","11":""},
+            {"1": "LIC1", "2": "+", "3": "", "4": "", "5": "","6":"","7":"", "8": "", "9": "","10":"","11":""},
+            {"1": "L1", "2": "", "3": "", "4": "", "5": "","6":"","7":"", "8": "", "9": "","10":"","11":""},
+            {"1": "P1", "2": "+", "3": "", "4": "", "5": "","6":"","7":"", "8": "", "9": "","10":"","11":""},
+            {"1": "T1", "2": "", "3": "", "4": "", "5": "","6":"","7":"", "8": "", "9": "","10":"","11":""},
+            {"1": "TIC2", "2": "", "3": "", "4": "", "5": "+","6":"","7":"", "8": "", "9": "","10":"","11":""},
+            {"1": "F2", "2": "", "3": "", "4": "-", "5": "","6":"","7":"", "8": "", "9": "","10":"","11":""},
+            {"1": "LIC2", "2": "", "3": "", "4": "", "5": "","6":"","7":"", "8": "", "9": "","10":"","11":""},
+            {"1": "V1", "2": "", "3": "", "4": "", "5": "","6":"","7":"", "8": "+", "9": "","10":"","11":""},
+            {"1": "PIC1", "2": "", "3": "", "4": "", "5": "+","6":"","7":"", "8": "", "9": "","10":"","11":""}
+        ]
+    }
+com.alibaba.fastjson.JSONException: syntax error, expect {, actual [, fieldName variableMatrixData, pos 194, json : {
+        "variableMatrixList": {"1": "", "2": "F1", "3": "LIC1", "4": "L1", "5": "P1", "6": "T1", "7": "TIC2", "8": "F2", "9": "LIC2", "10": "V1", "11": "PIC1"},
+        "variableMatrixData": [
+            {"1": "F1", "2": "", "3": "", "4": "+", "5": "","6":"","7":"", "8": "", "9": "","10":"","11":""},
+            {"1": "LIC1", "2": "+", "3": "", "4": "", "5": "","6":"","7":"", "8": "", "9": "","10":"","11":""},
+            {"1": "L1", "2": "", "3": "", "4": "", "5": "","6":"","7":"", "8": "", "9": "","10":"","11":""},
+            {"1": "P1", "2": "+", "3": "", "4": "", "5": "","6":"","7":"", "8": "", "9": "","10":"","11":""},
+            {"1": "T1", "2": "", "3": "", "4": "", "5": "","6":"","7":"", "8": "", "9": "","10":"","11":""},
+            {"1": "TIC2", "2": "", "3": "", "4": "", "5": "+","6":"","7":"", "8": "", "9": "","10":"","11":""},
+            {"1": "F2", "2": "", "3": "", "4": "-", "5": "","6":"","7":"", "8": "", "9": "","10":"","11":""},
+            {"1": "LIC2", "2": "", "3": "", "4": "", "5": "","6":"","7":"", "8": "", "9": "","10":"","11":""},
+            {"1": "V1", "2": "", "3": "", "4": "", "5": "","6":"","7":"", "8": "+", "9": "","10":"","11":""},
+            {"1": "PIC1", "2": "", "3": "", "4": "", "5": "+","6":"","7":"", "8": "", "9": "","10":"","11":""}
+        ]
+    }
+	at com.alibaba.fastjson.parser.deserializer.MapDeserializer.parseMap(MapDeserializer.java:94)
+	at com.alibaba.fastjson.parser.deserializer.MapDeserializer.deserialze(MapDeserializer.java:59)
+	at com.alibaba.fastjson.parser.deserializer.MapDeserializer.deserialze(MapDeserializer.java:41)
+	at com.alibaba.fastjson.parser.deserializer.DefaultFieldDeserializer.parseField(DefaultFieldDeserializer.java:80)
+	at com.alibaba.fastjson.parser.deserializer.JavaBeanDeserializer.deserialze(JavaBeanDeserializer.java:728)
+	at com.alibaba.fastjson.parser.deserializer.JavaBeanDeserializer.parseRest(JavaBeanDeserializer.java:1240)
+	at com.alibaba.fastjson.parser.deserializer.FastjsonASMDeserializer_1_VariableMatrix.deserialze(Unknown Source)
+	at com.alibaba.fastjson.parser.deserializer.JavaBeanDeserializer.deserialze(JavaBeanDeserializer.java:267)
+	at com.alibaba.fastjson.parser.DefaultJSONParser.parseObject(DefaultJSONParser.java:640)
+	at com.alibaba.fastjson.JSON.parseObject(JSON.java:365)
+	at com.alibaba.fastjson.JSON.parseObject(JSON.java:269)
+	at com.alibaba.fastjson.JSON.parseObject(JSON.java:488)
+	at org.example.controller.VariableController.matrix(VariableController.java:108)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:498)
+	at org.springframework.web.method.support.InvocableHandlerMethod.doInvoke(InvocableHandlerMethod.java:190)
+	at org.springframework.web.method.support.InvocableHandlerMethod.invokeForRequest(InvocableHandlerMethod.java:138)
+	at org.springframework.web.servlet.mvc.method.annotation.ServletInvocableHandlerMethod.invokeAndHandle(ServletInvocableHandlerMethod.java:106)
+	at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.invokeHandlerMethod(RequestMappingHandlerAdapter.java:888)
+	at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.handleInternal(RequestMappingHandlerAdapter.java:793)
+	at org.springframework.web.servlet.mvc.method.AbstractHandlerMethodAdapter.handle(AbstractHandlerMethodAdapter.java:87)
+	at org.springframework.web.servlet.DispatcherServlet.doDispatch(DispatcherServlet.java:1040)
+	at org.springframework.web.servlet.DispatcherServlet.doService(DispatcherServlet.java:943)
+	at org.springframework.web.servlet.FrameworkServlet.processRequest(FrameworkServlet.java:1006)
+	at org.springframework.web.servlet.FrameworkServlet.doPost(FrameworkServlet.java:909)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:660)
+	at org.springframework.web.servlet.FrameworkServlet.service(FrameworkServlet.java:883)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:741)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:231)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166)
+	at org.apache.tomcat.websocket.server.WsFilter.doFilter(WsFilter.java:53)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166)
+	at org.springframework.web.filter.CorsFilter.doFilterInternal(CorsFilter.java:92)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:119)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166)
+	at org.springframework.web.filter.RequestContextFilter.doFilterInternal(RequestContextFilter.java:100)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:119)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166)
+	at org.springframework.web.filter.FormContentFilter.doFilterInternal(FormContentFilter.java:93)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:119)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166)
+	at org.springframework.web.filter.CharacterEncodingFilter.doFilterInternal(CharacterEncodingFilter.java:201)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:119)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166)
+	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:202)
+	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:96)
+	at org.apache.catalina.authenticator.AuthenticatorBase.invoke(AuthenticatorBase.java:541)
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:139)
+	at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:92)
+	at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:74)
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:343)
+	at org.apache.coyote.http11.Http11Processor.service(Http11Processor.java:367)
+	at org.apache.coyote.AbstractProcessorLight.process(AbstractProcessorLight.java:65)
+	at org.apache.coyote.AbstractProtocol$ConnectionHandler.process(AbstractProtocol.java:860)
+	at org.apache.tomcat.util.net.NioEndpoint$SocketProcessor.doRun(NioEndpoint.java:1598)
+	at org.apache.tomcat.util.net.SocketProcessorBase.run(SocketProcessorBase.java:49)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1149)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:624)
+	at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:61)
+	at java.lang.Thread.run(Thread.java:750)
+[2023-03-12 21:05:32.816] [http-nio-8080-exec-5] ERROR o.e.e.GlobalControllerExceptionHandler : java.util.HashMap cannot be cast to java.util.LinkedHashMap
+java.lang.ClassCastException: java.util.HashMap cannot be cast to java.util.LinkedHashMap
+	at org.example.controller.RiskGradeController.riskMatrix(RiskGradeController.java:116)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:498)
+	at org.springframework.web.method.support.InvocableHandlerMethod.doInvoke(InvocableHandlerMethod.java:190)
+	at org.springframework.web.method.support.InvocableHandlerMethod.invokeForRequest(InvocableHandlerMethod.java:138)
+	at org.springframework.web.servlet.mvc.method.annotation.ServletInvocableHandlerMethod.invokeAndHandle(ServletInvocableHandlerMethod.java:106)
+	at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.invokeHandlerMethod(RequestMappingHandlerAdapter.java:888)
+	at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.handleInternal(RequestMappingHandlerAdapter.java:793)
+	at org.springframework.web.servlet.mvc.method.AbstractHandlerMethodAdapter.handle(AbstractHandlerMethodAdapter.java:87)
+	at org.springframework.web.servlet.DispatcherServlet.doDispatch(DispatcherServlet.java:1040)
+	at org.springframework.web.servlet.DispatcherServlet.doService(DispatcherServlet.java:943)
+	at org.springframework.web.servlet.FrameworkServlet.processRequest(FrameworkServlet.java:1006)
+	at org.springframework.web.servlet.FrameworkServlet.doGet(FrameworkServlet.java:898)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:634)
+	at org.springframework.web.servlet.FrameworkServlet.service(FrameworkServlet.java:883)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:741)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:231)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166)
+	at org.apache.tomcat.websocket.server.WsFilter.doFilter(WsFilter.java:53)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166)
+	at org.springframework.web.filter.CorsFilter.doFilterInternal(CorsFilter.java:92)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:119)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166)
+	at org.springframework.web.filter.RequestContextFilter.doFilterInternal(RequestContextFilter.java:100)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:119)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166)
+	at org.springframework.web.filter.FormContentFilter.doFilterInternal(FormContentFilter.java:93)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:119)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166)
+	at org.springframework.web.filter.CharacterEncodingFilter.doFilterInternal(CharacterEncodingFilter.java:201)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:119)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166)
+	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:202)
+	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:96)
+	at org.apache.catalina.authenticator.AuthenticatorBase.invoke(AuthenticatorBase.java:541)
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:139)
+	at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:92)
+	at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:74)
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:343)
+	at org.apache.coyote.http11.Http11Processor.service(Http11Processor.java:367)
+	at org.apache.coyote.AbstractProcessorLight.process(AbstractProcessorLight.java:65)
+	at org.apache.coyote.AbstractProtocol$ConnectionHandler.process(AbstractProtocol.java:860)
+	at org.apache.tomcat.util.net.NioEndpoint$SocketProcessor.doRun(NioEndpoint.java:1598)
+	at org.apache.tomcat.util.net.SocketProcessorBase.run(SocketProcessorBase.java:49)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1149)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:624)
+	at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:61)
+	at java.lang.Thread.run(Thread.java:750)
+[2023-03-12 21:05:47.836] [http-nio-8080-exec-10] ERROR o.e.e.GlobalControllerExceptionHandler : java.util.HashMap cannot be cast to java.util.LinkedHashMap
+java.lang.ClassCastException: java.util.HashMap cannot be cast to java.util.LinkedHashMap
+	at org.example.controller.RiskGradeController.riskMatrix(RiskGradeController.java:116)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:498)
+	at org.springframework.web.method.support.InvocableHandlerMethod.doInvoke(InvocableHandlerMethod.java:190)
+	at org.springframework.web.method.support.InvocableHandlerMethod.invokeForRequest(InvocableHandlerMethod.java:138)
+	at org.springframework.web.servlet.mvc.method.annotation.ServletInvocableHandlerMethod.invokeAndHandle(ServletInvocableHandlerMethod.java:106)
+	at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.invokeHandlerMethod(RequestMappingHandlerAdapter.java:888)
+	at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.handleInternal(RequestMappingHandlerAdapter.java:793)
+	at org.springframework.web.servlet.mvc.method.AbstractHandlerMethodAdapter.handle(AbstractHandlerMethodAdapter.java:87)
+	at org.springframework.web.servlet.DispatcherServlet.doDispatch(DispatcherServlet.java:1040)
+	at org.springframework.web.servlet.DispatcherServlet.doService(DispatcherServlet.java:943)
+	at org.springframework.web.servlet.FrameworkServlet.processRequest(FrameworkServlet.java:1006)
+	at org.springframework.web.servlet.FrameworkServlet.doGet(FrameworkServlet.java:898)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:634)
+	at org.springframework.web.servlet.FrameworkServlet.service(FrameworkServlet.java:883)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:741)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:231)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166)
+	at org.apache.tomcat.websocket.server.WsFilter.doFilter(WsFilter.java:53)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166)
+	at org.springframework.web.filter.CorsFilter.doFilterInternal(CorsFilter.java:92)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:119)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166)
+	at org.springframework.web.filter.RequestContextFilter.doFilterInternal(RequestContextFilter.java:100)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:119)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166)
+	at org.springframework.web.filter.FormContentFilter.doFilterInternal(FormContentFilter.java:93)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:119)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166)
+	at org.springframework.web.filter.CharacterEncodingFilter.doFilterInternal(CharacterEncodingFilter.java:201)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:119)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166)
+	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:202)
+	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:96)
+	at org.apache.catalina.authenticator.AuthenticatorBase.invoke(AuthenticatorBase.java:541)
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:139)
+	at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:92)
+	at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:74)
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:343)
+	at org.apache.coyote.http11.Http11Processor.service(Http11Processor.java:367)
+	at org.apache.coyote.AbstractProcessorLight.process(AbstractProcessorLight.java:65)
+	at org.apache.coyote.AbstractProtocol$ConnectionHandler.process(AbstractProtocol.java:860)
+	at org.apache.tomcat.util.net.NioEndpoint$SocketProcessor.doRun(NioEndpoint.java:1598)
+	at org.apache.tomcat.util.net.SocketProcessorBase.run(SocketProcessorBase.java:49)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1149)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:624)
+	at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:61)
+	at java.lang.Thread.run(Thread.java:750)

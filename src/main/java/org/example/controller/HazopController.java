@@ -3,6 +3,7 @@ package org.example.controller;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
+import io.swagger.models.auth.In;
 import lombok.AllArgsConstructor;
 import org.example.common.R;
 import org.example.entity.Options;
@@ -10,8 +11,9 @@ import org.example.utils.Func;
 import org.springframework.web.bind.annotation.*;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
+import java.util.stream.Collectors;
+
 import org.example.entity.Hazop;
 import org.example.dto.HazopDTO;
 
@@ -94,17 +96,30 @@ public class HazopController {
 	@PostMapping("/options1")
 	@ApiOperation(value = "新增", notes = "传入hazop")
 	public R<Options> options1(@RequestBody HazopDTO dto) {
+		List<Hazop> list = hazopService.list(dto);
+		Map<Integer, List<Hazop>> collect =
+				list.stream().collect(Collectors.groupingBy(Hazop::getHazopColor1));
 		Options options = new Options();
 		List<Integer> data = new ArrayList<>();
-		data.add(1);
-		data.add(1);
-		data.add(1);
-		options.setData(data);
+		Set<Integer> strings = collect.keySet();
 		List<String> labels = new ArrayList<>();
 		options.setLabels(labels);
-		labels.add("低");
-		labels.add("中");
-		labels.add("高");
+		if (strings.contains(1)) {
+			labels.add("低");
+		}
+		if (strings.contains(2)) {
+			labels.add("中");
+		}
+		if (strings.contains(3)) {
+			labels.add("高");
+		}
+		if (strings.contains(4)) {
+			labels.add("很高");
+		}
+		strings.forEach(x-> data.add(collect.get(x).size()));
+		Collections.sort(data);
+		options.setData(data);
+		options.setLabels(labels);
 		return R.data(options);
 	}
 
@@ -115,17 +130,30 @@ public class HazopController {
 	@PostMapping("/options2")
 	@ApiOperation(value = "新增", notes = "传入hazop")
 	public R<Options> options2(@RequestBody HazopDTO dto) {
+		List<Hazop> list = hazopService.list(dto);
+		Map<Integer, List<Hazop>> collect =
+				list.stream().collect(Collectors.groupingBy(Hazop::getHazopColor2));
 		Options options = new Options();
 		List<Integer> data = new ArrayList<>();
-		data.add(1);
-		data.add(1);
-		data.add(1);
-		options.setData(data);
+		Set<Integer> strings = collect.keySet();
 		List<String> labels = new ArrayList<>();
 		options.setLabels(labels);
-		labels.add("低");
-		labels.add("中");
-		labels.add("高");
+		if (strings.contains(1)) {
+			labels.add("低");
+		}
+		if (strings.contains(2)) {
+			labels.add("中");
+		}
+		if (strings.contains(3)) {
+			labels.add("高");
+		}
+		if (strings.contains(4)) {
+			labels.add("很高");
+		}
+		strings.forEach(x-> data.add(collect.get(x).size()));
+		Collections.sort(data);
+		options.setData(data);
+		options.setLabels(labels);
 		return R.data(options);
 	}
 
@@ -135,17 +163,30 @@ public class HazopController {
 	@PostMapping("/options3")
 	@ApiOperation(value = "新增", notes = "传入hazop")
 	public R<Options> options3(@RequestBody HazopDTO dto) {
+		List<Hazop> list = hazopService.list(dto);
+		Map<Integer, List<Hazop>> collect =
+				list.stream().collect(Collectors.groupingBy(Hazop::getHazopColor1));
 		Options options = new Options();
 		List<Integer> data = new ArrayList<>();
-		data.add(200);
-		data.add(80);
-		data.add(140);
-		options.setData(data);
+		Set<Integer> strings = collect.keySet();
 		List<String> labels = new ArrayList<>();
 		options.setLabels(labels);
-		labels.add("很高");
-		labels.add("中");
-		labels.add("高");
+		if (strings.contains(1)) {
+			labels.add("低");
+		}
+		if (strings.contains(2)) {
+			labels.add("中");
+		}
+		if (strings.contains(3)) {
+			labels.add("高");
+		}
+		if (strings.contains(4)) {
+			labels.add("很高");
+		}
+		strings.forEach(x-> data.add(collect.get(x).size()));
+		Collections.sort(data);
+		options.setData(data);
+		options.setLabels(labels);
 		return R.data(options);
 	}
 
@@ -155,17 +196,30 @@ public class HazopController {
 	@PostMapping("/options4")
 	@ApiOperation(value = "新增", notes = "传入hazop")
 	public R<Options> options4(@RequestBody HazopDTO dto) {
+		List<Hazop> list = hazopService.list(dto);
+		Map<Integer, List<Hazop>> collect =
+				list.stream().collect(Collectors.groupingBy(Hazop::getHazopColor2));
 		Options options = new Options();
 		List<Integer> data = new ArrayList<>();
-		data.add(200);
-		data.add(110);
-		data.add(80);
-		options.setData(data);
+		Set<Integer> strings = collect.keySet();
 		List<String> labels = new ArrayList<>();
 		options.setLabels(labels);
-		labels.add("中");
-		labels.add("很高");
-		labels.add("高");
+		if (strings.contains(1)) {
+			labels.add("低");
+		}
+		if (strings.contains(2)) {
+			labels.add("中");
+		}
+		if (strings.contains(3)) {
+			labels.add("高");
+		}
+		if (strings.contains(4)) {
+			labels.add("很高");
+		}
+		strings.forEach(x-> data.add(collect.get(x).size()));
+		Collections.sort(data);
+		options.setData(data);
+		options.setLabels(labels);
 		return R.data(options);
 	}
 
