@@ -93,6 +93,22 @@ public class RiskGradeController {
 		return R.data(riskGradeService.updateById(dto));
 	}
 
+
+	/**
+	 * 修改 风险等级说明
+	 */
+	@PostMapping("/updateList")
+	@ApiOperation(value = "修改", notes = "传入riskGrade")
+	public R updateList(@RequestBody List<RiskGradeDTO> list) {
+		List<RiskGrade> oldList = riskGradeService.list(new RiskGradeDTO()
+				.setProjectId(list.get(0).getProjectId())
+				.setUnitId(list.get(0).getUnitId())
+		);
+		riskGradeService.deleteLogic(oldList.stream().map(RiskGrade::getRiskGradeId).collect(Collectors.toList()));
+		list.forEach(riskGradeDto -> riskGradeService.updateById(riskGradeDto));
+		return R.data(true);
+	}
+
 	/**
 	 * 删除 风险等级说明
 	 */

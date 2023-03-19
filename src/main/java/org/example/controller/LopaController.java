@@ -10,6 +10,8 @@ import org.example.utils.Func;
 import org.springframework.web.bind.annotation.*;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import java.util.List;
+import java.util.stream.Collectors;
+
 import org.example.entity.Lopa;
 import org.example.dto.LopaDTO;
 
@@ -74,6 +76,21 @@ public class LopaController {
 	@ApiOperation(value = "修改", notes = "传入lopa")
 	public R update(@RequestBody LopaDTO dto) {
 		return R.data(lopaService.updateById(dto));
+	}
+
+	/**
+	 * 批量修改 lopa分析
+	 */
+	@PostMapping("/updateList")
+	@ApiOperation(value = "修改", notes = "传入lopa")
+	public R updateList(@RequestBody List<LopaDTO> list) {
+		List<Lopa> oldList = lopaService.list(new LopaDTO()
+				.setProjectId(list.get(0).getProjectId())
+				.setUnitId(list.get(0).getUnitId())
+		);
+		lopaService.deleteLogic(oldList.stream().map(Lopa::getLopaId).collect(Collectors.toList()));
+		list.forEach(lopaDTO -> lopaService.updateById(lopaDTO));
+		return R.data(true);
 	}
 
 	/**

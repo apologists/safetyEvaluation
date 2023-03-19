@@ -5,6 +5,8 @@ import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 import lombok.AllArgsConstructor;
 import org.example.common.R;
+import org.example.dto.CaseSummaryDTO;
+import org.example.entity.CaseSummary;
 import org.example.utils.ExcelUtils;
 import org.example.utils.Func;
 import org.springframework.web.bind.annotation.*;
@@ -13,6 +15,8 @@ import com.baomidou.mybatisplus.core.metadata.IPage;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
+
 import org.example.entity.Cause;
 import org.example.dto.CauseDTO;
 
@@ -80,6 +84,22 @@ public class CauseController {
 	@ApiOperation(value = "修改", notes = "传入cause")
 	public R update(@RequestBody CauseDTO dto) {
 		return R.data(causeService.updateById(dto));
+	}
+
+
+	/**
+	 * 修改 原因节点表
+	 */
+	@PostMapping("/updateList")
+	@ApiOperation(value = "修改", notes = "传入cause")
+	public R updateList(@RequestBody List<CauseDTO> list) {
+		List<Cause> oldList = causeService.list(new CauseDTO()
+				.setProjectId(list.get(0).getProjectId())
+				.setUnitId(list.get(0).getUnitId())
+		);
+		causeService.deleteLogic(oldList.stream().map(Cause::getCauseId).collect(Collectors.toList()));
+		list.forEach(causeDTO -> causeService.updateById(causeDTO));
+		return R.data(true);
 	}
 
 	/**

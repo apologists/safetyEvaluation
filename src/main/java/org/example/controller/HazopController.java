@@ -6,18 +6,29 @@ import io.swagger.annotations.ApiParam;
 import io.swagger.models.auth.In;
 import lombok.AllArgsConstructor;
 import org.example.common.R;
+import org.example.dto.ProjectDTO;
+import org.example.dto.UnitDTO;
 import org.example.entity.Options;
+import org.example.entity.Project;
+import org.example.entity.Unit;
+import org.example.service.IProjectService;
+import org.example.service.IUnitService;
+import org.example.utils.BeanCopyUtils;
 import org.example.utils.Func;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.web.bind.annotation.*;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 
 import java.util.*;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import org.example.entity.Hazop;
 import org.example.dto.HazopDTO;
 
 import org.example.service.IHazopService;
+
+import javax.annotation.Resource;
 
 /**
  *  控制器
@@ -30,6 +41,13 @@ import org.example.service.IHazopService;
 @RequestMapping("hazop")
 @Api(description = "相关接口")
 public class HazopController {
+
+	@Resource
+	@Lazy
+	private IProjectService projectService;
+	@Resource
+	@Lazy
+	private IUnitService unitService;
 
 	private IHazopService hazopService;
 
@@ -68,6 +86,23 @@ public class HazopController {
 	@PostMapping("/save")
 	@ApiOperation(value = "新增", notes = "传入hazop")
 	public R save(@RequestBody HazopDTO dto) {
+		ProjectDTO projectDTO = new ProjectDTO();
+		projectService.save(projectDTO);
+		List<Project> list = projectService.list(projectDTO);
+		int projectMax = 0;
+		for (Project project : list) {
+			projectMax = project.getProjectId() > projectMax ? project.getProjectId() : projectMax;
+		}
+
+		UnitDTO unitDTO = new UnitDTO().setProjectId(projectMax);
+		unitService.save(unitDTO);
+		List<Unit> UnitList = unitService.list(unitDTO);
+		int unitMax = 0;
+		for (Unit unit : UnitList) {
+			unitMax = unit.getProjectId() > unitMax ? unit.getProjectId() : unitMax;
+		}
+		dto.setProjectId(projectMax);
+		dto.setUnitId(unitMax);
 		return R.data(hazopService.save(dto));
 	}
 
@@ -78,6 +113,22 @@ public class HazopController {
 	@ApiOperation(value = "修改", notes = "传入hazop")
 	public R update(@RequestBody HazopDTO dto) {
 		return R.data(hazopService.updateById(dto));
+	}
+
+	/**
+	 * 批量修改
+	 */
+	@PostMapping("/updateList")
+	@ApiOperation(value = "修改", notes = "传入hazop")
+	public R updateList(@RequestBody List<HazopDTO> list) {
+		List<Hazop> oldList = hazopService.list(new HazopDTO()
+				.setProjectId(list.get(0).getProjectId())
+				.setUnitId(list.get(0).getUnitId())
+		);
+		List<Integer> collect = oldList.stream().map(Hazop::getHazopId).collect(Collectors.toList());
+		hazopService.deleteLogic(collect);
+		list.forEach(hazopDTO -> hazopService.save(hazopDTO));
+		return R.data(true);
 	}
 
 	/**

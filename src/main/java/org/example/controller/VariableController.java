@@ -6,12 +6,16 @@ import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 import lombok.AllArgsConstructor;
 import org.example.common.R;
+import org.example.dto.CaseSummaryDTO;
+import org.example.entity.CaseSummary;
 import org.example.entity.SDGOptions;
 import org.example.entity.VariableMatrix;
 import org.example.utils.Func;
 import org.springframework.web.bind.annotation.*;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import java.util.List;
+import java.util.stream.Collectors;
+
 import org.example.entity.Variable;
 import org.example.dto.VariableDTO;
 
@@ -76,6 +80,22 @@ public class VariableController {
 	@ApiOperation(value = "修改", notes = "传入variable")
 	public R update(@RequestBody VariableDTO dto) {
 		return R.data(variableService.updateById(dto));
+	}
+
+
+	/**
+	 * 修改 变量表
+	 */
+	@PostMapping("/updateList")
+	@ApiOperation(value = "修改", notes = "传入variable")
+	public R updateList(@RequestBody List<VariableDTO> list) {
+		List<Variable> oldList = variableService.list(new VariableDTO()
+				.setProjectId(list.get(0).getProjectId())
+				.setUnitId(list.get(0).getUnitId())
+		);
+		variableService.deleteLogic(oldList.stream().map(Variable::getVariableId).collect(Collectors.toList()));
+		list.forEach(variableDTO -> variableService.updateById(variableDTO));
+		return R.data(true);
 	}
 
 	/**

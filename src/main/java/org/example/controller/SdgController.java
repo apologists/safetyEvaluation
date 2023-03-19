@@ -7,6 +7,7 @@ import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 import lombok.AllArgsConstructor;
 import org.example.common.R;
+import org.example.dto.SilDTO;
 import org.example.entity.*;
 import org.example.utils.Func;
 import org.springframework.web.bind.annotation.*;
@@ -14,6 +15,7 @@ import com.baomidou.mybatisplus.core.metadata.IPage;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.example.dto.SdgDTO;
 
@@ -78,6 +80,22 @@ public class SdgController {
 	@ApiOperation(value = "修改", notes = "传入sdg")
 	public R update(@RequestBody SdgDTO dto) {
 		return R.data(sdgService.updateById(dto));
+	}
+
+
+	/**
+	 * 修改 变量表
+	 */
+	@PostMapping("/updateList")
+	@ApiOperation(value = "修改", notes = "传入sil")
+	public R updateList(@RequestBody List<SdgDTO> list) {
+		List<Sdg> oldList = sdgService.list(new SdgDTO()
+				.setProjectId(list.get(0).getProjectId())
+				.setUnitId(list.get(0).getUnitId())
+		);
+		sdgService.deleteLogic(oldList.stream().map(Sdg::getSdgId).collect(Collectors.toList()));
+		list.forEach(sdgDTO -> sdgService.updateById(sdgDTO));
+		return R.data(true);
 	}
 
 	/**

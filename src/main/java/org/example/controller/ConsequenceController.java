@@ -5,10 +5,14 @@ import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 import lombok.AllArgsConstructor;
 import org.example.common.R;
+import org.example.dto.CauseDTO;
+import org.example.entity.Cause;
 import org.example.utils.Func;
 import org.springframework.web.bind.annotation.*;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import java.util.List;
+import java.util.stream.Collectors;
+
 import org.example.entity.Consequence;
 import org.example.dto.ConsequenceDTO;
 
@@ -73,6 +77,21 @@ public class ConsequenceController {
 	@ApiOperation(value = "修改", notes = "传入consequence")
 	public R update(@RequestBody ConsequenceDTO dto) {
 		return R.data(consequenceService.updateById(dto));
+	}
+
+	/**
+	 * 修改 后果节点表
+	 */
+	@PutMapping("/updateList")
+	@ApiOperation(value = "修改", notes = "传入consequence")
+	public R updateList(@RequestBody List<ConsequenceDTO> list) {
+		List<Consequence> oldList = consequenceService.list(new ConsequenceDTO()
+				.setProjectId(list.get(0).getProjectId())
+				.setUnitId(list.get(0).getUnitId())
+		);
+		consequenceService.deleteLogic(oldList.stream().map(Consequence::getConsequenceId).collect(Collectors.toList()));
+		list.forEach(consequenceDTO -> consequenceService.updateById(consequenceDTO));
+		return R.data(true);
 	}
 
 	/**

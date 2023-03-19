@@ -75,6 +75,16 @@ public class FormulaController {
 		return R.data(formulaService.updateById(dto));
 	}
 
+
+	/**
+	 * 修改 变量公式表
+	 */
+	@PostMapping("/updateList")
+	@ApiOperation(value = "修改", notes = "传入formula")
+	public R updateList(@RequestBody List<FormulaDTO> dto) {
+		return R.data(formulaService.updateById(dto));
+	}
+
 	/**
 	 * 删除 变量公式表
 	 */

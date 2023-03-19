@@ -2,6 +2,7 @@ package org.example.dto;
 
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.baomidou.mybatisplus.annotation.IdType;
+import lombok.experimental.Accessors;
 import org.example.base.BaseEntity;
 import com.baomidou.mybatisplus.annotation.TableId;
 import lombok.Data;
@@ -15,6 +16,7 @@ import org.example.common.CommonDto;
  * @author AI
  * @since 2023-03-11
  */
+@Accessors(chain = true)
 @Data
 @EqualsAndHashCode(callSuper = true)
 @ApiModel(value = "CaseSummary对象", description = "案例库表")

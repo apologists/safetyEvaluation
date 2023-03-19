@@ -1,16 +1,25 @@
 package org.example.service.impl;
 
-import org.example.entity.Hazop;
-import org.example.mapper.HazopMapper;
-import org.example.service.IHazopService;
-import org.example.dto.HazopDTO;
+import cn.hutool.core.util.StrUtil;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
-import org.example.common.Condition;
-import org.example.utils.BeanCopyUtils;
-import org.springframework.stereotype.Service;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import lombok.AllArgsConstructor;
-import cn.hutool.core.util.StrUtil;
+import org.example.common.Condition;
+import org.example.dto.HazopDTO;
+import org.example.dto.ProjectDTO;
+import org.example.dto.UnitDTO;
+import org.example.entity.Hazop;
+import org.example.entity.Project;
+import org.example.entity.Unit;
+import org.example.mapper.HazopMapper;
+import org.example.service.IHazopService;
+import org.example.service.IProjectService;
+import org.example.service.IUnitService;
+import org.example.utils.BeanCopyUtils;
+import org.springframework.context.annotation.Lazy;
+import org.springframework.stereotype.Service;
+
+import javax.annotation.Resource;
 import java.util.List;
 
 /**

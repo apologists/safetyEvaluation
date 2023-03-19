@@ -2,6 +2,7 @@ package org.example.dto;
 
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.baomidou.mybatisplus.annotation.IdType;
+import lombok.experimental.Accessors;
 import org.example.base.BaseEntity;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableField;
@@ -19,6 +20,7 @@ import org.example.common.CommonDto;
 @Data
 @EqualsAndHashCode(callSuper = true)
 @ApiModel(value = "Sdg对象", description = "sdg拉偏表")
+@Accessors(chain = true)
 public class SdgDTO extends CommonDto {
 
 					private Integer sdgId;

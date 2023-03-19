@@ -1,6 +1,7 @@
 package org.example.dto;
 
 import com.baomidou.mybatisplus.annotation.TableName;
+import lombok.experimental.Accessors;
 import org.example.base.BaseEntity;
 import com.baomidou.mybatisplus.annotation.TableField;
 import lombok.Data;
@@ -14,6 +15,7 @@ import org.example.common.CommonDto;
  * @author AI
  * @since 2023-02-28
  */
+@Accessors(chain = true)
 @Data
 @EqualsAndHashCode(callSuper = true)
 @ApiModel(value = "Hazop对象", description = "Hazop对象")

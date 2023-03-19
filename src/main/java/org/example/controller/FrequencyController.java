@@ -5,10 +5,14 @@ import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 import lombok.AllArgsConstructor;
 import org.example.common.R;
+import org.example.dto.LopaDTO;
+import org.example.entity.Lopa;
 import org.example.utils.Func;
 import org.springframework.web.bind.annotation.*;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import java.util.List;
+import java.util.stream.Collectors;
+
 import org.example.entity.Frequency;
 import org.example.dto.FrequencyDTO;
 
@@ -73,6 +77,22 @@ public class FrequencyController {
 	@ApiOperation(value = "修改", notes = "传入frequency")
 	public R update(@RequestBody FrequencyDTO dto) {
 		return R.data(frequencyService.updateById(dto));
+	}
+
+
+	/**
+	 * 修改 频率说明表
+	 */
+	@PostMapping("/updateList")
+	@ApiOperation(value = "修改", notes = "传入frequency")
+	public R updateList(@RequestBody List<FrequencyDTO> list) {
+		List<Frequency> oldList = frequencyService.list(new FrequencyDTO()
+				.setProjectId(list.get(0).getProjectId())
+				.setUnitId(list.get(0).getUnitId())
+		);
+		frequencyService.deleteLogic(oldList.stream().map(Frequency::getFrequencyId).collect(Collectors.toList()));
+		list.forEach(frequencyDTO -> frequencyService.updateById(frequencyDTO));
+		return R.data(true);
 	}
 
 	/**

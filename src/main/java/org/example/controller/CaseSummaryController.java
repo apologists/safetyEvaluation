@@ -5,6 +5,8 @@ import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 import lombok.AllArgsConstructor;
 import org.example.common.R;
+import org.example.dto.RiskGradeDTO;
+import org.example.entity.RiskGrade;
 import org.example.utils.ExcelUtils;
 import org.example.utils.Func;
 import org.springframework.web.bind.annotation.*;
@@ -13,6 +15,8 @@ import com.baomidou.mybatisplus.core.metadata.IPage;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
+
 import org.example.entity.CaseSummary;
 import org.example.dto.CaseSummaryDTO;
 
@@ -80,6 +84,22 @@ public class CaseSummaryController {
 	@ApiOperation(value = "修改", notes = "传入caseSummary")
 	public R update(@RequestBody CaseSummaryDTO dto) {
 		return R.data(caseSummaryService.updateById(dto));
+	}
+
+
+	/**
+	 * 修改 案例库表
+	 */
+	@PostMapping("/updateList")
+	@ApiOperation(value = "修改", notes = "传入caseSummary")
+	public R updateList(@RequestBody List<CaseSummaryDTO> list) {
+		List<CaseSummary> oldList = caseSummaryService.list(new CaseSummaryDTO()
+				.setProjectId(list.get(0).getProjectId())
+				.setUnitId(list.get(0).getUnitId())
+		);
+		caseSummaryService.deleteLogic(oldList.stream().map(CaseSummary::getCaseId).collect(Collectors.toList()));
+		list.forEach(caseSummaryDTO -> caseSummaryService.updateById(caseSummaryDTO));
+		return R.data(true);
 	}
 
 	/**

@@ -5,10 +5,14 @@ import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 import lombok.AllArgsConstructor;
 import org.example.common.R;
+import org.example.dto.FrequencyDTO;
+import org.example.entity.Frequency;
 import org.example.utils.Func;
 import org.springframework.web.bind.annotation.*;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import java.util.List;
+import java.util.stream.Collectors;
+
 import org.example.entity.RiskConsequence;
 import org.example.dto.RiskConsequenceDTO;
 
@@ -74,6 +78,23 @@ public class RiskConsequenceController {
 	public R update(@RequestBody RiskConsequenceDTO dto) {
 		return R.data(riskConsequenceService.updateById(dto));
 	}
+
+
+	/**
+	 * 修改 风险后果说明表
+	 */
+	@PostMapping("/updateList")
+	@ApiOperation(value = "修改", notes = "传入riskConsequence")
+	public R updateList(@RequestBody List<RiskConsequenceDTO> list) {
+		List<RiskConsequence> oldList = riskConsequenceService.list(new RiskConsequenceDTO()
+				.setProjectId(list.get(0).getProjectId())
+				.setUnitId(list.get(0).getUnitId())
+		);
+		riskConsequenceService.deleteLogic(oldList.stream().map(RiskConsequence::getRiskConsequenceId).collect(Collectors.toList()));
+		list.forEach(riskConsequenceDTO -> riskConsequenceService.updateById(riskConsequenceDTO));
+		return R.data(true);
+	}
+
 
 	/**
 	 * 删除 风险后果说明表

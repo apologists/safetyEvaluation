@@ -5,10 +5,14 @@ import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 import lombok.AllArgsConstructor;
 import org.example.common.R;
+import org.example.dto.VariableDTO;
+import org.example.entity.Variable;
 import org.example.utils.Func;
 import org.springframework.web.bind.annotation.*;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import java.util.List;
+import java.util.stream.Collectors;
+
 import org.example.entity.Sil;
 import org.example.dto.SilDTO;
 
@@ -73,6 +77,21 @@ public class SilController {
 	@ApiOperation(value = "修改", notes = "传入sil")
 	public R update(@RequestBody SilDTO dto) {
 		return R.data(silService.updateById(dto));
+	}
+
+	/**
+	 * 修改 变量表
+	 */
+	@PostMapping("/updateList")
+	@ApiOperation(value = "修改", notes = "传入sil")
+	public R updateList(@RequestBody List<SilDTO> list) {
+		List<Sil> oldList = silService.list(new SilDTO()
+				.setProjectId(list.get(0).getProjectId())
+				.setUnitId(list.get(0).getUnitId())
+		);
+		silService.deleteLogic(oldList.stream().map(Sil::getSilId).collect(Collectors.toList()));
+		list.forEach(silDTO -> silService.updateById(silDTO));
+		return R.data(true);
 	}
 
 	/**

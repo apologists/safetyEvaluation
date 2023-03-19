@@ -1,6 +1,7 @@
 package org.example.dto;
 
 import com.baomidou.mybatisplus.annotation.TableName;
+import lombok.experimental.Accessors;
 import org.example.base.BaseEntity;
 import com.baomidou.mybatisplus.annotation.TableField;
 import lombok.Data;
@@ -17,6 +18,7 @@ import org.example.common.CommonDto;
 @Data
 @EqualsAndHashCode(callSuper = true)
 @ApiModel(value = "Sil对象", description = "sil验算")
+@Accessors(chain = true)
 public class SilDTO extends CommonDto {
 
 					private Integer silId;

@@ -1,32 +1,28 @@
 package org.example.controller;
 
+import com.baomidou.mybatisplus.core.metadata.IPage;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 import lombok.AllArgsConstructor;
+import org.apache.poi.ss.formula.functions.T;
 import org.example.common.R;
 import org.example.dto.ModelDTO;
+import org.example.dto.ProjectDTO;
 import org.example.dto.UnitDTO;
-import org.example.entity.Model;
-import org.example.entity.ProjectSummary;
-import org.example.entity.Unit;
+import org.example.dto.VariableDTO;
+import org.example.entity.*;
 import org.example.service.IModelService;
+import org.example.service.IProjectService;
 import org.example.service.IUnitService;
+import org.example.service.IVariableService;
 import org.example.utils.Func;
 import org.springframework.web.bind.annotation.*;
-import com.baomidou.mybatisplus.core.metadata.IPage;
-
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
-import org.example.entity.Project;
-import org.example.dto.ProjectDTO;
-
-import org.example.service.IProjectService;
 
 import javax.annotation.Resource;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * 项目表 控制器
@@ -46,6 +42,8 @@ public class ProjectController {
 	private IUnitService unitService;
 	@Resource
 	private IModelService modelService;
+	@Resource
+	private IVariableService variableService;
 
 	/**
 	 * 详情
@@ -108,27 +106,66 @@ public class ProjectController {
 	 */
 	@GetMapping("/projectSummary")
 	@ApiOperation(value = "详情", notes = "传入project")
-	public R<List<ProjectSummary>> projectSummary(ProjectDTO dto) {
-		ArrayList<ProjectSummary> projectSummaryList = new ArrayList<>();
+	public R<List<TreeNode>> projectSummary(ProjectDTO dto) {
+		ArrayList<TreeNode> projectNodeList = new ArrayList<>();
 
 		List<Project> list = projectService.list(dto);
 		for (Project x : list) {
-			ProjectSummary projectSummary = new ProjectSummary();
-			Map<Unit,List<Model>> unitMap = new HashMap<>();
+			TreeNode projectNode = new TreeNode();
 			List<Unit> unitList = unitService.list(new UnitDTO().setProjectId(x.getProjectId()));
+			List<TreeNode> unitNodeList = new ArrayList<>();
 			for (Unit y : unitList) {
 				List<Model> modelList = modelService.list(new ModelDTO()
 						.setProjectId(y.getProjectId())
 						.setUnitId(y.getUnitId()));
-				unitMap.put(y,modelList);
+				List<TreeNode> modelNodeList = new ArrayList<>();
+				for (Model m : modelList) {
+					List<Variable> variableList = variableService.list(new VariableDTO()
+							.setProjectId(dto.getProjectId())
+							.setUnitId(y.getUnitId())
+							.setModelId(m.getModelId()));
+
+					List<TreeNode> variables = variableList.stream().map(variable ->
+							new VariableNode()
+									.setVariableId(variable.getVariableId())
+									.setProjectId(x.getProjectId())
+									.setUnitId(y.getUnitId())
+									.setModelId(m.getModelId())
+									.setId(x.getProjectId() + y.getUnitId() + m.getModelId() + "variable" + variable.getVariableId())
+									.setType("variable")
+									.setName(variable.getVariableNameCn())
+					).collect(Collectors.toList());
+
+					TreeNode modelNode = new ModelNode()
+							.setModelId(m.getModelId())
+							.setProjectId(x.getProjectId())
+							.setUnitId(y.getUnitId())
+							.setName(m.getModelName())
+							.setId("model" + y.getUnitId() + m.getModelId())
+							.setType("model")
+							.setChildren(variables);
+					modelNodeList.add(modelNode);
+				}
+
+				TreeNode unitNode = new UnitNode()
+						.setUnitId(y.getUnitId())
+						.setProjectId(x.getProjectId())
+						.setName(y.getUnitName())
+						.setId(dto.getProjectId()+"_unit_"+y.getUnitId())
+						.setChildren(modelNodeList)
+						.setType("unit");
+
+				unitNodeList.add(unitNode);
 			}
-			projectSummary.setProjectId(x.getProjectId());
-			projectSummary.setProjectName(x.getProjectName());
-			projectSummary.setUnitMap(unitMap);
-			projectSummaryList.add(projectSummary);
+
+			projectNode.setId(String.valueOf(x.getProjectId()));
+			projectNode.setName(x.getProjectName());
+			projectNode.setChildren(unitNodeList);
+			projectNode.setType("project");
+			projectNodeList.add(projectNode);
 		}
 
-		return R.data(projectSummaryList);
+		return R.data(projectNodeList);
 	}
 
 
