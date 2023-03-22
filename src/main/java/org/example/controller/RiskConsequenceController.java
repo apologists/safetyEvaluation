@@ -91,7 +91,7 @@ public class RiskConsequenceController {
 				.setUnitId(list.get(0).getUnitId())
 		);
 		riskConsequenceService.deleteLogic(oldList.stream().map(RiskConsequence::getRiskConsequenceId).collect(Collectors.toList()));
-		list.forEach(riskConsequenceDTO -> riskConsequenceService.updateById(riskConsequenceDTO));
+		list.forEach(riskConsequenceDTO -> riskConsequenceService.save(riskConsequenceDTO));
 		return R.data(true);
 	}
 

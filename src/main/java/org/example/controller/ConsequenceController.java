@@ -90,7 +90,7 @@ public class ConsequenceController {
 				.setUnitId(list.get(0).getUnitId())
 		);
 		consequenceService.deleteLogic(oldList.stream().map(Consequence::getConsequenceId).collect(Collectors.toList()));
-		list.forEach(consequenceDTO -> consequenceService.updateById(consequenceDTO));
+		list.forEach(consequenceDTO -> consequenceService.save(consequenceDTO));
 		return R.data(true);
 	}
 

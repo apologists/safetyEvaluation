@@ -5,10 +5,14 @@ import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 import lombok.AllArgsConstructor;
 import org.example.common.R;
+import org.example.dto.CauseDTO;
+import org.example.entity.Cause;
 import org.example.utils.Func;
 import org.springframework.web.bind.annotation.*;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import java.util.List;
+import java.util.stream.Collectors;
+
 import org.example.entity.Formula;
 import org.example.dto.FormulaDTO;
 
@@ -81,8 +85,14 @@ public class FormulaController {
 	 */
 	@PostMapping("/updateList")
 	@ApiOperation(value = "修改", notes = "传入formula")
-	public R updateList(@RequestBody List<FormulaDTO> dto) {
-		return R.data(formulaService.updateById(dto));
+	public R updateList(@RequestBody List<FormulaDTO> list) {
+		List<Formula> oldList = formulaService.list(new FormulaDTO()
+				.setProjectId(list.get(0).getProjectId())
+				.setUnitId(list.get(0).getUnitId())
+		);
+		formulaService.deleteLogic(oldList.stream().map(Formula::getFormulaId).collect(Collectors.toList()));
+		list.forEach(causeDTO -> formulaService.save(causeDTO));
+		return R.data(true);
 	}
 
 	/**

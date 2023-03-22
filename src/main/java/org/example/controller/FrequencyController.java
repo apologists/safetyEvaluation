@@ -91,7 +91,7 @@ public class FrequencyController {
 				.setUnitId(list.get(0).getUnitId())
 		);
 		frequencyService.deleteLogic(oldList.stream().map(Frequency::getFrequencyId).collect(Collectors.toList()));
-		list.forEach(frequencyDTO -> frequencyService.updateById(frequencyDTO));
+		list.forEach(frequencyDTO -> frequencyService.save(frequencyDTO));
 		return R.data(true);
 	}
 

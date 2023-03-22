@@ -94,7 +94,7 @@ public class SdgController {
 				.setUnitId(list.get(0).getUnitId())
 		);
 		sdgService.deleteLogic(oldList.stream().map(Sdg::getSdgId).collect(Collectors.toList()));
-		list.forEach(sdgDTO -> sdgService.updateById(sdgDTO));
+		list.forEach(sdgDTO -> sdgService.save(sdgDTO));
 		return R.data(true);
 	}
 

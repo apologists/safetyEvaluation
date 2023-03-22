@@ -10,5 +10,5 @@ import java.util.Map;
 @Accessors(chain = true)
 public class VariableMatrix {
     private Map<String,String> variableMatrixList;
-    private Map<String,String> variableMatrixData;
+    private List<Map<String,String>> variableMatrixData;
 }

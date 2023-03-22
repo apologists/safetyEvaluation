@@ -5,8 +5,15 @@ import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 import lombok.AllArgsConstructor;
 import org.example.common.R;
+import org.example.dto.ProjectDTO;
+import org.example.dto.UnitDTO;
 import org.example.entity.LopaSummary;
+import org.example.entity.Project;
+import org.example.entity.Unit;
+import org.example.service.IProjectService;
+import org.example.service.IUnitService;
 import org.example.utils.Func;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.web.bind.annotation.*;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import java.util.List;
@@ -16,6 +23,8 @@ import org.example.entity.Lopa;
 import org.example.dto.LopaDTO;
 
 import org.example.service.ILopaService;
+
+import javax.annotation.Resource;
 
 /**
  * lopa分析 控制器
@@ -28,6 +37,13 @@ import org.example.service.ILopaService;
 @RequestMapping("lopa")
 @Api(description = "lopa分析相关接口")
 public class LopaController {
+
+	@Resource
+	@Lazy
+	private IProjectService projectService;
+	@Resource
+	@Lazy
+	private IUnitService unitService;
 
 	private ILopaService lopaService;
 
@@ -66,6 +82,23 @@ public class LopaController {
 	@PostMapping("/save")
 	@ApiOperation(value = "新增", notes = "传入lopa")
 	public R save(@RequestBody LopaDTO dto) {
+		ProjectDTO projectDTO = new ProjectDTO();
+		projectService.save(projectDTO);
+		List<Project> list = projectService.list(projectDTO);
+		int projectMax = 0;
+		for (Project project : list) {
+			projectMax = project.getProjectId() > projectMax ? project.getProjectId() : projectMax;
+		}
+
+		UnitDTO unitDTO = new UnitDTO().setProjectId(projectMax);
+		unitService.save(unitDTO);
+		List<Unit> UnitList = unitService.list(unitDTO);
+		int unitMax = 0;
+		for (Unit unit : UnitList) {
+			unitMax = unit.getProjectId() > unitMax ? unit.getProjectId() : unitMax;
+		}
+		dto.setProjectId(projectMax);
+		dto.setUnitId(unitMax);
 		return R.data(lopaService.save(dto));
 	}
 

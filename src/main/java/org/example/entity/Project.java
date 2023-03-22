@@ -1,5 +1,6 @@
 package org.example.entity;
 
+import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import org.example.base.BaseEntity;
 import lombok.Data;
@@ -21,7 +22,8 @@ public class Project extends BaseEntity {
 
     private static final long serialVersionUID = 1L;
 
-  private Integer projectId;
+    @TableId
+    private Integer projectId;
     /**
      * 项目名称
      */

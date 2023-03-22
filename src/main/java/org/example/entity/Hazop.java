@@ -1,5 +1,6 @@
 package org.example.entity;
 
+import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import org.example.base.BaseEntity;
 import com.baomidou.mybatisplus.annotation.TableField;
@@ -26,6 +27,7 @@ public class Hazop extends BaseEntity {
      * hazopId
      */
   @ApiModelProperty(value = "hazopId")
+  @TableId
   private Integer hazopId;
     /**
      * hazop名称

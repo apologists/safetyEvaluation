@@ -1,5 +1,6 @@
 package org.example.entity;
 
+import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import org.example.base.BaseEntity;
 import lombok.Data;
@@ -21,6 +22,7 @@ public class Cause extends BaseEntity {
 
     private static final long serialVersionUID = 1L;
 
+  @TableId
   private Integer causeId;
     /**
      * 变量id

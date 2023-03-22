@@ -7,16 +7,19 @@ import io.swagger.annotations.ApiParam;
 import lombok.AllArgsConstructor;
 import org.example.common.R;
 import org.example.dto.CaseSummaryDTO;
-import org.example.entity.CaseSummary;
-import org.example.entity.SDGOptions;
-import org.example.entity.VariableMatrix;
+import org.example.dto.FormulaDTO;
+import org.example.entity.*;
+import org.example.service.IFormulaService;
 import org.example.utils.Func;
 import org.springframework.web.bind.annotation.*;
 import com.baomidou.mybatisplus.core.metadata.IPage;
-import java.util.List;
-import java.util.stream.Collectors;
 
-import org.example.entity.Variable;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
+
 import org.example.dto.VariableDTO;
 
 import org.example.service.IVariableService;
@@ -34,6 +37,8 @@ import org.example.service.IVariableService;
 public class VariableController {
 
 	private IVariableService variableService;
+
+	private IFormulaService formulaService;
 
 	/**
 	 * 详情
@@ -94,7 +99,7 @@ public class VariableController {
 				.setUnitId(list.get(0).getUnitId())
 		);
 		variableService.deleteLogic(oldList.stream().map(Variable::getVariableId).collect(Collectors.toList()));
-		list.forEach(variableDTO -> variableService.updateById(variableDTO));
+		list.forEach(variableDTO -> variableService.save(variableDTO));
 		return R.data(true);
 	}
 
@@ -110,6 +115,26 @@ public class VariableController {
 	@PostMapping("/matrix")
 	@ApiOperation(value = "变量关系表", notes = "传入variable")
 	public VariableMatrix matrix(@RequestBody VariableDTO dto) {
+		List<Formula> list = formulaService.list(new FormulaDTO()
+				.setProjectId(dto.getProjectId())
+				.setUnitId(dto.getUnitId())
+				.setModelId(dto.getModelId())
+		);
+		List<String> left = list.stream().map(Formula::getFormulaLeft).collect(Collectors.toList());
+		List<String> right = list.stream().map(Formula::getFormulaRight).collect(Collectors.toList());
+		VariableMatrix matrix = new VariableMatrix();
+
+		Map<String,String> variableMatrixList = new HashMap<>();
+		for (int i = 0; i < left.size()+1; i++) {
+			variableMatrixList.put(String.valueOf(i),left.get(i));
+		}
+		Map<String,String> variableMatrixData = new HashMap<>();
+		for (int i = 0; i < left.size()+1; i++) {
+			variableMatrixData.put(String.valueOf(i),left.get(i));
+		}
+
+//		matrix.setVariableMatrixData(variableMatrixData);
+//		matrix.setVariableMatrixList(variableMatrixList);
 		String json = "{\n" +
 				"        \"variableMatrixList\": {\"1\": \"\", \"2\": \"F1\", \"3\": \"LIC1\", \"4\": \"L1\", \"5\": \"P1\", \"6\": \"T1\", \"7\": \"TIC2\", \"8\": \"F2\", \"9\": \"LIC2\", \"10\": \"V1\", \"11\": \"PIC1\"},\n" +
 				"        \"variableMatrixData\": [\n" +

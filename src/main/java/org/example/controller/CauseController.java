@@ -98,7 +98,7 @@ public class CauseController {
 				.setUnitId(list.get(0).getUnitId())
 		);
 		causeService.deleteLogic(oldList.stream().map(Cause::getCauseId).collect(Collectors.toList()));
-		list.forEach(causeDTO -> causeService.updateById(causeDTO));
+		list.forEach(causeDTO -> causeService.save(causeDTO));
 		return R.data(true);
 	}
 

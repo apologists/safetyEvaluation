@@ -5,9 +5,16 @@ import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 import lombok.AllArgsConstructor;
 import org.example.common.R;
+import org.example.dto.ProjectDTO;
+import org.example.dto.UnitDTO;
 import org.example.dto.VariableDTO;
+import org.example.entity.Project;
+import org.example.entity.Unit;
 import org.example.entity.Variable;
+import org.example.service.IProjectService;
+import org.example.service.IUnitService;
 import org.example.utils.Func;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.web.bind.annotation.*;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import java.util.List;
@@ -17,6 +24,8 @@ import org.example.entity.Sil;
 import org.example.dto.SilDTO;
 
 import org.example.service.ISilService;
+
+import javax.annotation.Resource;
 
 /**
  * sil验算 控制器
@@ -31,6 +40,13 @@ import org.example.service.ISilService;
 public class SilController {
 
 	private ISilService silService;
+
+	@Resource
+	@Lazy
+	private IProjectService projectService;
+	@Resource
+	@Lazy
+	private IUnitService unitService;
 
 	/**
 	 * 详情
@@ -67,11 +83,28 @@ public class SilController {
 	@PostMapping("/save")
 	@ApiOperation(value = "新增", notes = "传入sil")
 	public R save(@RequestBody SilDTO dto) {
+		ProjectDTO projectDTO = new ProjectDTO();
+		projectService.save(projectDTO);
+		List<Project> list = projectService.list(projectDTO);
+		int projectMax = 0;
+		for (Project project : list) {
+			projectMax = project.getProjectId() > projectMax ? project.getProjectId() : projectMax;
+		}
+
+		UnitDTO unitDTO = new UnitDTO().setProjectId(projectMax);
+		unitService.save(unitDTO);
+		List<Unit> UnitList = unitService.list(unitDTO);
+		int unitMax = 0;
+		for (Unit unit : UnitList) {
+			unitMax = unit.getProjectId() > unitMax ? unit.getProjectId() : unitMax;
+		}
+		dto.setProjectId(projectMax);
+		dto.setUnitId(unitMax);
 		return R.data(silService.save(dto));
 	}
 
 	/**
-	 * 修改 sil验算
+	 * 修改 sil验算q
 	 */
 	@PutMapping("/update")
 	@ApiOperation(value = "修改", notes = "传入sil")
@@ -90,7 +123,7 @@ public class SilController {
 				.setUnitId(list.get(0).getUnitId())
 		);
 		silService.deleteLogic(oldList.stream().map(Sil::getSilId).collect(Collectors.toList()));
-		list.forEach(silDTO -> silService.updateById(silDTO));
+		list.forEach(silDTO -> silService.save(silDTO));
 		return R.data(true);
 	}
 

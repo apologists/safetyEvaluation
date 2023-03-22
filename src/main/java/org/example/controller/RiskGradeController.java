@@ -105,7 +105,7 @@ public class RiskGradeController {
 				.setUnitId(list.get(0).getUnitId())
 		);
 		riskGradeService.deleteLogic(oldList.stream().map(RiskGrade::getRiskGradeId).collect(Collectors.toList()));
-		list.forEach(riskGradeDto -> riskGradeService.updateById(riskGradeDto));
+		list.forEach(riskGradeDto -> riskGradeService.save(riskGradeDto));
 		return R.data(true);
 	}
 

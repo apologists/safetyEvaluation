@@ -98,7 +98,7 @@ public class CaseSummaryController {
 				.setUnitId(list.get(0).getUnitId())
 		);
 		caseSummaryService.deleteLogic(oldList.stream().map(CaseSummary::getCaseId).collect(Collectors.toList()));
-		list.forEach(caseSummaryDTO -> caseSummaryService.updateById(caseSummaryDTO));
+		list.forEach(caseSummaryDTO -> caseSummaryService.save(caseSummaryDTO));
 		return R.data(true);
 	}
 
