@@ -82,7 +82,7 @@ public class ConsequenceController {
 	/**
 	 * 修改 后果节点表
 	 */
-	@PutMapping("/updateList")
+	@PostMapping("/updateList")
 	@ApiOperation(value = "修改", notes = "传入consequence")
 	public R updateList(@RequestBody List<ConsequenceDTO> list) {
 		List<Consequence> oldList = consequenceService.list(new ConsequenceDTO()

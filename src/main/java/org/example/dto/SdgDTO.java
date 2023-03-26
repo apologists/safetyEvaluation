@@ -37,6 +37,12 @@ public class SdgDTO extends CommonDto {
 						@TableField("pullDirection")
 		private String pullDirection;
 
+	/**
+	 * 变量名称
+	 */
+	@ApiModelProperty(value = "变量名称")
+	private String variableNameEn;
+
 
 		/**
 		 * 单元id

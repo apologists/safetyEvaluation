@@ -31,6 +31,13 @@ public class Sdg extends BaseEntity {
      */
   @ApiModelProperty(value = "变量名称")
   private String variableName;
+
+  /**
+   * 变量名称
+   */
+  @ApiModelProperty(value = "变量名称")
+  private String variableNameEn;
+
     /**
      * 拉偏方向
      */

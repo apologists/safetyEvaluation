@@ -54,7 +54,7 @@ public class Sil extends BaseEntity {
      * 变量2
      */
   @ApiModelProperty(value = "变量2")
-  private String va2;
+  private String var2;
     /**
      * 变量3
      */

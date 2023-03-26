@@ -15,10 +15,7 @@ import org.example.utils.Func;
 import org.springframework.web.bind.annotation.*;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
+import java.util.*;
 import java.util.stream.Collectors;
 
 import javax.annotation.Resource;
@@ -101,15 +98,43 @@ public class SdgController {
 	 */
 	@PostMapping("/updateList")
 	@ApiOperation(value = "修改", notes = "传入sil")
-	public R updateList(@RequestBody List<SdgDTO> list) {
+	public R updateList(@RequestBody SdgSummary dto) {
+		List<Cause> causeList = dto.getCauseList();
+		List<Consequence> consequenceList = dto.getConsequenceList();
+		Set<SdgDTO> set = new HashSet<>();
+		if (!causeList.isEmpty()) {
+			causeList.forEach(cause -> {
+				SdgDTO sdgDTO = new SdgDTO().setProjectId(cause.getProjectId())
+						.setUnitId(cause.getUnitId())
+						.setModelId(cause.getModelId())
+						.setVariableName(cause.getVariableName())
+						.setVariableNameEn(cause.getVariableNameEn())
+						.setPullDirection(cause.getBurden() != null ? "burden" : "straight");
+				set.add(sdgDTO);
+			});
+		}
+
+		if (!consequenceList.isEmpty()) {
+			consequenceList.forEach(consequence -> {
+				SdgDTO sdgDTO = new SdgDTO().setProjectId(consequence.getProjectId())
+						.setUnitId(consequence.getUnitId())
+						.setModelId(consequence.getModelId())
+						.setVariableName(consequence.getVarialeName())
+						.setVariableNameEn(consequence.getVariableNameEn())
+						.setPullDirection(consequence.getBurden() != null ? "burden" : "straight");
+				set.add(sdgDTO);
+			});
+		}
+
 		List<Sdg> oldList = sdgService.list(new SdgDTO()
-				.setProjectId(list.get(0).getProjectId())
-				.setUnitId(list.get(0).getUnitId())
+				.setProjectId(dto.getProjectId())
+				.setUnitId(dto.getUnitId())
+				.setModelId(dto.getModelId())
 		);
 		if (!oldList.isEmpty()) {
 			sdgService.deleteLogic(oldList.stream().map(Sdg::getSdgId).collect(Collectors.toList()));
 		}
-		list.forEach(sdgDTO -> sdgService.save(sdgDTO));
+		new ArrayList<>(set).forEach(sdgDTO -> sdgService.save(sdgDTO));
 		return R.data(true);
 	}
 
@@ -200,6 +225,9 @@ public class SdgController {
 		SDGOptions data = sdgOptionsR.getData();
 		List<SDGEdges> edges = data.getEdges();
 		List<SDGNode> nodes = data.getNodes();
+
+
+		List<Sdg> list = sdgService.list(dto);
 
 		List<Cause> causeList = causeService.list(new CauseDTO()
 				.setProjectId(dto.getProjectId())

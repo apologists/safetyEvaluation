@@ -8,6 +8,7 @@
         <result column="updated" property="updated"/>
         <result column="deleted" property="deleted"/>
         <result column="variable_name" property="variableName"/>
+        <result column="variable_name_en" property="variableNameEn"/>
         <result column="pullDirection" property="pullDirection"/>
         <result column="unit_id" property="unitId"/>
         <result column="model_id" property="modelId"/>

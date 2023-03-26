@@ -102,31 +102,26 @@ public class SdgServiceImpl implements ISdgService {
 
     @Override
     public SdgSummary getOne(SdgDTO dto) {
-        CauseDTO cause = new CauseDTO()
+        List<Sdg> list = list(new SdgDTO()
                 .setProjectId(dto.getProjectId())
-                .setModelId(dto.getModelId())
                 .setUnitId(dto.getUnitId())
-                .setVariableName(dto.getVariableName());
-
-        List<Cause> causeList = causeService.list(cause);
-        List<Cause> newCauseList;
-
-        ConsequenceDTO consequenceDTO = new ConsequenceDTO()
-                .setProjectId(dto.getProjectId())
                 .setModelId(dto.getModelId())
-                .setUnitId(dto.getUnitId())
-                .setVarialeName(dto.getVariableName());
-        List<Consequence> consequenceList = consequenceService.list(consequenceDTO);
+        );
 
-        List<Consequence> newConsequenceList;
-        if(dto.getPullDirection().equals("straight")){
-            newConsequenceList = consequenceList.stream().filter(x -> x.getStraight() != null && !Objects.equals(x.getStraight(), "")).collect(Collectors.toList());
-            newCauseList = causeList.stream().filter(x -> x.getStraight() != null && !Objects.equals(x.getStraight(), "")).collect(Collectors.toList());
-        }else {
-            newCauseList = causeList.stream().filter(x -> x.getBurden() != null && !Objects.equals(x.getBurden(), "")).collect(Collectors.toList());
-            newConsequenceList = consequenceList.stream().filter(x -> x.getBurden() != null && !Objects.equals(x.getBurden(), "")).collect(Collectors.toList());
-        }
+        List<Cause> newCauseList = new ArrayList<>();
+        List<Consequence> newConsequenceList = new ArrayList<>();
+        getList(newCauseList,newConsequenceList,dto);
+        list.forEach(sdg -> {
+            SdgDTO sdgDTO = new SdgDTO()
+                    .setProjectId(sdg.getProjectId())
+                    .setModelId(sdg.getModelId())
+                    .setUnitId(sdg.getUnitId())
+                    .setVariableName(sdg.getVariableName())
+                    .setVariableNameEn(sdg.getVariableNameEn())
+                    .setPullDirection(sdg.getPullDirection());
+            getList(newCauseList,newConsequenceList,sdgDTO);
 
+        });
         return new SdgSummary()
                 .setCauseList(newCauseList)
                 .setConsequenceList(newConsequenceList)
@@ -135,4 +130,30 @@ public class SdgServiceImpl implements ISdgService {
                 .setUnitId(dto.getUnitId())
                 .setVariableName(dto.getVariableName());
     }
+
+    public void getList(List<Cause> newCauseList,List<Consequence> newConsequenceList,SdgDTO dto){
+        CauseDTO cause = new CauseDTO()
+                .setProjectId(dto.getProjectId())
+                .setModelId(dto.getModelId())
+                .setUnitId(dto.getUnitId())
+                .setVariableName(dto.getVariableName());
+
+        List<Cause> causeList = causeService.list(cause);
+
+        ConsequenceDTO consequenceDTO = new ConsequenceDTO()
+                .setProjectId(dto.getProjectId())
+                .setModelId(dto.getModelId())
+                .setUnitId(dto.getUnitId())
+                .setVarialeName(dto.getVariableName());
+        List<Consequence> consequenceList = consequenceService.list(consequenceDTO);
+
+        if(dto.getPullDirection().equals("straight")){
+            newConsequenceList.addAll(consequenceList.stream().filter(x -> x.getStraight() != null && !Objects.equals(x.getStraight(), "")).collect(Collectors.toList()));
+            newCauseList.addAll(causeList.stream().filter(x -> x.getStraight() != null && !Objects.equals(x.getStraight(), "")).collect(Collectors.toList()));
+        }else {
+            newCauseList.addAll(causeList.stream().filter(x -> x.getBurden() != null && !Objects.equals(x.getBurden(), "")).collect(Collectors.toList()));
+            newConsequenceList.addAll(consequenceList.stream().filter(x -> x.getBurden() != null && !Objects.equals(x.getBurden(), "")).collect(Collectors.toList()));
+        }
+    }
+
 }
