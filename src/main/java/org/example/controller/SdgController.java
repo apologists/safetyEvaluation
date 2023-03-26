@@ -1,25 +1,27 @@
 package org.example.controller;
 
 import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 import lombok.AllArgsConstructor;
 import org.example.common.R;
-import org.example.dto.SilDTO;
+import org.example.dto.*;
 import org.example.entity.*;
+import org.example.service.*;
 import org.example.utils.Func;
 import org.springframework.web.bind.annotation.*;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import org.example.dto.SdgDTO;
-
-import org.example.service.ISdgService;
+import javax.annotation.Resource;
 
 /**
  * sdg拉偏表 控制器
@@ -35,6 +37,17 @@ public class SdgController {
 
 	private ISdgService sdgService;
 
+	@Resource
+	private IFormulaService formulaService;
+
+	@Resource
+	private IVariableService variableService;
+
+	@Resource
+	private ICauseService causeService;
+
+	@Resource
+	private IConsequenceService consequenceService;
 	/**
 	 * 详情
 	 */
@@ -93,7 +106,9 @@ public class SdgController {
 				.setProjectId(list.get(0).getProjectId())
 				.setUnitId(list.get(0).getUnitId())
 		);
-		sdgService.deleteLogic(oldList.stream().map(Sdg::getSdgId).collect(Collectors.toList()));
+		if (!oldList.isEmpty()) {
+			sdgService.deleteLogic(oldList.stream().map(Sdg::getSdgId).collect(Collectors.toList()));
+		}
 		list.forEach(sdgDTO -> sdgService.save(sdgDTO));
 		return R.data(true);
 	}
@@ -110,44 +125,124 @@ public class SdgController {
 	/**
 	 * sdg图
 	 */
-	@GetMapping("/sdgOptions")
+	@PostMapping("/sdgOptions")
 	@ApiOperation(value = "新增", notes = "传入sdg")
 	public R<SDGOptions> sdgOptions(@RequestBody(required=false) SdgDTO dto) {
-		String json = "{\n" +
-				"        \"nodes\": [\n" +
-				"            {\"id\": \"TIC2\", \"label\": \"TIC2\", \"borderWidth\": 2, \"shape\": \"circle\"},\n" +
-				"            {\"id\": \"P1\", \"label\": \"P1\", \"borderWidth\": 2, \"shape\": \"circle\"},\n" +
-				"            {\"id\": \"PIC\", \"label\": \"PIC\",\"borderWidth\": 2, \"shape\": \"circle\"},\n" +
-				"            {\"id\": \"F1\", \"label\": \"F1\",\"borderWidth\": 2, \"shape\": \"circle\"},\n" +
-				"            {\"id\": \"T1\", \"label\": \"T1\",\"borderWidth\": 2, \"shape\": \"circle\"},\n" +
-				"            {\"id\": \"L1\", \"label\": \"L1\",\"borderWidth\": 2, \"shape\": \"circle\"},\n" +
-				"            {\"id\": \"F2\", \"label\": \"F2\",\"borderWidth\": 2, \"shape\": \"circle\"},\n" +
-				"            {\"id\": \"LIC2\", \"label\": \"LIC2\",\"borderWidth\": 2, \"shape\": \"circle\"},\n" +
-				"            {\"id\": \"LIC1\", \"label\": \"LIC1\",\"borderWidth\": 2, \"shape\": \"circle\"},\n" +
-				"            {\"id\": \"V1\", \"label\": \"V1\",\"borderWidth\": 2, \"shape\": \"circle\"}\n" +
-				"        ],\n" +
-				"        \"edges\": [\n" +
-				"            {\"from\": \"TIC2\", \"to\": \"P1\",\"dashes\": false},\n" +
-				"            {\"from\": \"P1\", \"to\": \"F1\", \"dashes\": false },\n" +
-				"            {\"from\": \"PIC\", \"to\": \"P1\", \"dashes\": false},\n" +
-				"            {\"from\": \"F1\", \"to\": \"T1\", \"dashes\": true},\n" +
-				"            {\"from\": \"F1\", \"to\": \"L1\", \"dashes\": false},\n" +
-				"            {\"from\": \"LIC1\", \"to\": \"F1\",\"dashes\": false},\n" +
-				"            {\"from\": \"F2\", \"to\": \"L1\",\"dashes\": true},\n" +
-				"            {\"from\": \"LIC2\", \"to\": \"F2\",\"dashes\": false},\n" +
-				"            {\"from\": \"V1\", \"to\": \"F2\",\"dashes\": false}\n" +
-				"        ]\n" +
-				"    }";
-		SDGOptions sdgOptions = JSON.parseObject(json, SDGOptions.class);
+
+		List<Formula> formulas = formulaService.list(new FormulaDTO()
+				.setProjectId(dto.getProjectId())
+				.setUnitId(dto.getUnitId())
+				.setModelId(dto.getModelId())
+		);
+		List<Variable> variableList = variableService.list(new VariableDTO()
+				.setProjectId(dto.getProjectId())
+				.setUnitId(dto.getUnitId())
+				.setModelId(dto.getModelId())
+		);
+
+		List<SDGNode> nodes = variableList.stream().map(x -> {
+			SDGNode sdgNode = new SDGNode();
+			sdgNode.setId(x.getVariableNameEn());
+			sdgNode.setLabel(x.getVariableNameEn());
+			sdgNode.setShape("circle");
+			sdgNode.setBorderWidth(2);
+			return sdgNode;
+		}).collect(Collectors.toList());
+
+		ArrayList<FormulaNode> formulaList = new ArrayList<>();
+		formulas.forEach(formula -> {
+			String formulaLeft = formula.getFormulaLeft();
+			String formulaRight = formula.getFormulaRight();
+
+			List<String> left = new ArrayList<>();
+			List<String> right = new ArrayList<>();
+			Collections.addAll(left,formulaLeft.split("-|\\+"));
+			Collections.addAll(right,formulaRight.split("-|\\+"));
+			if(left.get(0).equals("")){
+				left.remove(0);
+			}
+			if(right.get(0).equals(""))
+			{
+				right.remove(0);
+			}
+
+			for (int i = 0; i < left.size(); i++) {
+				for (int j = 0; j < right.size() ; j++) {
+					FormulaNode formulaNode = new FormulaNode();
+					formulaNode.setFormulaLeft(left.get(i));
+					formulaNode.setFormulaRight(right.get(j));
+					int index = formulaRight.indexOf(right.get(j));
+					formulaNode.setDashes(index > 0 && formulaRight.charAt(index - 1) == '-');
+					formulaList.add(formulaNode);
+				}
+			}
+		});
+		List<SDGEdges> edges = formulaList.stream().map(formula -> {
+			SDGEdges sdgEdges = new SDGEdges();
+			sdgEdges.setTo(formula.getFormulaLeft());
+			sdgEdges.setFrom(formula.getFormulaRight());
+			sdgEdges.setDashes(formula.getDashes());
+			return sdgEdges;
+		}).collect(Collectors.toList());
+		SDGOptions sdgOptions = new SDGOptions();
+		sdgOptions.setNodes(nodes);
+		sdgOptions.setEdges(edges);
 		return R.data(sdgOptions);
 	}
 
 	/**
 	 * sdg图(原因结果)
 	 */
-	@GetMapping("/sdgOptionsDetail")
+	@PostMapping("/sdgOptionsDetail")
 	@ApiOperation(value = "新增", notes = "传入sdg")
 	public R<SDGOptions> sdgOptionsDetail(@RequestBody(required=false) SdgDTO dto) {
+		R<SDGOptions> sdgOptionsR = sdgOptions(dto);
+		SDGOptions data = sdgOptionsR.getData();
+		List<SDGEdges> edges = data.getEdges();
+		List<SDGNode> nodes = data.getNodes();
+
+		List<Cause> causeList = causeService.list(new CauseDTO()
+				.setProjectId(dto.getProjectId())
+				.setUnitId(dto.getUnitId())
+				.setModelId(dto.getModelId())
+		);
+
+		List<Consequence> consequenceList = consequenceService.list(new ConsequenceDTO()
+				.setProjectId(dto.getProjectId())
+				.setUnitId(dto.getUnitId())
+				.setModelId(dto.getModelId())
+		);
+
+		causeList.forEach(cause -> {
+			SDGNode sdgNode = new SDGNode();
+			sdgNode.setId("R"+String.valueOf(cause.getCauseId()));
+			sdgNode.setLabel("R"+String.valueOf(cause.getCauseId()));
+			sdgNode.setShape("box");
+			sdgNode.setBorderWidth(2);
+
+			SDGEdges sdgEdges = new SDGEdges();
+			sdgEdges.setFrom(cause.getVariableNameEn());
+			sdgEdges.setTo("R"+String.valueOf(cause.getCauseId()));
+			sdgEdges.setDashes(cause.getBurden()==null);
+
+			edges.add(sdgEdges);
+			nodes.add(sdgNode);
+		});
+
+		consequenceList.forEach(consequence -> {
+			SDGNode sdgNode = new SDGNode();
+			sdgNode.setId("C"+String.valueOf(consequence.getConsequenceId()));
+			sdgNode.setLabel("C"+String.valueOf(consequence.getConsequenceId()));
+			sdgNode.setShape("box");
+			sdgNode.setBorderWidth(2);
+			SDGEdges sdgEdges = new SDGEdges();
+			sdgEdges.setTo(consequence.getVariableNameEn());
+			sdgEdges.setFrom("C"+String.valueOf(consequence.getConsequenceId()));
+			sdgEdges.setDashes(consequence.getBurden()==null);
+
+			edges.add(sdgEdges);
+			nodes.add(sdgNode);
+		});
 
 		String json = "{\n" +
 				"        \"nodes\": [\n" +
@@ -241,8 +336,6 @@ public class SdgController {
 				"            {\"from\": \"T2\", \"to\": \"C6\",\"dashes\": false}\n" +
 				"        ]\n" +
 				"    }";
-		SDGOptions sdgOptions = JSON.parseObject(json, SDGOptions.class);
-		return R.data(sdgOptions);
+		return R.data(data);
 	}
-
 }

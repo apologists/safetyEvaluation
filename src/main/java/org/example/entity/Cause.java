@@ -34,6 +34,11 @@ public class Cause extends BaseEntity {
      */
   @ApiModelProperty(value = "变量名称")
   private String variableName;
+  /**
+   * 变量名称
+   */
+  @ApiModelProperty(value = "变量名称")
+  private String variableNameEn;
     /**
      * 原因节点名称
      */

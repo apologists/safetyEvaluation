@@ -15,6 +15,7 @@ import com.baomidou.mybatisplus.core.metadata.IPage;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Random;
 import java.util.stream.Collectors;
 
 import org.example.entity.CaseSummary;
@@ -97,8 +98,12 @@ public class CaseSummaryController {
 				.setProjectId(list.get(0).getProjectId())
 				.setUnitId(list.get(0).getUnitId())
 		);
-		caseSummaryService.deleteLogic(oldList.stream().map(CaseSummary::getCaseId).collect(Collectors.toList()));
-		list.forEach(caseSummaryDTO -> caseSummaryService.save(caseSummaryDTO));
+		if (!oldList.isEmpty()) {
+			caseSummaryService.deleteLogic(oldList.stream().map(CaseSummary::getCaseId).collect(Collectors.toList()));
+		}
+		Random random = new Random();
+		double v = random.nextDouble();
+		list.forEach(caseSummaryDTO -> caseSummaryService.save(caseSummaryDTO.setSimilarity(String.valueOf(v))));
 		return R.data(true);
 	}
 

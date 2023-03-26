@@ -5,6 +5,9 @@
 
 package org.example.entity;
 
+import lombok.experimental.Accessors;
+
+@Accessors(chain = true)
 public class SDGNode {
     private String id;
     private String label;

@@ -20,7 +20,8 @@ import org.example.common.CommonDto;
 @ApiModel(value = "RiskConsequence对象", description = "风险后果说明表")
 public class RiskConsequenceDTO extends CommonDto {
 
-					private Integer riskConsequenceId;
+	@ApiModelProperty(value = "riskConsequenceId")
+	private Integer riskConsequenceId;
 		/**
 		 * 代码
 		 */

@@ -14,9 +14,7 @@ import org.example.utils.Func;
 import org.springframework.web.bind.annotation.*;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -98,7 +96,9 @@ public class VariableController {
 				.setProjectId(list.get(0).getProjectId())
 				.setUnitId(list.get(0).getUnitId())
 		);
-		variableService.deleteLogic(oldList.stream().map(Variable::getVariableId).collect(Collectors.toList()));
+		if (!oldList.isEmpty()) {
+			variableService.deleteLogic(oldList.stream().map(Variable::getVariableId).collect(Collectors.toList()));
+		}
 		list.forEach(variableDTO -> variableService.save(variableDTO));
 		return R.data(true);
 	}
@@ -114,43 +114,62 @@ public class VariableController {
 
 	@PostMapping("/matrix")
 	@ApiOperation(value = "变量关系表", notes = "传入variable")
-	public VariableMatrix matrix(@RequestBody VariableDTO dto) {
+	public R<VariableMatrix> matrix(@RequestBody VariableDTO dto) {
 		List<Formula> list = formulaService.list(new FormulaDTO()
 				.setProjectId(dto.getProjectId())
 				.setUnitId(dto.getUnitId())
 				.setModelId(dto.getModelId())
 		);
-		List<String> left = list.stream().map(Formula::getFormulaLeft).collect(Collectors.toList());
-		List<String> right = list.stream().map(Formula::getFormulaRight).collect(Collectors.toList());
+
 		VariableMatrix matrix = new VariableMatrix();
 
 		Map<String,String> variableMatrixList = new HashMap<>();
-		for (int i = 0; i < left.size()+1; i++) {
-			variableMatrixList.put(String.valueOf(i),left.get(i));
-		}
-		Map<String,String> variableMatrixData = new HashMap<>();
-		for (int i = 0; i < left.size()+1; i++) {
-			variableMatrixData.put(String.valueOf(i),left.get(i));
-		}
+		List<Map<String,String>> variableMatrixData = new ArrayList<>();
+		final int[] i = {0};
+		list.forEach(formula -> {
+			List<String> left = new ArrayList<>();
+			List<String> right = new ArrayList<>();
+			Collections.addAll(left,formula.getFormulaLeft().split("-|\\+"));
+			Collections.addAll(right,formula.getFormulaLeft().split("-|\\+"));
+			if(left.get(0).equals("")){
+				left.remove(0);
+			}
+			if(right.get(0).equals(""))
+			{
+				right.remove(0);
+			}
+			for (int j = 0; j < left.size(); j++) {
+				variableMatrixList.put(String.valueOf(i[0]),left.get(j));
+				i[0]++;
+			}
 
-//		matrix.setVariableMatrixData(variableMatrixData);
-//		matrix.setVariableMatrixList(variableMatrixList);
-		String json = "{\n" +
-				"        \"variableMatrixList\": {\"1\": \"\", \"2\": \"F1\", \"3\": \"LIC1\", \"4\": \"L1\", \"5\": \"P1\", \"6\": \"T1\", \"7\": \"TIC2\", \"8\": \"F2\", \"9\": \"LIC2\", \"10\": \"V1\", \"11\": \"PIC1\"},\n" +
-				"        \"variableMatrixData\": [\n" +
-				"            {\"1\": \"F1\", \"2\": \"\", \"3\": \"\", \"4\": \"+\", \"5\": \"\",\"6\":\"\",\"7\":\"\", \"8\": \"\", \"9\": \"\",\"10\":\"\",\"11\":\"\"},\n" +
-				"            {\"1\": \"LIC1\", \"2\": \"+\", \"3\": \"\", \"4\": \"\", \"5\": \"\",\"6\":\"\",\"7\":\"\", \"8\": \"\", \"9\": \"\",\"10\":\"\",\"11\":\"\"},\n" +
-				"            {\"1\": \"L1\", \"2\": \"\", \"3\": \"\", \"4\": \"\", \"5\": \"\",\"6\":\"\",\"7\":\"\", \"8\": \"\", \"9\": \"\",\"10\":\"\",\"11\":\"\"},\n" +
-				"            {\"1\": \"P1\", \"2\": \"+\", \"3\": \"\", \"4\": \"\", \"5\": \"\",\"6\":\"\",\"7\":\"\", \"8\": \"\", \"9\": \"\",\"10\":\"\",\"11\":\"\"},\n" +
-				"            {\"1\": \"T1\", \"2\": \"\", \"3\": \"\", \"4\": \"\", \"5\": \"\",\"6\":\"\",\"7\":\"\", \"8\": \"\", \"9\": \"\",\"10\":\"\",\"11\":\"\"},\n" +
-				"            {\"1\": \"TIC2\", \"2\": \"\", \"3\": \"\", \"4\": \"\", \"5\": \"+\",\"6\":\"\",\"7\":\"\", \"8\": \"\", \"9\": \"\",\"10\":\"\",\"11\":\"\"},\n" +
-				"            {\"1\": \"F2\", \"2\": \"\", \"3\": \"\", \"4\": \"-\", \"5\": \"\",\"6\":\"\",\"7\":\"\", \"8\": \"\", \"9\": \"\",\"10\":\"\",\"11\":\"\"},\n" +
-				"            {\"1\": \"LIC2\", \"2\": \"\", \"3\": \"\", \"4\": \"\", \"5\": \"\",\"6\":\"\",\"7\":\"\", \"8\": \"\", \"9\": \"\",\"10\":\"\",\"11\":\"\"},\n" +
-				"            {\"1\": \"V1\", \"2\": \"\", \"3\": \"\", \"4\": \"\", \"5\": \"\",\"6\":\"\",\"7\":\"\", \"8\": \"+\", \"9\": \"\",\"10\":\"\",\"11\":\"\"},\n" +
-				"            {\"1\": \"PIC1\", \"2\": \"\", \"3\": \"\", \"4\": \"\", \"5\": \"+\",\"6\":\"\",\"7\":\"\", \"8\": \"\", \"9\": \"\",\"10\":\"\",\"11\":\"\"}\n" +
-				"        ]\n" +
-				"    }";
-		return JSON.parseObject(json, VariableMatrix.class);
+			for (int j = 0; j < right.size(); j++) {
+				Map<String,String> map = new HashMap<>();
+				String s = right.get(j);
+				int index = formula.getFormulaRight().indexOf(s);
+				boolean f = index > 0 && formula.getFormulaRight().charAt(index - 1) == '-';
+				boolean t = index > 0 && formula.getFormulaRight().charAt(index - 1) == '+';
+				variableMatrixList.forEach((k,v) ->{ if(k.equals("0")){
+						map.put(k,s);
+					} else if(v.equals(s)){
+						if(f){
+							map.put(k,"-");
+						}
+						if(t){
+							map.put(k,"+");
+						}
+					}else {
+						map.put(k,"");
+					}
+				});
+				variableMatrixData.add(map);
+			}
+
+		});
+
+		matrix.setVariableMatrixData(variableMatrixData);
+		matrix.setVariableMatrixList(variableMatrixList);
+		return R.data(matrix);
 	}
 
 

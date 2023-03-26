@@ -6,7 +6,10 @@ import io.swagger.annotations.ApiParam;
 import lombok.AllArgsConstructor;
 import org.example.common.R;
 import org.example.dto.FrequencyDTO;
+import org.example.dto.RiskGradeDTO;
 import org.example.entity.Frequency;
+import org.example.service.IFrequencyService;
+import org.example.service.IRiskGradeService;
 import org.example.utils.Func;
 import org.springframework.web.bind.annotation.*;
 import com.baomidou.mybatisplus.core.metadata.IPage;
@@ -17,6 +20,8 @@ import org.example.entity.RiskConsequence;
 import org.example.dto.RiskConsequenceDTO;
 
 import org.example.service.IRiskConsequenceService;
+
+import javax.annotation.Resource;
 
 /**
  * 风险后果说明表 控制器
@@ -31,6 +36,12 @@ import org.example.service.IRiskConsequenceService;
 public class RiskConsequenceController {
 
 	private IRiskConsequenceService riskConsequenceService;
+
+	@Resource
+	private IRiskGradeService riskGradeService;
+
+	@Resource
+	private IFrequencyService frequencyService;
 
 	/**
 	 * 详情
@@ -90,8 +101,32 @@ public class RiskConsequenceController {
 				.setProjectId(list.get(0).getProjectId())
 				.setUnitId(list.get(0).getUnitId())
 		);
-		riskConsequenceService.deleteLogic(oldList.stream().map(RiskConsequence::getRiskConsequenceId).collect(Collectors.toList()));
+
+		if (!oldList.isEmpty()) {
+			riskConsequenceService.deleteLogic(oldList.stream().map(RiskConsequence::getRiskConsequenceId).collect(Collectors.toList()));
+		}
 		list.forEach(riskConsequenceDTO -> riskConsequenceService.save(riskConsequenceDTO));
+		List<RiskConsequence> newList = riskConsequenceService.list(new RiskConsequenceDTO()
+				.setProjectId(list.get(0).getProjectId())
+				.setUnitId(list.get(0).getUnitId()));
+		newList.removeAll(oldList);
+		List<Frequency> frequencyList = frequencyService.list(new FrequencyDTO()
+				.setProjectId(list.get(0).getProjectId())
+				.setUnitId(list.get(0).getUnitId())
+		);
+		newList.forEach(x ->{
+			frequencyList.forEach(frequency -> {
+				riskGradeService.save(new RiskGradeDTO()
+						.setProjectId(list.get(0).getProjectId())
+						.setUnitId(list.get(0).getUnitId())
+						.setFrequencyId(frequency.getFrequencyId())
+						.setRiskConsequenceId(x.getRiskConsequenceId())
+						.setRiskGradeDesc(frequency.getFrequencyDesc())
+						.setRiskGrade(x.getRiskConsequencecolName())
+				);
+			});
+		});
+
 		return R.data(true);
 	}
 

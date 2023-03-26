@@ -39,6 +39,12 @@ public class Consequence extends BaseEntity {
      */
   @ApiModelProperty(value = "变量名称")
   private String varialeName;
+
+  /**
+   * 变量名称
+   */
+  @ApiModelProperty(value = "变量名称")
+  private String variableNameEn;
     /**
      * 正向
      */

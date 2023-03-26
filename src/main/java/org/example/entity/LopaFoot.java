@@ -4,9 +4,14 @@ import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import lombok.experimental.Accessors;
 
+import java.io.Serializable;
+
 @Accessors(chain = true)
 @Data
-public class LopaFoot {
+public class LopaFoot implements Serializable {
+    private static final long serialVersionUID = 1L;
+
+    private Integer lopaId;
     /**
      * 风险类别
      */

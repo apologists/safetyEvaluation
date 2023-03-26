@@ -97,7 +97,9 @@ public class CauseController {
 				.setProjectId(list.get(0).getProjectId())
 				.setUnitId(list.get(0).getUnitId())
 		);
-		causeService.deleteLogic(oldList.stream().map(Cause::getCauseId).collect(Collectors.toList()));
+		if (!oldList.isEmpty()) {
+			causeService.deleteLogic(oldList.stream().map(Cause::getCauseId).collect(Collectors.toList()));
+		}
 		list.forEach(causeDTO -> causeService.save(causeDTO));
 		return R.data(true);
 	}

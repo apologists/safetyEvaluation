@@ -90,7 +90,9 @@ public class FormulaController {
 				.setProjectId(list.get(0).getProjectId())
 				.setUnitId(list.get(0).getUnitId())
 		);
-		formulaService.deleteLogic(oldList.stream().map(Formula::getFormulaId).collect(Collectors.toList()));
+		if (!oldList.isEmpty()) {
+			formulaService.deleteLogic(oldList.stream().map(Formula::getFormulaId).collect(Collectors.toList()));
+		}
 		list.forEach(causeDTO -> formulaService.save(causeDTO));
 		return R.data(true);
 	}

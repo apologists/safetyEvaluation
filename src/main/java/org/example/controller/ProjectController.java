@@ -93,6 +93,15 @@ public class ProjectController {
 	}
 
 	/**
+	 * 修改 项目表
+	 */
+	@PutMapping("/updateList")
+	@ApiOperation(value = "修改", notes = "传入project")
+	public R updateList(@RequestBody ProjectDTO dto) {
+		return R.data(projectService.updateById(dto));
+	}
+
+	/**
 	 * 删除 项目表
 	 */
 	@DeleteMapping("/remove")

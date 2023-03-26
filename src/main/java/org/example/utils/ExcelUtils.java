@@ -1003,4 +1003,14 @@ public class ExcelUtils {
         return s.trim();
     }
 
+
+    public static String getBigDecimal(String str){
+        if(str == null || str.equals("")){
+            return "1";
+        }
+        BigDecimal bd = new BigDecimal(str);
+        return bd.toPlainString();
+    }
+
+
 }

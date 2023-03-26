@@ -22,7 +22,8 @@ import org.example.common.CommonDto;
 @ApiModel(value = "CaseSummary对象", description = "案例库表")
 public class CaseSummaryDTO extends CommonDto {
 
-					private Integer caseId;
+	@ApiModelProperty(value = "caseId")
+	private Integer caseId;
 		/**
 		 * 工艺类型
 		 */

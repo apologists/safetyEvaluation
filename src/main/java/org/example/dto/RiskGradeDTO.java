@@ -1,5 +1,6 @@
 package org.example.dto;
 
+import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.experimental.Accessors;
 import org.example.base.BaseEntity;
@@ -20,7 +21,9 @@ import org.example.common.CommonDto;
 @ApiModel(value = "RiskGrade对象", description = "风险等级说明")
 public class RiskGradeDTO extends CommonDto {
 
-					private Integer riskGradeId;
+	@ApiModelProperty(value = "riskGradeId")
+	@TableId
+	private Integer riskGradeId;
 		/**
 		 * 说明
 		 */

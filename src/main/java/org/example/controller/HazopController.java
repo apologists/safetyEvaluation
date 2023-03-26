@@ -7,11 +7,11 @@ import io.swagger.models.auth.In;
 import lombok.AllArgsConstructor;
 import org.example.common.R;
 import org.example.dto.ProjectDTO;
+import org.example.dto.RiskGradeDTO;
 import org.example.dto.UnitDTO;
-import org.example.entity.Options;
-import org.example.entity.Project;
-import org.example.entity.Unit;
+import org.example.entity.*;
 import org.example.service.IProjectService;
+import org.example.service.IRiskGradeService;
 import org.example.service.IUnitService;
 import org.example.utils.BeanCopyUtils;
 import org.example.utils.Func;
@@ -23,7 +23,6 @@ import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-import org.example.entity.Hazop;
 import org.example.dto.HazopDTO;
 
 import org.example.service.IHazopService;
@@ -50,6 +49,9 @@ public class HazopController {
 	private IUnitService unitService;
 
 	private IHazopService hazopService;
+
+	@Resource
+	private IRiskGradeService gradeService;
 
 	/**
 	 * 详情
@@ -125,9 +127,37 @@ public class HazopController {
 				.setProjectId(list.get(0).getProjectId())
 				.setUnitId(list.get(0).getUnitId())
 		);
-		List<Integer> collect = oldList.stream().map(Hazop::getHazopId).collect(Collectors.toList());
-		hazopService.deleteLogic(collect);
-		list.forEach(hazopDTO -> hazopService.save(hazopDTO));
+		if (!oldList.isEmpty()) {
+			hazopService.deleteLogic(oldList.stream().map(Hazop::getHazopId).collect(Collectors.toList()));
+		}
+		List<RiskGrade> riskGradeList = gradeService.list(new RiskGradeDTO()
+				.setProjectId(list.get(0).getProjectId())
+				.setUnitId(list.get(0).getUnitId())
+		);
+		List<RiskGrade> collect = riskGradeList.stream().
+				sorted(Comparator.comparing(RiskGrade::getRiskGradeId)).collect(Collectors.toList());
+		list.forEach(hazopDTO ->{
+			for (int i = 0; i < collect.size(); i++) {
+				if( i == collect.size()-1){
+					hazopDTO.setHazopColor1(4);
+				}else if(Integer.parseInt(hazopDTO.getRiskL()) * Integer.parseInt(hazopDTO.getRiskS()) >= Integer.parseInt(collect.get(i).getGradeNum())
+				&& Integer.parseInt(hazopDTO.getRiskL()) * Integer.parseInt(hazopDTO.getRiskS()) <= Integer.parseInt(collect.get(i+1).getGradeNum())
+				){
+					hazopDTO.setHazopColor1(Integer.parseInt(collect.get(i).getColour()));
+					break;
+				}
+
+				if( i == collect.size()-1){
+					hazopDTO.setHazopColor2(4);
+				}else if(Integer.parseInt(hazopDTO.getRiskLi()) * Integer.parseInt(hazopDTO.getRiskSi()) >= Integer.parseInt(collect.get(i).getGradeNum())
+						&& Integer.parseInt(hazopDTO.getRiskLi()) * Integer.parseInt(hazopDTO.getRiskSi()) <= Integer.parseInt(collect.get(i+1).getGradeNum())
+				){
+					hazopDTO.setHazopColor2(Integer.parseInt(collect.get(i).getColour()));
+					break;
+				}
+			}
+			hazopService.save(hazopDTO);
+		});
 		return R.data(true);
 	}
 

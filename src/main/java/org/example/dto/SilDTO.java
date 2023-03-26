@@ -1,5 +1,6 @@
 package org.example.dto;
 
+import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.experimental.Accessors;
 import org.example.base.BaseEntity;
@@ -21,7 +22,9 @@ import org.example.common.CommonDto;
 @Accessors(chain = true)
 public class SilDTO extends CommonDto {
 
-					private Integer silId;
+	@ApiModelProperty(value = "silId")
+	@TableId
+	private Integer silId;
 		/**
 		 * 回路
 		 */
@@ -51,7 +54,7 @@ public class SilDTO extends CommonDto {
 		 * 变量2
 		 */
 			@ApiModelProperty(value = "变量2")
-					private String va2;
+					private String var2;
 		/**
 		 * 变量3
 		 */

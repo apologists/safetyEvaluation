@@ -11,6 +11,9 @@ import org.springframework.stereotype.Service;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import lombok.AllArgsConstructor;
 import cn.hutool.core.util.StrUtil;
+
+import java.lang.reflect.Field;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -70,6 +73,59 @@ public class CaseSummaryServiceImpl implements ICaseSummaryService {
     @Override
     public Integer save(CaseSummaryDTO dto) {
         return caseSummaryMapper.insert(BeanCopyUtils.copy(dto,CaseSummary.class));
+//        List<CaseSummary> list = list(dto);
+//        CaseSummary caseSummary = list.get(0);
+//        Field[] fields = dto.getClass().getDeclaredFields();
+//        List<Integer> list1 = new ArrayList<>();
+//        for (Field field : fields) {
+//            field.setAccessible(true);
+//            String value = field.get(dto).toString();
+//            String name = field.getName();
+//            if (name.equals("rateFlow") &&  caseSummary.getRateFlow().equals(value)){
+//                list1.add(1-(Integer.parseInt(caseSummary.getRateFlow()) - Integer.parseInt(value))
+//                        / (Math.max(Integer.parseInt(caseSummary.getRateFlow()),Integer.parseInt(value)))
+//                        - (Math.min(Integer.parseInt(caseSummary.getRateFlow()),Integer.parseInt(value))));
+//
+//            }
+//            if(name.equals("temperature") &&  caseSummary.getTemperature().equals(value)){
+//                list1.add(1-(Integer.parseInt(caseSummary.getTemperature()) - Integer.parseInt(value))
+//                        / (Math.max(Integer.parseInt(caseSummary.getTemperature()),Integer.parseInt(value)))
+//                        - (Math.min(Integer.parseInt(caseSummary.getTemperature()),Integer.parseInt(value))));
+//            }
+//            if(name.equals("pressure") &&  caseSummary.getPressure().equals(value)){
+//                list1.add(1-(Integer.parseInt(caseSummary.getPressure()) - Integer.parseInt(value))
+//                        / (Math.max(Integer.parseInt(caseSummary.getPressure()),Integer.parseInt(value)))
+//                        - (Math.min(Integer.parseInt(caseSummary.getPressure()),Integer.parseInt(value))));
+//            }
+//            if(name.equals("cause") &&  caseSummary.getCause().equals(value)){
+//                list1.add(1);
+//            }
+//            if(name.equals("consequence") &&  caseSummary.getConsequence().equals(value)){
+//                list1.add(1);
+//            }
+//            if(name.equals("deviation") &&  caseSummary.getDeviation().equals(value)){
+//                list1.add(1);
+//            }
+//            if(name.equals("equipmentMaterialType") &&  caseSummary.getEquipmentMaterialType().equals(value)){
+//                list1.add(1);
+//            }
+//            if(name.equals("matter") &&  caseSummary.getMatter().equals(value)){
+//                list1.add(1);
+//            }
+//            if(name.equals("measure") &&  caseSummary.getMeasure().equals(value)){
+//                list1.add(1);
+//            }
+//            if(name.equals("equipmentType") &&  caseSummary.getEquipmentType().equals(value)){
+//                list1.add(1);
+//            }
+//            if(name.equals("operationProcessType") &&  caseSummary.getOperationProcessType().equals(value)){
+//                list1.add(1);
+//            }
+//            final int[] count = {0};
+//            list1.forEach(x -> { count[0] = x + count[0];
+//            });
+//            dto.setSimilarity(String.valueOf(count[0]));
+//        }
     }
 
     @Override

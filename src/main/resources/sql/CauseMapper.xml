@@ -9,6 +9,7 @@
         <result column="deleted" property="deleted"/>
         <result column="variable_id" property="variableId"/>
         <result column="variable_name" property="variableName"/>
+        <result column="variable_name_en" property="variableNameEn"/>
         <result column="cause_name" property="causeName"/>
         <result column="straight" property="straight"/>
         <result column="burden" property="burden"/>

@@ -23,7 +23,8 @@ import org.example.common.CommonDto;
 @Accessors(chain = true)
 public class SdgDTO extends CommonDto {
 
-					private Integer sdgId;
+	@ApiModelProperty(value = "sdgId")
+	private Integer sdgId;
 		/**
 		 * 变量名称
 		 */

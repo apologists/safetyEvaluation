@@ -20,7 +20,8 @@ import org.example.common.CommonDto;
 @ApiModel(value = "Cause对象", description = "原因节点表")
 public class CauseDTO extends CommonDto {
 
-					private Integer causeId;
+	@ApiModelProperty(value = "causeId")
+	private Integer causeId;
 		/**
 		 * 变量id
 		 */
@@ -31,6 +32,12 @@ public class CauseDTO extends CommonDto {
 		 */
 			@ApiModelProperty(value = "变量名称")
 					private String variableName;
+
+	/**
+	 * 变量名称
+	 */
+	@ApiModelProperty(value = "变量名称")
+	private String variableNameEn;
 		/**
 		 * 原因节点名称
 		 */

@@ -1,5 +1,6 @@
 package org.example.entity;
 
+import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import org.example.base.BaseEntity;
 import com.baomidou.mybatisplus.annotation.TableField;
@@ -22,6 +23,7 @@ public class Sil extends BaseEntity {
 
     private static final long serialVersionUID = 1L;
 
+    @TableId
   private Integer silId;
     /**
      * 回路

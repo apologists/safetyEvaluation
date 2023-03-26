@@ -18,6 +18,7 @@ import org.springframework.context.annotation.Lazy;
 import org.springframework.web.bind.annotation.*;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import java.util.List;
+import java.util.Random;
 import java.util.stream.Collectors;
 
 import org.example.entity.Sil;
@@ -122,8 +123,23 @@ public class SilController {
 				.setProjectId(list.get(0).getProjectId())
 				.setUnitId(list.get(0).getUnitId())
 		);
-		silService.deleteLogic(oldList.stream().map(Sil::getSilId).collect(Collectors.toList()));
-		list.forEach(silDTO -> silService.save(silDTO));
+		if (!oldList.isEmpty()) {
+			silService.deleteLogic(oldList.stream().map(Sil::getSilId).collect(Collectors.toList()));
+		}
+		list.forEach(silDTO ->{
+					Random random = new Random();
+					int number = random.nextInt(10);
+					if(number < 7){
+						silDTO.setSilGrade("SIL1");
+					}else if(number == 7){
+						silDTO.setSilGrade("SIL2");
+					}else if(number == 8){
+						silDTO.setSilGrade("SIL3");
+					}else {
+						silDTO.setSilGrade("SIL4");
+					}
+			silService.save(silDTO);
+				});
 		return R.data(true);
 	}
 

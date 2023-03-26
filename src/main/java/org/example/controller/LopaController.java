@@ -7,19 +7,18 @@ import lombok.AllArgsConstructor;
 import org.example.common.R;
 import org.example.dto.ProjectDTO;
 import org.example.dto.UnitDTO;
-import org.example.entity.LopaSummary;
-import org.example.entity.Project;
-import org.example.entity.Unit;
+import org.example.entity.*;
 import org.example.service.IProjectService;
 import org.example.service.IUnitService;
 import org.example.utils.Func;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.web.bind.annotation.*;
 import com.baomidou.mybatisplus.core.metadata.IPage;
-import java.util.List;
+
+import java.util.*;
+import java.util.function.Function;
 import java.util.stream.Collectors;
 
-import org.example.entity.Lopa;
 import org.example.dto.LopaDTO;
 
 import org.example.service.ILopaService;
@@ -116,13 +115,59 @@ public class LopaController {
 	 */
 	@PostMapping("/updateList")
 	@ApiOperation(value = "修改", notes = "传入lopa")
-	public R updateList(@RequestBody List<LopaDTO> list) {
-		List<Lopa> oldList = lopaService.list(new LopaDTO()
-				.setProjectId(list.get(0).getProjectId())
-				.setUnitId(list.get(0).getUnitId())
-		);
-		lopaService.deleteLogic(oldList.stream().map(Lopa::getLopaId).collect(Collectors.toList()));
-		list.forEach(lopaDTO -> lopaService.updateById(lopaDTO));
+	public R updateList(@RequestBody LopaSummary dto) {
+		List<LopaFoot> footList = dto.getFootList();
+		Map<Integer, LopaFoot> footMap = footList.stream().collect(
+				Collectors.toMap(LopaFoot::getLopaId, Function.identity(), (key1, key2) -> key2));
+		List<LopaHead> headList = dto.getHeadList();
+		Map<Integer, LopaHead> headMap = headList.stream().collect(
+				Collectors.toMap(LopaHead::getLopaId, Function.identity(), (key1, key2) -> key2));
+		Set<Integer> lopaIds = footList.stream().map(LopaFoot::getLopaId).collect(Collectors.toSet());
+		headList.forEach(f->{
+			lopaIds.add(f.getLopaId());
+		});
+		if (!lopaIds.isEmpty()) {
+			lopaService.deleteLogic(new ArrayList(lopaIds));
+		}
+		lopaIds.forEach(f->{
+			LopaDTO lopaDTO = new LopaDTO()
+					.setProjectId(dto.getProjectId())
+					.setUnitId(dto.getUnitId());
+
+			if(footMap.containsKey(f)){
+				lopaDTO.setLopaId(footMap.get(f).getLopaId());
+				lopaDTO.setLopaDesc(footMap.get(f).getLopaDesc());
+				lopaDTO.setLopaGrade(footMap.get(f).getLopaGrade());
+				lopaDTO.setProtect(footMap.get(f).getProtect());
+				lopaDTO.setProtectDesc(footMap.get(f).getProtectDesc());
+				lopaDTO.setReviseCondition(footMap.get(f).getReviseCondition());
+				lopaDTO.setLopaType(footMap.get(f).getLopaType());
+				lopaDTO.setConclusion(footMap.get(f).getConclusion());
+				lopaDTO.setTolerate(footMap.get(f).getTolerate());
+				lopaDTO.setReviseRate(footMap.get(f).getReviseRate());
+			}
+			if(headMap.containsKey(f)){
+				lopaDTO.setLopaId(headMap.get(f).getLopaId());
+				lopaDTO.setSceneDesc(headMap.get(f).getSceneDesc());
+				lopaDTO.setEventVate(headMap.get(f).getEventVate());
+				lopaDTO.setConditon(headMap.get(f).getConditon());
+				lopaDTO.setEventIpl(headMap.get(f).getEventIpl());
+				lopaDTO.setUnitId(headMap.get(f).getUnitId());
+				lopaDTO.setProjectId(headMap.get(f).getProjectId());
+			}
+			Random random = new Random();
+			int number = random.nextInt(10);
+			if(number < 7){
+				lopaDTO.setConclusion("SIL=1,则风险可接受");
+			}else if(number == 7){
+				lopaDTO.setConclusion("SIL=2,则风险可接受");
+			}else if(number == 8){
+				lopaDTO.setConclusion("SIL=3,则风险不可接受");
+			}else {
+				lopaDTO.setConclusion("SIL=4,则风险不可接受");
+			}
+			lopaService.save(lopaDTO);
+		});
 		return R.data(true);
 	}
 

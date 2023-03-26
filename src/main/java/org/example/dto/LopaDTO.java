@@ -1,5 +1,6 @@
 package org.example.dto;
 
+import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.experimental.Accessors;
 import org.example.base.BaseEntity;
@@ -20,7 +21,9 @@ import org.example.common.CommonDto;
 @ApiModel(value = "Lopa对象", description = "lopa分析")
 public class LopaDTO extends CommonDto {
 
-					private Integer lopaId;
+	@ApiModelProperty(value = "lopaId")
+	@TableId
+	private Integer lopaId;
 		/**
 		 * 场景描述
 		 */

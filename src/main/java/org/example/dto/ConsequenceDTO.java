@@ -20,7 +20,8 @@ import org.example.common.CommonDto;
 @Accessors(chain = true)
 public class ConsequenceDTO extends CommonDto {
 
-					private Integer consequenceId;
+	@ApiModelProperty(value = "consequenceId")
+	private Integer consequenceId;
 		/**
 		 * 后果节点
 		 */
@@ -36,6 +37,12 @@ public class ConsequenceDTO extends CommonDto {
 		 */
 			@ApiModelProperty(value = "变量名称")
 					private String varialeName;
+
+	/**
+	 * 变量名称
+	 */
+	@ApiModelProperty(value = "变量名称")
+	private String variableNameEn;
 		/**
 		 * 正向
 		 */

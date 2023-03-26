@@ -113,6 +113,7 @@ public class LopaServiceImpl implements ILopaService {
             LopaFoot lopaFoot = null;
             if (lopa.getLopaType() != null) {
                 lopaFoot = new LopaFoot()
+                        .setLopaId(lopa.getLopaId())
                         .setLopaDesc(lopa.getLopaDesc())
                         .setLopaGrade(lopa.getLopaGrade())
                         .setProtect(lopa.getProtect())

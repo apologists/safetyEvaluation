@@ -89,7 +89,9 @@ public class ConsequenceController {
 				.setProjectId(list.get(0).getProjectId())
 				.setUnitId(list.get(0).getUnitId())
 		);
-		consequenceService.deleteLogic(oldList.stream().map(Consequence::getConsequenceId).collect(Collectors.toList()));
+		if (!oldList.isEmpty()) {
+			consequenceService.deleteLogic(oldList.stream().map(Consequence::getConsequenceId).collect(Collectors.toList()));
+		}
 		list.forEach(consequenceDTO -> consequenceService.save(consequenceDTO));
 		return R.data(true);
 	}

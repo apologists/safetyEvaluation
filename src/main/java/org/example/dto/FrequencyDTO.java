@@ -20,7 +20,8 @@ import org.example.common.CommonDto;
 @ApiModel(value = "Frequency对象", description = "频率说明表")
 public class FrequencyDTO extends CommonDto {
 
-					private Integer frequencyId;
+	@ApiModelProperty(value = "frequencyId")
+	private Integer frequencyId;
 		/**
 		 * 代码
 		 */

@@ -20,7 +20,8 @@ import org.example.common.CommonDto;
 @Accessors(chain = true)
 public class VariableDTO extends CommonDto {
 
-					private Integer variableId;
+	@ApiModelProperty(value = "variableId")
+	private Integer variableId;
 		/**
 		 * 变量中文名称
 		 */
