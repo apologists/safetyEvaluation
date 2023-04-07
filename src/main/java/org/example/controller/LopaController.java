@@ -10,6 +10,7 @@ import org.example.dto.UnitDTO;
 import org.example.entity.*;
 import org.example.service.IProjectService;
 import org.example.service.IUnitService;
+import org.example.utils.ExcelUtils;
 import org.example.utils.Func;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.web.bind.annotation.*;
@@ -116,6 +117,31 @@ public class LopaController {
 	@PostMapping("/updateList")
 	@ApiOperation(value = "修改", notes = "传入lopa")
 	public R updateList(@RequestBody LopaSummary dto) {
+
+		Map<String,List<Double>> map = new HashMap<>();
+		double i2 = 0.1;
+		double i3 = 0.01;
+		double i4 = 0.001;
+		double i5 = 0.0001;
+		double i1 = 1;
+		List<Double> d1 = new ArrayList<>();
+		d1.add(i1);
+		d1.add(i2);
+		map.put("SIL=1",d1);
+		List<Double> d2 = new ArrayList<>();
+		d2.add(i2);
+		d2.add(i3);
+		map.put("SIL=2",d2);
+		List<Double> d3 = new ArrayList<>();
+		d3.add(i3);
+		d3.add(i4);
+		map.put("SIL=3",d3);
+		List<Double> d4 = new ArrayList<>();
+		d4.add(i4);
+		d4.add(i5);
+		map.put("SIL=4",d4);
+		List<Integer> list = lopaService.list(new LopaDTO().setProjectId(dto.getProjectId())
+				.setUnitId(dto.getUnitId())).stream().map(Lopa::getLopaId).collect(Collectors.toList());
 		List<LopaFoot> footList = dto.getFootList();
 		Map<Integer, LopaFoot> footMap = footList.stream().collect(
 				Collectors.toMap(LopaFoot::getLopaId, Function.identity(), (key1, key2) -> key2));
@@ -126,9 +152,16 @@ public class LopaController {
 		headList.forEach(f->{
 			lopaIds.add(f.getLopaId());
 		});
-		if (!lopaIds.isEmpty()) {
-			lopaService.deleteLogic(new ArrayList(lopaIds));
+		if (!list.isEmpty()) {
+			lopaService.deleteLogic(list);
 		}
+
+		final double[] count = {0};
+		lopaIds.forEach(f->{
+				count[0] = count[0] + (Double.parseDouble(ExcelUtils.getBigDecimal(headMap.get(f).getEventVate())) *
+						Double.parseDouble(ExcelUtils.getBigDecimal(headMap.get(f).getConditon())));
+		});
+
 		lopaIds.forEach(f->{
 			LopaDTO lopaDTO = new LopaDTO()
 					.setProjectId(dto.getProjectId())
@@ -140,11 +173,23 @@ public class LopaController {
 				lopaDTO.setLopaGrade(footMap.get(f).getLopaGrade());
 				lopaDTO.setProtect(footMap.get(f).getProtect());
 				lopaDTO.setProtectDesc(footMap.get(f).getProtectDesc());
-				lopaDTO.setReviseCondition(footMap.get(f).getReviseCondition());
+				lopaDTO.setReviseCondition(String.valueOf(count[0]));
 				lopaDTO.setLopaType(footMap.get(f).getLopaType());
 				lopaDTO.setConclusion(footMap.get(f).getConclusion());
 				lopaDTO.setTolerate(footMap.get(f).getTolerate());
 				lopaDTO.setReviseRate(footMap.get(f).getReviseRate());
+				String tolerate = footMap.get(f).getTolerate();
+				double v1 = Double.parseDouble(ExcelUtils.getBigDecimal(tolerate));
+				String protect = footMap.get(f).getProtect();
+				double v2 =Double.parseDouble(ExcelUtils.getBigDecimal(protect));
+				double v3 = count[0] * v2;
+
+				double silCount = v1 / v3;
+				map.forEach((k,v) -> {
+					if(v.get(0) >= silCount && v.get(1) < silCount){
+						lopaDTO.setConclusion("若"+k+"，则风险可接受");
+					}
+				});
 			}
 			if(headMap.containsKey(f)){
 				lopaDTO.setLopaId(headMap.get(f).getLopaId());
@@ -154,17 +199,6 @@ public class LopaController {
 				lopaDTO.setEventIpl(headMap.get(f).getEventIpl());
 				lopaDTO.setUnitId(headMap.get(f).getUnitId());
 				lopaDTO.setProjectId(headMap.get(f).getProjectId());
-			}
-			Random random = new Random();
-			int number = random.nextInt(10);
-			if(number < 7){
-				lopaDTO.setConclusion("SIL=1,则风险可接受");
-			}else if(number == 7){
-				lopaDTO.setConclusion("SIL=2,则风险可接受");
-			}else if(number == 8){
-				lopaDTO.setConclusion("SIL=3,则风险不可接受");
-			}else {
-				lopaDTO.setConclusion("SIL=4,则风险不可接受");
 			}
 			lopaService.save(lopaDTO);
 		});

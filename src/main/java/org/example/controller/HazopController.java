@@ -6,13 +6,10 @@ import io.swagger.annotations.ApiParam;
 import io.swagger.models.auth.In;
 import lombok.AllArgsConstructor;
 import org.example.common.R;
-import org.example.dto.ProjectDTO;
-import org.example.dto.RiskGradeDTO;
-import org.example.dto.UnitDTO;
+import org.example.dto.*;
 import org.example.entity.*;
-import org.example.service.IProjectService;
-import org.example.service.IRiskGradeService;
-import org.example.service.IUnitService;
+import org.example.service.*;
+import org.example.service.impl.UnitServiceImpl;
 import org.example.utils.BeanCopyUtils;
 import org.example.utils.Func;
 import org.springframework.context.annotation.Lazy;
@@ -20,12 +17,9 @@ import org.springframework.web.bind.annotation.*;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 
 import java.util.*;
+import java.util.function.Function;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
-
-import org.example.dto.HazopDTO;
-
-import org.example.service.IHazopService;
 
 import javax.annotation.Resource;
 
@@ -52,6 +46,12 @@ public class HazopController {
 
 	@Resource
 	private IRiskGradeService gradeService;
+
+	@Resource
+	private CaseSummaryController caseSummaryService;
+
+	@Resource
+	private IModelService modelService;
 
 	/**
 	 * 详情
@@ -134,30 +134,46 @@ public class HazopController {
 				.setProjectId(list.get(0).getProjectId())
 				.setUnitId(list.get(0).getUnitId())
 		);
-		List<RiskGrade> collect = riskGradeList.stream().
-				sorted(Comparator.comparing(RiskGrade::getRiskGradeId)).collect(Collectors.toList());
-		list.forEach(hazopDTO ->{
-			for (int i = 0; i < collect.size(); i++) {
-				if( i == collect.size()-1){
-					hazopDTO.setHazopColor1(4);
-				}else if(Integer.parseInt(hazopDTO.getRiskL()) * Integer.parseInt(hazopDTO.getRiskS()) >= Integer.parseInt(collect.get(i).getGradeNum())
-				&& Integer.parseInt(hazopDTO.getRiskL()) * Integer.parseInt(hazopDTO.getRiskS()) <= Integer.parseInt(collect.get(i+1).getGradeNum())
-				){
-					hazopDTO.setHazopColor1(Integer.parseInt(collect.get(i).getColour()));
-					break;
-				}
+		Map<Integer, List<RiskGrade>> map = riskGradeList.stream().collect(
+				Collectors.groupingBy(RiskGrade::getFrequencyNum, HashMap::new,
+						Collectors.collectingAndThen(Collectors.toList(),
+								c -> c.stream().sorted(Comparator.comparing(RiskGrade::getRiskConsequenceId)).collect(Collectors.toList())
+						)));
 
-				if( i == collect.size()-1){
-					hazopDTO.setHazopColor2(4);
-				}else if(Integer.parseInt(hazopDTO.getRiskLi()) * Integer.parseInt(hazopDTO.getRiskSi()) >= Integer.parseInt(collect.get(i).getGradeNum())
-						&& Integer.parseInt(hazopDTO.getRiskLi()) * Integer.parseInt(hazopDTO.getRiskSi()) <= Integer.parseInt(collect.get(i+1).getGradeNum())
-				){
-					hazopDTO.setHazopColor2(Integer.parseInt(collect.get(i).getColour()));
-					break;
-				}
-			}
+		Map<Integer, Map<Integer,RiskGrade>> sortMap = new HashMap<>();
+		map.forEach((integer, riskGrades) -> {
+			Map<Integer,RiskGrade> riskGradeMap = riskGrades.stream().collect(Collectors.toMap(RiskGrade::getRiskConsequenceNum, Function.identity()));
+			sortMap.put(integer,riskGradeMap);
+		});
+		List<Model> modelList = modelService.list(new ModelDTO()
+				.setProjectId(list.get(0).getProjectId())
+				.setUnitId(list.get(0).getUnitId())
+		);
+
+		list.forEach(hazopDTO ->{
+			RiskGrade riskGrade1 = sortMap.get(Integer.parseInt(hazopDTO.getRiskLi())).get(Integer.parseInt(hazopDTO.getRiskSi()));
+			hazopDTO.setHazopColor1(Integer.parseInt(riskGrade1.getColour()));
+
+			RiskGrade riskGrade2 = sortMap.get(Integer.parseInt(hazopDTO.getRiskL())).get(Integer.parseInt(hazopDTO.getRiskS()));
+			hazopDTO.setHazopColor2(Integer.parseInt(riskGrade2.getColour()));
+
+			caseSummaryService.save(new CaseSummaryDTO()
+					.setProjectId(hazopDTO.getProjectId())
+					.setUnitId(hazopDTO.getUnitId())
+					.setCause(hazopDTO.getCause())
+					.setConsequence(hazopDTO.getConsequence())
+					.setMeasure(hazopDTO.getMeasure())
+					.setPressure(modelList.get(0).getPressure())
+					.setProcessType(modelList.get(0).getProcessType())
+					.setOperationProcessType(modelList.get(0).getOperationProcessType())
+					.setEquipmentType(modelList.get(0).getEquipmentType())
+					.setEquipmentMaterialType(modelList.get(0).getEquimentMaterialType())
+					.setTemperature(modelList.get(0).getTemperature())
+					.setRateFlow(modelList.get(0).getRateFlow())
+					.setMatter(modelList.get(0).getMatter()));
 			hazopService.save(hazopDTO);
 		});
+
 		return R.data(true);
 	}
 

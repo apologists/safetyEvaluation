@@ -102,29 +102,33 @@ public class SdgServiceImpl implements ISdgService {
 
     @Override
     public SdgSummary getOne(SdgDTO dto) {
-        List<Sdg> list = list(new SdgDTO()
-                .setProjectId(dto.getProjectId())
-                .setUnitId(dto.getUnitId())
-                .setModelId(dto.getModelId())
-        );
 
         List<Cause> newCauseList = new ArrayList<>();
         List<Consequence> newConsequenceList = new ArrayList<>();
-        getList(newCauseList,newConsequenceList,dto);
-        list.forEach(sdg -> {
-            SdgDTO sdgDTO = new SdgDTO()
-                    .setProjectId(sdg.getProjectId())
-                    .setModelId(sdg.getModelId())
-                    .setUnitId(sdg.getUnitId())
-                    .setVariableName(sdg.getVariableName())
-                    .setVariableNameEn(sdg.getVariableNameEn())
-                    .setPullDirection(sdg.getPullDirection());
-            getList(newCauseList,newConsequenceList,sdgDTO);
+        if (dto.getPullDirection()!=null) {
+            getList(newCauseList,newConsequenceList,dto);
+        }else {
+            List<Sdg> list = list(new SdgDTO()
+                    .setProjectId(dto.getProjectId())
+                    .setUnitId(dto.getUnitId())
+                    .setModelId(dto.getModelId())
+            );
+            list.stream().distinct().collect(Collectors.toList()).forEach(sdg -> {
+                SdgDTO sdgDTO = new SdgDTO()
+                        .setProjectId(sdg.getProjectId())
+                        .setModelId(sdg.getModelId())
+                        .setUnitId(sdg.getUnitId())
+                        .setVariableName(sdg.getVariableName())
+                        .setVariableNameEn(sdg.getVariableNameEn())
+                        .setPullDirection(sdg.getPullDirection());
+                getList(newCauseList,newConsequenceList,sdgDTO);
 
-        });
+            });
+        }
+
         return new SdgSummary()
-                .setCauseList(newCauseList)
-                .setConsequenceList(newConsequenceList)
+                .setCauseList(newCauseList.stream().distinct().collect(Collectors.toList()))
+                .setConsequenceList(newConsequenceList.stream().distinct().collect(Collectors.toList()))
                 .setProjectId(dto.getProjectId())
                 .setModelId(dto.getModelId())
                 .setUnitId(dto.getUnitId())
@@ -136,6 +140,8 @@ public class SdgServiceImpl implements ISdgService {
                 .setProjectId(dto.getProjectId())
                 .setModelId(dto.getModelId())
                 .setUnitId(dto.getUnitId())
+                .setVariableNameEn(dto.getVariableNameEn())
+                .setVariableId(dto.getVariableId())
                 .setVariableName(dto.getVariableName());
 
         List<Cause> causeList = causeService.list(cause);
@@ -144,15 +150,35 @@ public class SdgServiceImpl implements ISdgService {
                 .setProjectId(dto.getProjectId())
                 .setModelId(dto.getModelId())
                 .setUnitId(dto.getUnitId())
-                .setVarialeName(dto.getVariableName());
+                .setVariableId(dto.getVariableId())
+                .setVariableNameEn(dto.getVariableNameEn())
+                .setVariableName(dto.getVariableName());
         List<Consequence> consequenceList = consequenceService.list(consequenceDTO);
 
-        if(dto.getPullDirection().equals("straight")){
-            newConsequenceList.addAll(consequenceList.stream().filter(x -> x.getStraight() != null && !Objects.equals(x.getStraight(), "")).collect(Collectors.toList()));
-            newCauseList.addAll(causeList.stream().filter(x -> x.getStraight() != null && !Objects.equals(x.getStraight(), "")).collect(Collectors.toList()));
+        if(dto.getPullDirection() != null && dto.getPullDirection().equals("straight")){
+            List<Consequence> collect = consequenceList.stream().filter(x -> x.getStraight() != null && !Objects.equals(x.getStraight(), "")).collect(Collectors.toList());
+            collect.forEach(consequence -> {
+                consequence.setBurden("");
+            });
+            newConsequenceList.addAll(collect);
+            List<Cause> collect1 = causeList.stream().filter(x -> x.getStraight() != null && !Objects.equals(x.getStraight(), "")).collect(Collectors.toList());
+            collect1.forEach(cause1 -> {
+                cause1.setBurden("");
+            });
+            newConsequenceList.addAll(collect);
+            newCauseList.addAll(collect1);
         }else {
-            newCauseList.addAll(causeList.stream().filter(x -> x.getBurden() != null && !Objects.equals(x.getBurden(), "")).collect(Collectors.toList()));
-            newConsequenceList.addAll(consequenceList.stream().filter(x -> x.getBurden() != null && !Objects.equals(x.getBurden(), "")).collect(Collectors.toList()));
+            List<Consequence> collect = consequenceList.stream().filter(x -> x.getBurden() != null && !Objects.equals(x.getStraight(), "")).collect(Collectors.toList());
+            collect.forEach(consequence -> {
+                consequence.setStraight("");
+            });
+            newConsequenceList.addAll(collect);
+            List<Cause> collect1 = causeList.stream().filter(x -> x.getBurden() != null && !Objects.equals(x.getStraight(), "")).collect(Collectors.toList());
+            collect1.forEach(cause1 -> {
+                cause1.setStraight("");
+            });
+            newConsequenceList.addAll(collect);
+            newCauseList.addAll(collect1);
         }
     }
 

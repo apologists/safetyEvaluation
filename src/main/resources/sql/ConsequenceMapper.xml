@@ -10,7 +10,7 @@
         <result column="consequence_name" property="consequenceName"/>
         <result column="variable_name_en" property="variableNameEn"/>
         <result column="variable_id" property="variableId"/>
-        <result column="variale_name" property="varialeName"/>
+        <result column="variable_name" property="variableName"/>
         <result column="straight" property="straight"/>
         <result column="burden" property="burden"/>
         <result column="project_id" property="projectId"/>

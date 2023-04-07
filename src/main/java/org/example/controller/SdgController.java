@@ -109,7 +109,7 @@ public class SdgController {
 						.setModelId(cause.getModelId())
 						.setVariableName(cause.getVariableName())
 						.setVariableNameEn(cause.getVariableNameEn())
-						.setPullDirection(cause.getBurden() != null ? "burden" : "straight");
+						.setPullDirection(dto.getPullDirection());
 				set.add(sdgDTO);
 			});
 		}
@@ -119,21 +119,21 @@ public class SdgController {
 				SdgDTO sdgDTO = new SdgDTO().setProjectId(consequence.getProjectId())
 						.setUnitId(consequence.getUnitId())
 						.setModelId(consequence.getModelId())
-						.setVariableName(consequence.getVarialeName())
+						.setVariableName(consequence.getVariableName())
 						.setVariableNameEn(consequence.getVariableNameEn())
-						.setPullDirection(consequence.getBurden() != null ? "burden" : "straight");
+						.setPullDirection(dto.getPullDirection());
 				set.add(sdgDTO);
 			});
 		}
 
-		List<Sdg> oldList = sdgService.list(new SdgDTO()
-				.setProjectId(dto.getProjectId())
-				.setUnitId(dto.getUnitId())
-				.setModelId(dto.getModelId())
-		);
-		if (!oldList.isEmpty()) {
-			sdgService.deleteLogic(oldList.stream().map(Sdg::getSdgId).collect(Collectors.toList()));
-		}
+//		List<Sdg> oldList = sdgService.list(new SdgDTO()
+//				.setProjectId(dto.getProjectId())
+//				.setUnitId(dto.getUnitId())
+//				.setModelId(dto.getModelId())
+//		);
+//		if (!oldList.isEmpty()) {
+//			sdgService.deleteLogic(oldList.stream().map(Sdg::getSdgId).collect(Collectors.toList()));
+//		}
 		new ArrayList<>(set).forEach(sdgDTO -> sdgService.save(sdgDTO));
 		return R.data(true);
 	}
@@ -241,36 +241,99 @@ public class SdgController {
 				.setModelId(dto.getModelId())
 		);
 
-		causeList.forEach(cause -> {
-			SDGNode sdgNode = new SDGNode();
-			sdgNode.setId("R"+String.valueOf(cause.getCauseId()));
-			sdgNode.setLabel("R"+String.valueOf(cause.getCauseId()));
-			sdgNode.setShape("box");
-			sdgNode.setBorderWidth(2);
+		for (int i = 0; i < causeList.size(); i++) {
+			Cause cause = causeList.get(i);
+			SDGNode sdgNode1 = new SDGNode();
+			sdgNode1.setId("S"+i);
+			sdgNode1.setLabel("S"+i);
+			sdgNode1.setShape("box");
+			sdgNode1.setBorderWidth(2);
 
-			SDGEdges sdgEdges = new SDGEdges();
-			sdgEdges.setFrom(cause.getVariableNameEn());
-			sdgEdges.setTo("R"+String.valueOf(cause.getCauseId()));
-			sdgEdges.setDashes(cause.getBurden()==null);
+			SDGEdges sdgEdges1 = new SDGEdges();
+			sdgEdges1.setFrom(cause.getVariableNameEn());
+			sdgEdges1.setTo("S"+i);
+			sdgEdges1.setDashes(cause.getStraight()==null);
 
-			edges.add(sdgEdges);
-			nodes.add(sdgNode);
-		});
+			edges.add(sdgEdges1);
+			nodes.add(sdgNode1);
 
-		consequenceList.forEach(consequence -> {
-			SDGNode sdgNode = new SDGNode();
-			sdgNode.setId("C"+String.valueOf(consequence.getConsequenceId()));
-			sdgNode.setLabel("C"+String.valueOf(consequence.getConsequenceId()));
-			sdgNode.setShape("box");
-			sdgNode.setBorderWidth(2);
-			SDGEdges sdgEdges = new SDGEdges();
-			sdgEdges.setTo(consequence.getVariableNameEn());
-			sdgEdges.setFrom("C"+String.valueOf(consequence.getConsequenceId()));
-			sdgEdges.setDashes(consequence.getBurden()==null);
+			SDGNode sdgNode2 = new SDGNode();
+			sdgNode2.setId("B"+i);
+			sdgNode2.setLabel("B"+i);
+			sdgNode2.setShape("box");
+			sdgNode2.setBorderWidth(2);
 
-			edges.add(sdgEdges);
-			nodes.add(sdgNode);
-		});
+			SDGEdges sdgEdges2 = new SDGEdges();
+			sdgEdges2.setFrom(cause.getVariableNameEn());
+			sdgEdges2.setTo("B"+i);
+			sdgEdges2.setDashes(cause.getBurden()!=null);
+
+			edges.add(sdgEdges2);
+			nodes.add(sdgNode2);
+		}
+
+
+		for (int i = 0; i < consequenceList.size(); i++) {
+			Cause cause = causeList.get(i);
+			SDGNode sdgNode1 = new SDGNode();
+			sdgNode1.setId("CS"+i);
+			sdgNode1.setLabel("CS"+i);
+			sdgNode1.setShape("box");
+			sdgNode1.setBorderWidth(2);
+
+			SDGEdges sdgEdges1 = new SDGEdges();
+			sdgEdges1.setFrom(cause.getVariableNameEn());
+			sdgEdges1.setTo("CS"+i);
+			sdgEdges1.setDashes(cause.getStraight()==null);
+
+			edges.add(sdgEdges1);
+			nodes.add(sdgNode1);
+
+			SDGNode sdgNode2 = new SDGNode();
+			sdgNode2.setId("CB"+i);
+			sdgNode2.setLabel("CB"+i);
+			sdgNode2.setShape("box");
+			sdgNode2.setBorderWidth(2);
+
+			SDGEdges sdgEdges2 = new SDGEdges();
+			sdgEdges2.setFrom(cause.getVariableNameEn());
+			sdgEdges2.setTo("CB"+i);
+			sdgEdges2.setDashes(cause.getBurden()!=null);
+
+			edges.add(sdgEdges2);
+			nodes.add(sdgNode2);
+		}
+
+//		causeList.forEach(cause -> {
+//			SDGNode sdgNode = new SDGNode();
+//			sdgNode.setId("R"+String.valueOf(cause.getCauseId()));
+//			sdgNode.setLabel("R"+String.valueOf(cause.getCauseId()));
+//			sdgNode.setShape("box");
+//			sdgNode.setBorderWidth(2);
+//
+//			SDGEdges sdgEdges = new SDGEdges();
+//			sdgEdges.setFrom(cause.getVariableNameEn());
+//			sdgEdges.setTo("R"+String.valueOf(cause.getCauseId()));
+//			sdgEdges.setDashes(cause.getBurden()==null);
+//
+//			edges.add(sdgEdges);
+//			nodes.add(sdgNode);
+//		});
+
+//		consequenceList.forEach(consequence -> {
+//			SDGNode sdgNode = new SDGNode();
+//			sdgNode.setId("C"+String.valueOf(consequence.getConsequenceId()));
+//			sdgNode.setLabel("C"+String.valueOf(consequence.getConsequenceId()));
+//			sdgNode.setShape("box");
+//			sdgNode.setBorderWidth(2);
+//			SDGEdges sdgEdges = new SDGEdges();
+//			sdgEdges.setTo(consequence.getVariableNameEn());
+//			sdgEdges.setFrom("C"+String.valueOf(consequence.getConsequenceId()));
+//			sdgEdges.setDashes(consequence.getBurden()==null);
+//
+//			edges.add(sdgEdges);
+//			nodes.add(sdgNode);
+//		});
 
 		String json = "{\n" +
 				"        \"nodes\": [\n" +

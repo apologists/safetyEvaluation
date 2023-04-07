@@ -84,6 +84,68 @@ public class CaseSummaryDTO extends CommonDto {
 		 */
 			@ApiModelProperty(value = "措施")
 					private String measure;
+
+	/**
+	 * 工艺类型
+	 */
+	@ApiModelProperty(value = "工艺类型")
+	private String processTypeNum;
+	/**
+	 * 操作过程类别
+	 */
+	@ApiModelProperty(value = "操作过程类别")
+	private String operationProcessTypeNum;
+	/**
+	 * 设备类型
+	 */
+	@ApiModelProperty(value = "设备类型")
+	private String equipmentTypeNum;
+	/**
+	 * 设备材质类型
+	 */
+	@ApiModelProperty(value = "设备材质类型")
+	private String equipmentMaterialTypeNum;
+	/**
+	 * 压力
+	 */
+	@ApiModelProperty(value = "压力")
+	private String pressureNum;
+	/**
+	 * 温度
+	 */
+	@ApiModelProperty(value = "温度")
+	private String temperatureNum;
+	/**
+	 * 流量
+	 */
+	@ApiModelProperty(value = "流量")
+	private String rateFlowNum;
+	/**
+	 * 工艺材质
+	 */
+	@ApiModelProperty(value = "工艺材质")
+	private String matterNum;
+	/**
+	 * 偏差
+	 */
+	@ApiModelProperty(value = "偏差")
+	private String deviationNum;
+	/**
+	 * 原因
+	 */
+	@ApiModelProperty(value = "原因")
+	private String causeNum;
+	/**
+	 * 结果
+	 */
+	@ApiModelProperty(value = "结果")
+	private String consequenceNum;
+	/**
+	 * 措施
+	 */
+	@ApiModelProperty(value = "措施")
+	private String measureNum;
+	/**
 		/**
 		 * 项目id
 		 */

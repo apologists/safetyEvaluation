@@ -92,38 +92,42 @@ public class LopaServiceImpl implements ILopaService {
     public LopaSummary getOne(LopaDTO dto) {
         List<Lopa> list = list(dto);
         LopaSummary summary = new LopaSummary();
-        summary.setProjectId(list.get(0).getProjectId());
-        summary.setUnitId(list.get(0).getUnitId());
-        List<LopaHead> headList = new ArrayList<>();
-        List<LopaFoot> footList = new ArrayList<>();
-        for (Lopa lopa: list) {
-            LopaHead lopaHead = null;
-            if (lopa.getSceneDesc() != null) {
-                lopaHead = new LopaHead()
-                        .setLopaId(lopa.getLopaId())
-                        .setSceneDesc(lopa.getSceneDesc())
-                        .setEventVate(lopa.getEventVate())
-                        .setConditon(lopa.getConditon())
-                        .setEventIpl(lopa.getEventIpl())
-                        .setUnitId(lopa.getUnitId())
-                        .setProjectId(lopa.getProjectId());
-                        headList.add(lopaHead);
-            }
+        List<LopaHead> headList = null;
+        List<LopaFoot> footList = null;
+        if (!list.isEmpty()) {
+            summary.setProjectId(list.get(0).getProjectId());
+            summary.setUnitId(list.get(0).getUnitId());
+            headList = new ArrayList<>();
+            footList = new ArrayList<>();
+            for (Lopa lopa: list) {
+                LopaHead lopaHead = null;
+                if (lopa.getSceneDesc() != null) {
+                    lopaHead = new LopaHead()
+                            .setLopaId(lopa.getLopaId())
+                            .setSceneDesc(lopa.getSceneDesc())
+                            .setEventVate(lopa.getEventVate())
+                            .setConditon(lopa.getConditon())
+                            .setEventIpl(lopa.getEventIpl())
+                            .setUnitId(lopa.getUnitId())
+                            .setProjectId(lopa.getProjectId());
+                            headList.add(lopaHead);
+                }
 
-            LopaFoot lopaFoot = null;
-            if (lopa.getLopaType() != null) {
-                lopaFoot = new LopaFoot()
-                        .setLopaId(lopa.getLopaId())
-                        .setLopaDesc(lopa.getLopaDesc())
-                        .setLopaGrade(lopa.getLopaGrade())
-                        .setProtect(lopa.getProtect())
-                        .setProtectDesc(lopa.getProtectDesc())
-                        .setReviseCondition(lopa.getReviseCondition())
-                        .setLopaType(lopa.getLopaType())
-                        .setConclusion(lopa.getConclusion())
-                        .setTolerate(lopa.getTolerate())
-                        .setReviseRate(lopa.getReviseRate());
-                footList.add(lopaFoot);
+                LopaFoot lopaFoot = null;
+                if (lopa.getLopaType() != null) {
+                    lopaFoot = new LopaFoot()
+                            .setLopaId(lopa.getLopaId())
+                            .setLopaDesc(lopa.getLopaDesc())
+                            .setLopaGrade(lopa.getLopaGrade())
+                            .setProtect(lopa.getProtect())
+                            .setProtectDesc(lopa.getProtectDesc())
+                            .setReviseCondition(lopa.getReviseCondition())
+                            .setLopaType(lopa.getLopaType())
+                            .setConclusion(lopa.getConclusion())
+                            .setTolerate(lopa.getTolerate())
+                            .setReviseRate(lopa.getReviseRate());
+                    footList.add(lopaFoot);
+                }
             }
         }
         summary.setFootList(footList);

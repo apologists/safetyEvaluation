@@ -43,6 +43,12 @@ public class SdgDTO extends CommonDto {
 	@ApiModelProperty(value = "变量名称")
 	private String variableNameEn;
 
+	/**
+	 * 变量名称
+	 */
+	@ApiModelProperty(value = "变量名称")
+	private Integer variableId;
+
 
 		/**
 		 * 单元id

@@ -17,6 +17,8 @@
         <result column="risk_consequence_id" property="riskConsequenceId"/>
         <result column="colour" property="colour"/>
         <result column="grade_num" property="gradeNum"/>
+        <result column="frequency_Num" property="frequencyNum"/>
+        <result column="risk_consequence_Num" property="riskConsequenceNum"/>
     </resultMap>
 
 

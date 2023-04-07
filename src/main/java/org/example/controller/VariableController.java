@@ -125,12 +125,14 @@ public class VariableController {
 
 		Map<String,String> variableMatrixList = new HashMap<>();
 		List<Map<String,String>> variableMatrixData = new ArrayList<>();
-		final int[] i = {0};
+		final int[] i = {1};
+		variableMatrixList.put(String.valueOf(0),"");
 		list.forEach(formula -> {
+			Map<String,List<String>> matrixMap = new HashMap<>();
 			List<String> left = new ArrayList<>();
 			List<String> right = new ArrayList<>();
 			Collections.addAll(left,formula.getFormulaLeft().split("-|\\+"));
-			Collections.addAll(right,formula.getFormulaLeft().split("-|\\+"));
+			Collections.addAll(right,formula.getFormulaRight().split("-|\\+"));
 			if(left.get(0).equals("")){
 				left.remove(0);
 			}
@@ -138,6 +140,9 @@ public class VariableController {
 			{
 				right.remove(0);
 			}
+			left.forEach(r->{
+				matrixMap.put(r,right);
+			});
 			for (int j = 0; j < left.size(); j++) {
 				variableMatrixList.put(String.valueOf(i[0]),left.get(j));
 				i[0]++;
@@ -148,10 +153,13 @@ public class VariableController {
 				String s = right.get(j);
 				int index = formula.getFormulaRight().indexOf(s);
 				boolean f = index > 0 && formula.getFormulaRight().charAt(index - 1) == '-';
-				boolean t = index > 0 && formula.getFormulaRight().charAt(index - 1) == '+';
-				variableMatrixList.forEach((k,v) ->{ if(k.equals("0")){
+				boolean t = (index == 0 || index > 0 && formula.getFormulaRight().charAt(index - 1) == '+');
+				variableMatrixList.forEach((k,v) ->{
+					List<String> strings = matrixMap.get(v);
+
+					if(k.equals("0")){
 						map.put(k,s);
-					} else if(v.equals(s)){
+					} else if(strings != null&&strings.contains(s)){
 						if(f){
 							map.put(k,"-");
 						}

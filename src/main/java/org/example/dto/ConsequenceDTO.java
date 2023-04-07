@@ -36,7 +36,7 @@ public class ConsequenceDTO extends CommonDto {
 		 * 变量名称
 		 */
 			@ApiModelProperty(value = "变量名称")
-					private String varialeName;
+					private String variableName;
 
 	/**
 	 * 变量名称

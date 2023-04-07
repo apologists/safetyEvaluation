@@ -71,5 +71,15 @@ public class RiskGrade extends BaseEntity {
   @ApiModelProperty(value = "风险数字")
   private String gradeNum;
 
+  /**
+   * 频率id
+   */
+  @ApiModelProperty(value = "频率num")
+  private Integer frequencyNum;
+  /**
+   * 风险后果id
+   */
+  @ApiModelProperty(value = "风险后果Num")
+  private Integer riskConsequenceNum;
 
 }

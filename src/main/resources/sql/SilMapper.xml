@@ -18,6 +18,7 @@
         <result column="var5" property="var5"/>
         <result column="var6" property="var6"/>
         <result column="var7" property="var7"/>
+        <result column="var8" property="var8"/>
         <result column="project_id" property="projectId"/>
         <result column="sil_grade" property="silGrade"/>
         <result column="system_PFD" property="systemPfd"/>

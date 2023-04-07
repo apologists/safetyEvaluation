@@ -131,8 +131,11 @@ public class RiskGradeController {
 		List<RiskConsequence> riskConsequenceList = riskConsequenceService.list(new RiskConsequenceDTO().setProjectId(dto.getProjectId()));
 		List<Frequency> frequencyList = frequencyService.list(new FrequencyDTO().setProjectId(dto.getProjectId()));
 		frequencyList.sort(Comparator.comparing(Frequency::getFrequencyId));
-		Map<Integer, String> collect = frequencyList.stream().collect(Collectors.toMap(Frequency::getFrequencyId, Frequency::getFrequencyName));
+		Map<Integer, String> collect = new HashMap<>();
 		collect.put(0,"");
+		for (int i = 0; i < frequencyList.size(); i++) {
+			collect.put(i+1,frequencyList.get(i).getFrequencyName());
+		}
 		List<Map<Integer,RiskGrade>> data = new ArrayList<>();
 		riskConsequenceList.sort(Comparator.comparing(RiskConsequence::getRiskConsequenceId));
 		for (RiskConsequence x : riskConsequenceList) {
@@ -140,7 +143,7 @@ public class RiskGradeController {
 					.setProjectId(dto.getProjectId())
 					.setRiskConsequenceId(x.getRiskConsequenceId()));
 			list.sort(Comparator.comparing(RiskGrade::getGradeNum));
-			Map<Integer, RiskGrade> map = list.stream().collect(Collectors.toMap(RiskGrade::getFrequencyId,RiskGrade -> RiskGrade));
+			Map<Integer, RiskGrade> map = list.stream().collect(Collectors.toMap(RiskGrade::getFrequencyNum,RiskGrade -> RiskGrade));
 			RiskGrade riskGrade = list.get(0);
 			riskGrade.setActionAsk("flag");
 			map.put(0,riskGrade);

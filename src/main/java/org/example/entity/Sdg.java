@@ -60,5 +60,11 @@ public class Sdg extends BaseEntity {
   @ApiModelProperty(value = "项目id")
   private Integer projectId;
 
+  /**
+   * 变量名称
+   */
+  @ApiModelProperty(value = "变量名称")
+  private Integer variableId;
+
 
 }

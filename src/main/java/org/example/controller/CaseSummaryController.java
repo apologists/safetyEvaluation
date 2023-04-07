@@ -12,10 +12,8 @@ import org.example.utils.Func;
 import org.springframework.web.bind.annotation.*;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Random;
+import java.lang.reflect.Field;
+import java.util.*;
 import java.util.stream.Collectors;
 
 import org.example.entity.CaseSummary;
@@ -64,8 +62,152 @@ public class CaseSummaryController {
 	 */
 	@GetMapping("/list")
 	@ApiOperation(value = "不分页", notes = "传入caseSummary")
-	public R<List<CaseSummary>> list(CaseSummaryDTO dto) {
+	public R<List<CaseSummary>> list(CaseSummaryDTO dto) throws IllegalAccessException {
+		dto.setProcessType(dto.getProcessType() != null ? dto.getProcessType().trim() : null);
+		dto.setOperationProcessType(dto.getOperationProcessType() != null ? dto.getOperationProcessType().trim() : null);
+		dto.setEquipmentType(dto.getEquipmentType() != null ? dto.getEquipmentType().trim() : null);
+		dto.setEquipmentMaterialType(dto.getEquipmentMaterialType() != null ? dto.getEquipmentMaterialType().trim() : null);
+		dto.setPressure(dto.getPressure() != null ? dto.getPressure().trim() : null);
+		dto.setRateFlow(dto.getRateFlow() != null ? dto.getRateFlow().trim() : null);
+		dto.setMatter(dto.getMatter() != null ? dto.getMatter().trim() : null);
+		dto.setDeviation(dto.getDeviation() != null ? dto.getDeviation().trim() : null);
+		dto.setCause(dto.getCause() != null ? dto.getCause().trim() : null);
+		dto.setConsequence(dto.getConsequence() != null ? dto.getConsequence().trim() : null);
+		dto.setMeasure(dto.getMeasure() != null ? dto.getMeasure().trim() : null);
 		List<CaseSummary> list = caseSummaryService.list(dto);
+		if(list != null && !list.isEmpty()) {
+			list.forEach(caseSummary -> {
+				Field[] fields = dto.getClass().getDeclaredFields();
+				List<Double> list1 = new ArrayList<>();
+				for (Field field : fields) {
+					field.setAccessible(true);
+					String value = null;
+
+					String name = field.getName();
+					if (name.equals("rateFlow") && dto.getRateFlow() != null) {
+						try {
+							value = field.get(dto).toString();
+						} catch (IllegalAccessException e) {
+							e.printStackTrace();
+						}
+						list1.add(Double.parseDouble(dto.getRateFlowNum()) *(1 - (Double.parseDouble(caseSummary.getRateFlow()) - Double.parseDouble(value))
+								/ (Math.max(Double.parseDouble(caseSummary.getRateFlow()), Double.parseDouble(value)))
+								- (Math.min(Double.parseDouble(caseSummary.getRateFlow()), Double.parseDouble(value)))));
+
+					}
+					if (name.equals("temperature") && dto.getTemperature() != null) {
+						try {
+							value = field.get(dto).toString();
+						} catch (IllegalAccessException e) {
+							e.printStackTrace();
+						}
+						list1.add(Double.parseDouble(dto.getTemperatureNum()) *(1 - (Double.parseDouble(caseSummary.getTemperature()) - Double.parseDouble(value))
+								/ (Math.max(Double.parseDouble(caseSummary.getTemperature()), Double.parseDouble(value)))
+								- (Math.min(Double.parseDouble(caseSummary.getTemperature()), Double.parseDouble(value)))));
+					}
+					if (name.equals("pressure") && dto.getPressure() != null) {
+						try {
+							value = field.get(dto).toString();
+						} catch (IllegalAccessException e) {
+							e.printStackTrace();
+						}
+						list1.add(Double.parseDouble(dto.getPressureNum()) *(1 - (Double.parseDouble(caseSummary.getPressure()) - Double.parseDouble(value))
+								/ (Math.max(Double.parseDouble(caseSummary.getPressure()), Double.parseDouble(value)))
+								- (Math.min(Double.parseDouble(caseSummary.getPressure()), Double.parseDouble(value)))));
+					}
+					try {
+						if (name.equals("rateFlow") && dto.getRateFlow() != null && caseSummary.getRateFlow().equals(field.get(dto).toString())) {
+							list1.add(Double.parseDouble(dto.getRateFlowNum()));
+						}
+					} catch (IllegalAccessException e) {
+						e.printStackTrace();
+					}
+					try {
+						if (name.equals("temperature") && dto.getTemperature() != null && caseSummary.getTemperature().equals(field.get(dto).toString())) {
+							list1.add(Double.parseDouble(dto.getTemperatureNum()));
+						}
+					} catch (IllegalAccessException e) {
+						e.printStackTrace();
+					}
+					try {
+						if (name.equals("pressure") && dto.getPressure() != null && caseSummary.getPressure().equals(field.get(dto).toString())) {
+							list1.add(Double.parseDouble(dto.getPressureNum()));
+						}
+					} catch (IllegalAccessException e) {
+						e.printStackTrace();
+					}
+					try {
+						if (name.equals("cause") && dto.getCause() != null && caseSummary.getCause().equals(field.get(dto).toString())) {
+							list1.add(Double.parseDouble(dto.getCauseNum()));
+						}
+					} catch (IllegalAccessException e) {
+						e.printStackTrace();
+					}
+					try {
+						if (name.equals("consequence") && dto.getConsequence() != null && caseSummary.getConsequence().equals(field.get(dto).toString())) {
+							list1.add(Double.parseDouble(dto.getConsequenceNum()));
+						}
+					} catch (IllegalAccessException e) {
+						e.printStackTrace();
+					}
+					try {
+						if (name.equals("deviation") &&  dto.getDeviation() != null && caseSummary.getDeviation().equals(field.get(dto).toString())) {
+							list1.add(Double.parseDouble(dto.getDeviationNum()));
+						}
+					} catch (IllegalAccessException e) {
+						e.printStackTrace();
+					}
+					try {
+						if (name.equals("equipmentMaterialType") &&  dto.getEquipmentMaterialType() != null && caseSummary.getEquipmentMaterialType().equals(field.get(dto).toString())) {
+							list1.add(Double.parseDouble(dto.getEquipmentMaterialTypeNum()));
+						}
+					} catch (IllegalAccessException e) {
+						e.printStackTrace();
+					}
+					try {
+						if (name.equals("matter") &&  dto.getMatter() != null && caseSummary.getMatter().equals(field.get(dto).toString())) {
+							list1.add(Double.parseDouble(dto.getMatterNum()));
+						}
+					} catch (IllegalAccessException e) {
+						e.printStackTrace();
+					}
+					try {
+						if (name.equals("measure") &&  dto.getMeasure() != null && caseSummary.getMeasure().equals(field.get(dto).toString())) {
+							list1.add(Double.parseDouble(dto.getMeasureNum()));
+						}
+					} catch (IllegalAccessException e) {
+						e.printStackTrace();
+					}
+					try {
+						if (name.equals("equipmentType") &&  dto.getEquipmentType() != null && caseSummary.getEquipmentType().equals(field.get(dto).toString())) {
+							list1.add(Double.parseDouble(dto.getEquipmentTypeNum()));
+						}
+					} catch (IllegalAccessException e) {
+						e.printStackTrace();
+					}
+					try {
+						if (name.equals("operationProcessType") &&  dto.getOperationProcessType() != null && caseSummary.getOperationProcessType().equals(field.get(dto).toString())) {
+							list1.add(Double.parseDouble(dto.getOperationProcessTypeNum()));
+						}
+					} catch (IllegalAccessException e) {
+						e.printStackTrace();
+					}
+					try {
+						if (name.equals("processType") &&  dto.getProcessType() != null && caseSummary.getProcessType().equals(field.get(dto).toString())) {
+							list1.add(Double.parseDouble(dto.getProcessTypeNum()));
+						}
+					} catch (IllegalAccessException e) {
+						e.printStackTrace();
+					}
+				}
+				final double[] count = {0};
+				list1.forEach(x -> {
+					count[0] = x + count[0];
+				});
+				caseSummary.setSimilarity(String.valueOf(count[0]));
+			});
+			list.sort(Comparator.comparing(CaseSummary::getSimilarity));
+		}
 		return R.data(list);
 	}
 
@@ -75,15 +217,28 @@ public class CaseSummaryController {
 	@PostMapping("/save")
 	@ApiOperation(value = "新增", notes = "传入caseSummary")
 	public R save(@RequestBody CaseSummaryDTO dto) {
+		Random r = new Random();
+		double n = 1 ;
+		while(true){
+			n = r.nextDouble();
+			if(n < 0.7){
+				continue;
+			}else{
+				break;
+			}
+		}
+		double finalN = n;
+		dto.setSimilarity(String.valueOf(n));
 		return R.data(caseSummaryService.save(dto));
 	}
 
 	/**
 	 * 修改 案例库表
 	 */
-	@PutMapping("/update")
+	@PostMapping("/update")
 	@ApiOperation(value = "修改", notes = "传入caseSummary")
 	public R update(@RequestBody CaseSummaryDTO dto) {
+		caseSummaryService.updateById(dto);
 		return R.data(caseSummaryService.updateById(dto));
 	}
 
@@ -101,9 +256,6 @@ public class CaseSummaryController {
 		if (!oldList.isEmpty()) {
 			caseSummaryService.deleteLogic(oldList.stream().map(CaseSummary::getCaseId).collect(Collectors.toList()));
 		}
-		Random random = new Random();
-		double v = random.nextDouble();
-		list.forEach(caseSummaryDTO -> caseSummaryService.save(caseSummaryDTO.setSimilarity(String.valueOf(v))));
 		return R.data(true);
 	}
 
