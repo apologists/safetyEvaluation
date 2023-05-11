@@ -115,6 +115,7 @@ public class VariableController {
 	@PostMapping("/matrix")
 	@ApiOperation(value = "变量关系表", notes = "传入variable")
 	public R<VariableMatrix> matrix(@RequestBody VariableDTO dto) {
+		List<Variable> variableList = variableService.list(dto);
 		List<Formula> list = formulaService.list(new FormulaDTO()
 				.setProjectId(dto.getProjectId())
 				.setUnitId(dto.getUnitId())
@@ -143,34 +144,50 @@ public class VariableController {
 			left.forEach(r->{
 				matrixMap.put(r,right);
 			});
-			for (int j = 0; j < left.size(); j++) {
-				variableMatrixList.put(String.valueOf(i[0]),left.get(j));
+			for (int j = 0; j < variableList.size(); j++) {
+				if (!variableMatrixList.containsValue(variableList.get(j).getVariableNameEn())) {
+					variableMatrixList.put(String.valueOf(i[0]),variableList.get(j).getVariableNameEn());
+				}
 				i[0]++;
 			}
 
-			for (int j = 0; j < right.size(); j++) {
+			for (int j = 0; j < variableList.size(); j++) {
 				Map<String,String> map = new HashMap<>();
-				String s = right.get(j);
+				String s = variableList.get(j).getVariableNameEn();
+				for (Map<String,String> a :variableMatrixData) {
+					if (a.containsValue(s)) {
+						map = new HashMap<>(a);
+					}
+				}
+
 				int index = formula.getFormulaRight().indexOf(s);
 				boolean f = index > 0 && formula.getFormulaRight().charAt(index - 1) == '-';
 				boolean t = (index == 0 || index > 0 && formula.getFormulaRight().charAt(index - 1) == '+');
-				variableMatrixList.forEach((k,v) ->{
+				Map<String, String> finalMap = map;
+				variableMatrixList.forEach((k, v) ->{
 					List<String> strings = matrixMap.get(v);
 
 					if(k.equals("0")){
-						map.put(k,s);
+						finalMap.put(k,s);
 					} else if(strings != null&&strings.contains(s)){
 						if(f){
-							map.put(k,"-");
+							finalMap.put(k,"-");
 						}
 						if(t){
-							map.put(k,"+");
+							finalMap.put(k,"+");
 						}
+					}else if(finalMap.containsKey(k) && !Objects.equals(finalMap.get(k), "")){
+						finalMap.put(k,finalMap.get(k));
 					}else {
-						map.put(k,"");
+						finalMap.put(k,"");
 					}
 				});
-				variableMatrixData.add(map);
+				for (int k = 0; k < variableMatrixData.size(); k++) {
+					if (variableMatrixData.get(k).containsValue(s)) {
+						variableMatrixData.remove(k);
+					}
+				}
+				variableMatrixData.add(finalMap);
 			}
 
 		});

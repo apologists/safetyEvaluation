@@ -74,8 +74,23 @@ public class CaseSummaryController {
 		dto.setCause(dto.getCause() != null ? dto.getCause().trim() : null);
 		dto.setConsequence(dto.getConsequence() != null ? dto.getConsequence().trim() : null);
 		dto.setMeasure(dto.getMeasure() != null ? dto.getMeasure().trim() : null);
-		List<CaseSummary> list = caseSummaryService.list(dto);
+		List<CaseSummary> list = caseSummaryService.list(new CaseSummaryDTO().setProjectId(dto.getProjectId()).setUnitId(dto.getUnitId()).setModelId(dto.getModelId()));
+		Double rateFlowMax = null;
+		if (dto.getRateFlow() != null) {
+			rateFlowMax = Collections.max(list.stream().map(CaseSummary::getRateFlow).map(Double::valueOf).collect(Collectors.toList()));
+		}
+		Double pressureMax = null;
+		if (dto.getPressure() != null) {
+			pressureMax = Collections.max(list.stream().map(CaseSummary::getPressure).map(Double::valueOf).collect(Collectors.toList()));
+		}
+		Double temperatureMax = null;
+		if (dto.getTemperature() != null) {
+			temperatureMax = Collections.max(list.stream().map(CaseSummary::getTemperature).map(Double::valueOf).collect(Collectors.toList()));
+		}
 		if(list != null && !list.isEmpty()) {
+			Double finalRateFlowMax = rateFlowMax;
+			Double finalTemperatureMax = temperatureMax;
+			Double finalPressureMax = pressureMax;
 			list.forEach(caseSummary -> {
 				Field[] fields = dto.getClass().getDeclaredFields();
 				List<Double> list1 = new ArrayList<>();
@@ -90,9 +105,7 @@ public class CaseSummaryController {
 						} catch (IllegalAccessException e) {
 							e.printStackTrace();
 						}
-						list1.add(Double.parseDouble(dto.getRateFlowNum()) *(1 - (Double.parseDouble(caseSummary.getRateFlow()) - Double.parseDouble(value))
-								/ (Math.max(Double.parseDouble(caseSummary.getRateFlow()), Double.parseDouble(value)))
-								- (Math.min(Double.parseDouble(caseSummary.getRateFlow()), Double.parseDouble(value)))));
+						list1.add(Double.parseDouble(dto.getRateFlowNum()) * (Double.parseDouble(caseSummary.getRateFlow()) / finalRateFlowMax));
 
 					}
 					if (name.equals("temperature") && dto.getTemperature() != null) {
@@ -101,9 +114,7 @@ public class CaseSummaryController {
 						} catch (IllegalAccessException e) {
 							e.printStackTrace();
 						}
-						list1.add(Double.parseDouble(dto.getTemperatureNum()) *(1 - (Double.parseDouble(caseSummary.getTemperature()) - Double.parseDouble(value))
-								/ (Math.max(Double.parseDouble(caseSummary.getTemperature()), Double.parseDouble(value)))
-								- (Math.min(Double.parseDouble(caseSummary.getTemperature()), Double.parseDouble(value)))));
+						list1.add(Double.parseDouble(dto.getTemperatureNum()) *(Double.parseDouble(caseSummary.getTemperature()) / finalTemperatureMax));
 					}
 					if (name.equals("pressure") && dto.getPressure() != null) {
 						try {
@@ -111,31 +122,29 @@ public class CaseSummaryController {
 						} catch (IllegalAccessException e) {
 							e.printStackTrace();
 						}
-						list1.add(Double.parseDouble(dto.getPressureNum()) *(1 - (Double.parseDouble(caseSummary.getPressure()) - Double.parseDouble(value))
-								/ (Math.max(Double.parseDouble(caseSummary.getPressure()), Double.parseDouble(value)))
-								- (Math.min(Double.parseDouble(caseSummary.getPressure()), Double.parseDouble(value)))));
+						list1.add(Double.parseDouble(dto.getPressureNum()) * (Double.parseDouble(caseSummary.getPressure()) / finalPressureMax));
 					}
-					try {
-						if (name.equals("rateFlow") && dto.getRateFlow() != null && caseSummary.getRateFlow().equals(field.get(dto).toString())) {
-							list1.add(Double.parseDouble(dto.getRateFlowNum()));
-						}
-					} catch (IllegalAccessException e) {
-						e.printStackTrace();
-					}
-					try {
-						if (name.equals("temperature") && dto.getTemperature() != null && caseSummary.getTemperature().equals(field.get(dto).toString())) {
-							list1.add(Double.parseDouble(dto.getTemperatureNum()));
-						}
-					} catch (IllegalAccessException e) {
-						e.printStackTrace();
-					}
-					try {
-						if (name.equals("pressure") && dto.getPressure() != null && caseSummary.getPressure().equals(field.get(dto).toString())) {
-							list1.add(Double.parseDouble(dto.getPressureNum()));
-						}
-					} catch (IllegalAccessException e) {
-						e.printStackTrace();
-					}
+//					try {
+//						if (name.equals("rateFlow") && dto.getRateFlow() != null && caseSummary.getRateFlow().equals(field.get(dto).toString())) {
+//							list1.add(Double.parseDouble(dto.getRateFlowNum()));
+//						}
+//					} catch (IllegalAccessException e) {
+//						e.printStackTrace();
+//					}
+//					try {
+//						if (name.equals("temperature") && dto.getTemperature() != null && caseSummary.getTemperature().equals(field.get(dto).toString())) {
+//							list1.add(Double.parseDouble(dto.getTemperatureNum()));
+//						}
+//					} catch (IllegalAccessException e) {
+//						e.printStackTrace();
+//					}
+//					try {
+//						if (name.equals("pressure") && dto.getPressure() != null && caseSummary.getPressure().equals(field.get(dto).toString())) {
+//							list1.add(Double.parseDouble(dto.getPressureNum()));
+//						}
+//					} catch (IllegalAccessException e) {
+//						e.printStackTrace();
+//					}
 					try {
 						if (name.equals("cause") && dto.getCause() != null && caseSummary.getCause().equals(field.get(dto).toString())) {
 							list1.add(Double.parseDouble(dto.getCauseNum()));
@@ -206,7 +215,7 @@ public class CaseSummaryController {
 				});
 				caseSummary.setSimilarity(String.valueOf(count[0]));
 			});
-			list.sort(Comparator.comparing(CaseSummary::getSimilarity));
+			list.sort(Comparator.comparing(CaseSummary::getSimilarity).reversed());
 		}
 		return R.data(list);
 	}

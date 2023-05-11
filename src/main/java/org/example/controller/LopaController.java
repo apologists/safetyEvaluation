@@ -157,7 +157,7 @@ public class LopaController {
 		}
 
 		final double[] count = {0};
-		lopaIds.forEach(f->{
+		headMap.forEach((f,v)->{
 				count[0] = count[0] + (Double.parseDouble(ExcelUtils.getBigDecimal(headMap.get(f).getEventVate())) *
 						Double.parseDouble(ExcelUtils.getBigDecimal(headMap.get(f).getConditon())));
 		});
@@ -197,9 +197,9 @@ public class LopaController {
 				lopaDTO.setEventVate(headMap.get(f).getEventVate());
 				lopaDTO.setConditon(headMap.get(f).getConditon());
 				lopaDTO.setEventIpl(headMap.get(f).getEventIpl());
-				lopaDTO.setUnitId(headMap.get(f).getUnitId());
-				lopaDTO.setProjectId(headMap.get(f).getProjectId());
 			}
+			lopaDTO.setUnitId(dto.getUnitId());
+			lopaDTO.setProjectId(dto.getProjectId());
 			lopaService.save(lopaDTO);
 		});
 		return R.data(true);
